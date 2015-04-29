@@ -1,0 +1,224 @@
+body { padding-top: 60px; }
+*{
+    font-family: "Helvetica Neue", "Helvetica,Arial", "Heiti SC", "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
+}
+dl{
+    margin-bottom: 5px;
+}
+
+
+.navbar-brand {
+    padding-top: 5px;
+    padding-bottom: 0;
+    padding-right: 15px;
+    margin-right: 15px;
+    border-right: 1px solid gainsboro;
+}
+.breadcrumb-div{
+    height: 45px;
+}
+.border{
+    border: 1px gainsboro solid;
+    border-radius: 5px;
+    padding: 5px;
+}
+.search{
+    padding-right: 0;
+}
+.carousel-caption{
+    padding-left: 45px;
+    padding-bottom: 3px;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    padding-top: 0;
+    background-color: grey;
+    filter:alpha(opacity=70);
+    -moz-opacity:0.7;
+    -khtml-opacity: 0.7;
+    opacity: 0.7;
+    text-align: left;
+}
+.carousel-caption p{
+    margin-bottom: 0;
+    font-size: 12px;
+}
+.carousel-caption h5{
+    margin-bottom: 5px;
+}
+.hotarticle{
+    overflow: hidden;
+    padding-right: 0;
+}
+.tab-content{
+    padding-top: 10px;
+    padding-left: 20px;
+    border: 1px solid gainsboro;
+    border-top: none;
+    border-radius: 5px;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    overflow: hidden;
+}
+.activity{
+    margin-top: 10px;
+    overflow: hidden;
+}
+.history-activity{
+    padding-top: 10px;
+    padding-right: 25px;
+}
+.history-activity img{
+    margin-bottom: 10px;
+}
+
+.present-activity{
+    padding-top: 10px;
+    padding-left: 25px;
+}
+#present-activity-img{
+    margin-bottom: 10px;
+}
+.present-activity-passage{
+    font-size: 16px;
+    padding-left: 10px;
+    border-left: 6px solid #eee;
+}
+.present-activity-passage dt{
+    color: #566c84;
+}
+.present-activity-passage dd{
+    color: #a1a1a1;
+}
+.present-activity-content{
+    color: #666;
+}
+.news{
+    margin-bottom: 20px;
+}
+.news-banner{
+    margin-left: 5px;
+}
+.news-cata{
+    color: #747f8c;
+    margin-bottom: 10px;
+}
+.news-author{
+    color: #747f8c;
+}
+.news-title{
+    margin-top: 2px;
+    margin-bottom: 40px;
+}
+.news-des{
+    color: #747f8c;
+}
+.footer{
+    color: rgba(178,193,212,0.92);
+    background-color: #444749;
+    padding-top: 20px;
+    padding-bottom: 30px;
+}
+.footer-title{
+    color: white;
+}
+.contactus-list img{
+    margin-bottom: 5px;
+}
+.copyright{
+    padding-top: 50px;
+    color: rgba(236, 235, 231, 0.5);
+    font-size: 12px;
+    line-height: 30px;
+}
+@media (max-width: 767px) {
+    .news-title{
+        font-size: 20px;
+        margin-bottom: 5px;
+        margin-top: 5px;
+        font-weight: bold;
+    }
+    .hotarticle{
+        display: none;
+    }
+    .navbar-form{
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+    .present-activity-content{
+        padding-left: 15px;
+    }
+    .history-activity-5, .history-activity-4, .history-activity-3{
+        display: none;
+    }
+    .present-activity{
+        padding-left: 0;
+    }
+    .history-activity img{
+        padding: 1px;
+    }
+    .copyright{
+        padding-top: 0;
+        line-height: normal;
+    }
+}
+@media (min-width: 768px) {
+    .tab-content{
+        height: 129px;
+        padding-left: 10px;
+    }
+    .tab-content .label{
+        display: none;
+    }
+    .carousel-caption{
+        padding-bottom: 2px;
+    }
+    .carousel-caption h5{
+        margin-top: 4px;
+        margin-bottom: 2px;
+        font-weight: bold;
+    }
+    .carousel-caption p{
+        font-size: 8px;
+    }
+    .history-activity img{
+        margin-bottom: 5px;
+    }
+    .history-activity{
+        padding-top: 0;
+    }
+}
+@media (min-width: 992px) {
+    .tab-content{
+        height: 178px;
+        padding-top: 3px;
+        padding-left: 10px;
+    }
+    .activity{
+        height: 280px;
+    }
+    .history-activity-5{
+        display: none;
+    }
+    .history-activity img{
+        margin-bottom: 4px;
+    }
+    .history-activity{
+        padding-top: 0;
+    }
+}
+@media (min-width: 1200px) {
+    .tab-content{
+        height: 222px;
+    }
+    .tab-pane{
+        margin-top: 10px;
+    }
+    .activity{
+        height: 300px;
+    }
+    .history-activity-4, .history-activity-5{
+        display: none;
+    }
+}
