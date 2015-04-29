@@ -116,7 +116,9 @@ def secondary_menu_all(request, main, secondary):
 @csrf_protect
 def search(request):
     if request.method == "POST":
-        keyowrd = request.POST["content"]
+        keyword = request.POST["content"]
+        if keyword is None:
+            return redirect("index")
         q = Q(title__contains=keyword) | Q(text__contains=keyword) | Q(author__nickname=keyword)
         articles = Article.objects.filter(q)
         q = Q(title__contains=keyword) | Q(text__contains=keyword)

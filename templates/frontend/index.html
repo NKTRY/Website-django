@@ -2,6 +2,9 @@
 
 {% block title %}首页 | 南开中学体验创意中心{% endblock %}
 
+{% load staticfiles %}
+
+{% block content %}
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
@@ -23,7 +26,8 @@
                 <li><a href="{{ mainmenu.codename }}">{{ mainmenu.name }}</a></li>
                 {% endfor %}
             </ul>
-            <form class="navbar-form navbar-right search" role="search" method="post" action="search">
+            <form class="navbar-form navbar-right search" role="search" method="post" action="search/">
+            	{% csrf_token %}
                 <div class="form-group">
                     <input type="text" class="form-control" name="content" placeholder="您想知道...">
                 </div>
@@ -51,20 +55,6 @@
                     </div>
 
                     {% endfor %}
-                    <!-- <div class="item active">
-                        <img src="test-img/start8.jpg" width="100%" alt="...">
-                        <div class="carousel-caption">
-                            <h5>我是标题1</h5>
-                            <p>我是内容1</p>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <img src="test-img/gsvc.jpg" width="100%" alt="...">
-                        <div class="carousel-caption">
-                            <h5>我是标题2</h5>
-                            <p>我是内容2</p>
-                        </div>
-                    </div> -->
                 </div>
 
                 <!-- Controls-->
@@ -242,8 +232,4 @@
         </div>
     </div>
 </div>
-<script src="{% static "frontend/js/jquery.min.js" %}"></script>
-<script src="{% static "frontend/js/bootstrap.min.js" %}"></script>
-<script src="{% static "frontend/js/holder.js" %}"></script>
-</body>
-</html>
+{% endblock %}
