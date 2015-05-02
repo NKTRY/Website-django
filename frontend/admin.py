@@ -12,7 +12,7 @@ from frontend.models import Article, MainMenu, SecondaryMenu, Slider, Activity, 
 
 
 class SuperArticleAdmin(admin.ModelAdmin):
-    fieldsets = (("文章内容", {"fields": ("title", "text", "author", "pub_date", "available", "parent", "category")}),)
+    fieldsets = (("文章内容", {"fields": ("title", "description", "text", "author", "pub_date", "available", "parent", "category", "cover_img")}),)
 
     list_display = ("title", "author", "pub_date", "hits", "parent", "available")
 

@@ -27,7 +27,7 @@ class MainMenu(models.Model):
     def save(self, force_insert=False, force_update=False, using=None,
              update_fields=None):
         try:
-            content_type = ContentType.objects.get(app_label="frontend", model="Article", name="文章板块权限")
+            content_type = ContentType.objects.get(app_label="frontend", model="Article")
         except:
             content_type = ContentType(app_label="frontend", model="Article", name="文章板块权限")
             content_type.save()
@@ -71,19 +71,19 @@ class SecondaryMenu(models.Model):
     def save(self, force_insert=False, force_update=False, using=None,
              update_fields=None):
         try:
-            content_type1 = ContentType.objects.get(app_label="frontend", model="Article", name="文章板块权限")
+            content_type1 = ContentType.objects.get(app_label="frontend", model="Article")
         except:
             content_type1 = ContentType(app_label="frontend", model="Article", name="文章板块权限")
             content_type1.save()
 
         try:
-            content_type2 = ContentType.objects.get(app_label="frontend", model="Slider", name="幻灯片推送权限")
+            content_type2 = ContentType.objects.get(app_label="frontend", model="Slider")
         except:
             content_type2 = ContentType(app_label="frontend", model="Slider", name="幻灯片推送权限")
             content_type2.save()
 
         try:
-            content_type3 = ContentType.objects.get(app_label="frontend", model="Activity", name="活动发布权限")
+            content_type3 = ContentType.objects.get(app_label="frontend", model="Activity")
         except:
             content_type3 = ContentType(app_label="frontend", model="Activity", name="活动发布权限")
             content_type3.save()
@@ -147,7 +147,7 @@ class Slider(models.Model):
     img = models.ImageField(verbose_name="展示图片", upload_to="img/Slider")
     url = models.URLField(verbose_name="文章链接", blank=True)
     push = models.OneToOneField("Article", verbose_name="推送文章标题")
-    category = models.ForeignKey(SecondaryMenu, verbose_name="分类", default="")
+    category = models.ForeignKey(SecondaryMenu, verbose_name="分类")
 
     class Meta:
         verbose_name = "首页幻灯片"
@@ -191,7 +191,9 @@ class Article(models.Model):
     available = models.BooleanField(verbose_name="已发表", default=True)
     hits = models.IntegerField(verbose_name="点击量", default=0)
     parent = models.ForeignKey(SecondaryMenu, verbose_name="父级菜单")
-    category = models.CharField(verbose_name="内容分类", choices=category_choices, max_length=20, default="")
+    category = models.CharField(verbose_name="内容分类", choices=category_choices, max_length=20)
+    cover_img = models.ImageField(verbose_name="封面图片", upload_to="img/Article")
+    description = models.TextField(verbose_name="简介", default="")
 
     class Meta:
         verbose_name = "文章"
@@ -211,7 +213,9 @@ class Activity(models.Model):
     text = models.TextField(verbose_name="活动简介", max_length=254)
     img = models.ImageField(verbose_name="活动宣传图片", upload_to="img/Activity")
     url = models.URLField(verbose_name="活动链接")
-    category = models.ForeignKey(SecondaryMenu, verbose_name="分类", default="")
+    author = models.ForeignKey(CustomUser, verbose_name="发布人")
+    pub_date = models.DateField(verbose_name="发布日期")
+    category = models.ForeignKey(SecondaryMenu, verbose_name="分类")
     end_date = models.DateField(verbose_name="活动结束日期")
 
     class Meta:

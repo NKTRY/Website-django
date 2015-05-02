@@ -18,15 +18,22 @@ def index(request):
     slider = Slider.objects.order_by("push__pub_date")[:5]
     news = ()
     for obj in News.category_choice:
-        news = news + (News.objects.filter(category=obj).order_by("push__pub_date")[:7],)
+        news = news + (News.objects.filter(category=obj[0]).order_by("push__pub_date")[:7],)
     articles = Article.objects.order_by("pub_date")[:10]
     activities = Activity.objects.filter(q).filter(end_date__gte=timezone.now())[:4]
+    choices = News.category_choice
+    if len(activities) != 0:
+        activity = activities[0]
+    else:
+        activity = []
     context = {
         "mains": mains,
         "slider": slider,
         "news": news,
         "articles": articles,
-        "activities": activities
+        "activity": activity,
+        "activities": activities[1:],
+        "news_category": choices
     }
     return render(request, "frontend/index.html", context)
 
