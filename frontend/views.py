@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
 from django.utils import timezone
 from django.db.models import Q
 from django.views.decorators.csrf import csrf_protect
+from django.core.paginator import PageNotAnInteger, EmptyPage, Paginator
 
 from frontend.models import MainMenu, Slider, SecondaryMenu, News, Article, Activity
 # Create your views here.
@@ -68,7 +68,7 @@ def secondary_menu(request, main, secondary):
         articles = articles + (Article.objects.filter(category=item[0])[:10],)
     slider = Slider.objects.filter(category=secondary)
     activities = Activity.objects.filter(category=secondary)
-    hot = Article.objects.filter(parent=secondary).order_by("hits")
+    hot = Article.objects.filter(parent=secondary).order_by("hits")[:10]
     context = {
         "main": main,
         "secondary": secondary,
@@ -82,40 +82,28 @@ def secondary_menu(request, main, secondary):
     return render(request, "frontend/list-secondary.html", context)
 
 
-def main_menu_all(request, main):
-    main = MainMenu.objects.get(codename=main)
-    mains = MainMenu.objects.order_by("order")
-    secondaries = SecondaryMenu.objects.filter(parent=main).order_by("order")
-    q = Q(id=-1)
-    for item in secondaries:
-        q = q | Q(parent=item)
-    article = Article.objects.filter(q)
-    articles = ()
-    for item in Article.category_choices:
-        articles = articles + (article.filter(category=item[0]),)
-    context = {
-        "main": main,
-        "mains": mains,
-        "secondaries": secondaries,
-        "articles": articles
-    }
-    return render(request, "frontend/list-main-all.html", context)
-
-
 def secondary_menu_all(request, main, secondary):
     main = MainMenu.objects.get(codename=main)
     secondary = SecondaryMenu.objects.get(codename=secondary)
     mains = MainMenu.objects.order_by("order")
     secondaries = SecondaryMenu.objects.filter(parent=main).order_by("order")
-    articles = ()
-    for item in Article.category_choices:
-        articles = articles + (Article.objects.filter(parent=secondary).filter(category=item[0]),)
+    articles = Article.objects.filter(parent=secondary)
+    hot = Article.objects.order_by("hits")[:10]
+    articles = Paginator(articles, 7)
+    page = request.GET.get('page')
+    try:
+        articles = articles.page(page)
+    except PageNotAnInteger:
+        articles = articles.page(1)
+    except EmptyPage:
+        articles = articles.page(1)
     context = {
         "main": main,
         "secondary": secondary,
         "mains": mains,
         "secondaries": secondaries,
         "articles": articles,
+        "hot": hot
     }
     return render(request, "frontend/list-secondary-all.html", context)
 

@@ -222,3 +222,54 @@ dl{
         display: none;
     }
 }
+
+
+/* list-all-page */
+.list-secondary-left{
+    border-right: 1px lightgrey solid;
+}
+.list-news-cata{
+    padding-right: 5px;
+}
+.list-news-author{
+    padding-left: 5px;
+}
+.news-authorname{
+    color: #2277b7;
+}
+
+.list-sidebar-title{
+    margin-top: 30px;
+    width: 90px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    background-color: dimgray;
+    color: white;
+    text-align: center;
+    text-shadow: 0 0 2px rgba(0,0,0,0.3);
+}
+.list-sidebar-content{
+    border-top: 1px solid dimgrey;
+    padding-top: 10px;
+}
+.list-sidebar-recommand-title{
+    font-size: 16px;
+    margin-left: 5px;
+}
+.list-sidebar-recommand-reason{
+    margin-top: 5px;
+    border-left: 4px solid #F3F3F0;
+    padding-left: 7px;
+    color: slategrey;
+}
+.list-sidebar-recommand-author{
+    margin-top: 5px;
+    text-align: right;
+    font-style: italic;
+}
+@media (max-width: 991px) {
+    .list-secondary-left{
+        border-right: none;
+    }
+
+}
