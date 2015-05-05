@@ -115,12 +115,13 @@ def search(request):
         if keyword is None:
             return redirect("index")
         q = Q(title__contains=keyword) | Q(text__contains=keyword) | Q(author__nickname=keyword)
-        articles = Article.objects.filter(q)
-        q = Q(title__contains=keyword) | Q(text__contains=keyword)
-        activities = Activity.objects.filter(q)
+        articles = Article.objects.filter(q).order_by('pub_date')[:7]
+        mains = MainMenu.objects.order_by("order")
+        hot = Article.objects.order_by("hits")[:10]
         context = {
+            "mains": mains,
             "articles": articles,
-            "activities": activities
+            "hot": hot
         }
         return render(request, "frontend/search-result.html", context)
 
