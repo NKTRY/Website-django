@@ -101,7 +101,6 @@ def secondary_menu_all(request, main, secondary):
         "main": main,
         "secondary": secondary,
         "mains": mains,
-        "secondaries": secondaries,
         "articles": articles,
         "hot": hot
     }
@@ -117,7 +116,7 @@ def search(request):
         q = Q(title__contains=keyword) | Q(text__contains=keyword) | Q(author__nickname=keyword)
         articles = Article.objects.filter(q).order_by('pub_date')[:7]
         mains = MainMenu.objects.order_by("order")
-        hot = Article.objects.order_by("hits")[:10]
+        hot = Article.objects.order_by("hits")[:7]
         context = {
             "mains": mains,
             "articles": articles,
@@ -139,7 +138,7 @@ def content(request, main, secondary, id):
     q = Q(id=-1)
     for item in secondaries:
         q = q | Q(parent=item)
-    hot = Article.objects.filter(q).order_by("hits")[:10]
+    hot = Article.objects.filter(q).order_by("hits")[:7]
     context = {
         "main": main,
         "secondary": secondary,
