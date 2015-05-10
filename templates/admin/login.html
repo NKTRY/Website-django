@@ -56,7 +56,7 @@
 <script type="text/javascript">
 document.getElementById('id_username').focus()
 $("[action='gettoken']").on('click',function(){
-    var username=$("#is_username").val()
+    var username=$("[name='username']").val()
     $.get("/superadmin/gettoken/"+username,,function(data){
         if(data=="success"){
             window.alert("验证码已发送");
