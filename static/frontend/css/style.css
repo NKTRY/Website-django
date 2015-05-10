@@ -66,7 +66,8 @@ dl{
     overflow: hidden;
 }
 .activity-list{
-    margin-top: 10px;
+    margin-top: 5px;
+    margin-bottom: 5px;
     overflow: hidden;
 }
 .history-activity{
@@ -226,7 +227,7 @@ dl{
         height: 300px;
     }
     .activity-list{
-        height: 210px;
+        height: 200px;
     }
     .history-activity-4, .history-activity-5{
         display: none;
