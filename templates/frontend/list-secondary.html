@@ -58,6 +58,15 @@
                 <!-- Wrapper for slides -->
                 <div class="carousel-inner" role="listbox">
                     {% for slider_item in slider %}
+                    {% if slider_item == slider.0 %}
+                    <div class="item active">
+                        <a href="{% url 'content' slider_item.push.parent.parent.codename slider_item.push.parent.codename slider_item.push.id %}"><img src="/media/{{ slider_item.img.url }}" width="100%" alt="..."></img></a>
+                        <div class="carousel-caption">
+                            <h5>{{ slider_item.push.title }}</h5>
+                            <p>{{ slider_item.text }}</p>
+                        </div>
+                    </div>
+                    {% else %}
                     <div class="item">
                         <a href="{% url 'content' slider_item.push.parent.parent.codename slider_item.push.parent.codename slider_item.push.id %}"><img src="/media/{{ slider_item.img.url }}" width="100%" alt="..."></img></a>
                         <div class="carousel-caption">
@@ -65,6 +74,7 @@
                             <p>{{ slider_item.text }}</p>
                         </div>
                     </div>
+                    {% endif %}
                     {% endfor %}
                 </div>
                 <!-- Controls-->
