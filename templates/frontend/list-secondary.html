@@ -1,17 +1,173 @@
-<!DOCTYPE html>
-<html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title>{{ secondary.name }} | 南开中学体验创意中心官网</title>
-</head>
-<body>
-<p>{{ mains }}</p>
-<p>{{ secondaries }}</p>
-{% for item in articles %}
-    {{ item }}
-{% endfor %}
-<p>{{ hot }}</p>
-<p>{{ slider }}</p>
-<p>{{ activities }}</p>
-</body>
-</html>
+{% extends "frontend/base.html" %}
+
+{% block title %}{{ secondary.name }} | 南开中学体验创意中心{% endblock %}
+
+{% load staticfiles %}
+
+{% block content %}
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">
+                    <img src="{% static "frontend/img/logo.png" %}" height="40px" alt="NKTC"/>
+                </a>
+            </div>
+        </div>
+        <div class="collapse navbar-collapse" id="navbar">
+            <ul class="nav navbar-nav">
+                <li><a href="/">首页</a></li>
+                {% for item in mains %}
+                    {% if item.name == main.name %}
+                    <li class="active"><a href="{% url 'main_menu' item.codename %}">{{ item.name }}</a></li>
+                    {% else %}
+                    <li><a href="{% url 'main_menu' item.codename %}">{{ item.name }}</a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+            <form class="navbar-form navbar-right search" role="search" method="post" action="{% url 'search' %}">
+            	{% csrf_token %}
+                <div class="form-group">
+                    <input type="text" class="form-control" name="content" placeholder="您想知道...">
+                </div>
+                <button type="submit" class="btn btn-default hidden-xs">
+                    <span class="glyphicon glyphicon-search"></span>
+                </button>
+            </form>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="col-md-9 list-secondary-left">
+        <div class="breadcrumb-div">
+            <ol class="breadcrumb">
+                <span class="breadcrumb-title">您当前的位置：</span>
+                <li><a href="/">Home</a></li>
+                <li><a href="{% url 'main_menu' main.codename %}">{{ main.name }}</a></li>
+                <li class="active">{{ secondary.name }}</li>
+            </ol>
+        </div>
+        <div class="col-md-4">
+           <div id="slider" class="carousel slide" data-ride="carousel">
+                <!-- Wrapper for slides -->
+                <div class="carousel-inner" role="listbox">
+                    {% for slider_item in slider %}
+                    <div class="item">
+                        <img src="media/{{ slider_item.img.url }}" width="100%" alt="...">
+                        <div class="carousel-caption">
+                            <h5>{{ slideritem.url }}</h5>
+                            <p>{{ slideritem.text }}</p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                <!-- Controls-->
+                <a class="left carousel-control" href="#slider" role="button" data-slide="prev">
+                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                </a>
+                <a class="right carousel-control" href="#slider" role="button" data-slide="next">
+                    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                </a>
+            </div>
+        </div>
+        <div class="col-md-8 border activity-list">
+            {% if activity != None %}
+            <div class="row present-activity">
+                <img class="img-rounded" id="present-activity-img" src="{{ activity.img.url }}" width="100%" alt="{{ activity.title }}"/>
+                <div class="present-activity-passage">
+                    <dl>
+                        <dt>{{ activity.title }}</dt>
+                        <dd>{{ activity.author }}[{{ activity.pub_date }}]</dd>
+                    </dl>
+                </div>
+                <div class="present-activity-content">
+                    <p>{{ activity.text }}</p>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+        {% for item in articles %}
+        {% if item != articles.0 %}
+        <hr/>
+        {% endif %}
+        <div>
+            <div class="row">
+                <div class="col-xs-5 news-cata list-news-cata">
+                    {{ main.name }} / {{ secondary.name }}
+                </div>
+                <div class="col-xs-7 text-right news-author list-news-author"><span class="news-authorname">{{ item.author }}</span> • {{ item.pub_date }}</div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-4">
+                    <a href="{% url 'content' main.codename secondary.codename item.id %}"><img  src="media/{{ item.cover_img.url }}" width="100%" alt="{{ item.title }}"/></a>
+                </div>
+                <div class="col-xs-12 col-sm-8">
+                    <h3 class="news-title"><a href="{% url 'content' main.codename secondary.codename item.id %}">{{ item.title }}</a></h3>
+                    <p class="news-des">{{ item.description }}</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="col-md-3">
+        <div class="list-group">
+            {% for item in secondaries %}
+            {% if item == secondary %}
+            <a class="list-group-item active" href="{% url 'secondary_menu' item.parent.codename item.codename %}">{{ item.name }}</a>
+            {% else %}
+            <a class="list-group-item" href="{% url 'secondary_menu' item.parent.codename item.codename %}">{{ item.name }}</a>
+            {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3">
+                <h4 class="footer-title">联系我们</h4>
+                <ul class="list-unstyled">
+                    <li>南开中学体验创意中心协会</li>
+                    <ul>
+                        <li>QQ : 2254529127</li>
+                        <li>Email : support@nktry.com</li>
+                    </ul>
+                </ul>
+            </div>
+            <div class="col-lg-3">
+                <h4 class="footer-title">创新人才</h4>
+                <img src="http://www.nktry.com/static/img/code.jpg" alt="微信二维码" width="150px">
+            </div>
+            <div class="col-lg-3">
+                <h4 class="footer-title">友情链接</h4>
+                <ul class="list-unstyled contactus-list">
+                    <li>
+                        <a href="http://www.nkzx.cn/" target="_blank">
+                            <img src="http://www.nktry.com/static/img/nkzx.png" width="270" height="70">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://blog.sina.com.cn/nankaizhongxue" target="_blank">
+                            <img src="http://www.nktry.com/static/img/NKSU.jpg">
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-lg-3">
+                <p class="copyright text-right">
+                    Powered By 天津市憬炼科技发展有限公司<br>
+                    © 2012 - 2014 NKTC<br>
+                    <a href="http://www.miitbeian.gov.cn/" target="_blank">津ICP备14004209号-3</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

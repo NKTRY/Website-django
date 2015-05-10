@@ -235,7 +235,7 @@ class SuperSliderAdmin(admin.ModelAdmin):
 
 
 class SuperActivityAdmin(admin.ModelAdmin):
-    fieldsets = (("活动信息", {"fields": ("title", "text", "img", "url", "category", "end_date")}),)
+    fieldsets = (("活动信息", {"fields": ("title", "text", "img", "url", "category", "author", "pub_date", "end_date")}),)
 
     list_display = ["title", "url"]
 
@@ -266,7 +266,7 @@ class SuperActivityAdmin(admin.ModelAdmin):
 
 
 class NormalActivityAdmin(admin.ModelAdmin):
-    fieldsets = (("活动信息", {"fields": ("title", "text", "img", "url", "category", "end_date")}),)
+    fieldsets = (("活动信息", {"fields": ("title", "text", "img", "url", "category", "author", "pub_date", "end_date")}),)
 
     list_display = ["title", "url"]
 

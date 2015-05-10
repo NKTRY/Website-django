@@ -63,12 +63,10 @@ def secondary_menu(request, main, secondary):
     secondary = SecondaryMenu.objects.get(codename=secondary)
     mains = MainMenu.objects.order_by("order")
     secondaries = SecondaryMenu.objects.filter(parent=main).order_by("order")
-    articles = ()
-    for item in Article.category_choices:
-        articles = articles + (Article.objects.filter(category=item[0])[:10],)
+    articles = Article.objects.filter(parent=secondary)[:10]
     slider = Slider.objects.filter(category=secondary)
-    activities = Activity.objects.filter(category=secondary)
-    hot = Article.objects.filter(parent=secondary).order_by("hits")[:10]
+    activity = Activity.objects.filter(category=secondary)[:1][0] # TODO: expire
+    hot = Article.objects.order_by("hits")[:10]
     context = {
         "main": main,
         "secondary": secondary,
@@ -76,7 +74,7 @@ def secondary_menu(request, main, secondary):
         "secondaries": secondaries,
         "articles": articles,
         "slider": slider,
-        "activities": activities,
+        "activity": activity,
         "hot": hot
     }
     return render(request, "frontend/list-secondary.html", context)

@@ -65,6 +65,10 @@ dl{
     margin-top: 10px;
     overflow: hidden;
 }
+.activity-list{
+    margin-top: 10px;
+    overflow: hidden;
+}
 .history-activity{
     padding-top: 10px;
     padding-right: 25px;
@@ -198,6 +202,9 @@ dl{
     .activity{
         height: 280px;
     }
+    .activity-list{
+        height: 210px;
+    }
     .history-activity-5{
         display: none;
     }
@@ -217,6 +224,9 @@ dl{
     }
     .activity{
         height: 300px;
+    }
+    .activity-list{
+        height: 225px;
     }
     .history-activity-4, .history-activity-5{
         display: none;
