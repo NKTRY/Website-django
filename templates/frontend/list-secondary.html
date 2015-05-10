@@ -124,6 +124,12 @@
             </div>
         </div>
         {% endfor %}
+        <hr/>
+        <nav>
+            <ul class="pager">
+                <li class="next"><a href="{% url 'secondary_menu_all' main.codename secondary.codename %}">想要阅读更多内容 <span class="glyphicon glyphicon-question-sign"></span></a></li>
+            </ul>
+        </nav>
     </div>
     <div class="col-md-3">
         <div class="list-group">
