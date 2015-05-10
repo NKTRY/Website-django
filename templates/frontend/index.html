@@ -51,7 +51,7 @@
                 <div class="carousel-inner" role="listbox">
                     {% for slider_item in slider %}
                     <div class="item">
-                        <img src="media/{{ slider_item.img.url }}" width="100%" alt="...">
+                        <img src="/media/{{ slider_item.img.url }}" width="100%" alt="...">
                         <div class="carousel-caption">
                             <h5>{{ slideritem.url }}</h5>
                             <p>{{ slideritem.text }}</p>
@@ -136,7 +136,7 @@
         </div>
         <div class="col-xs-12 col-sm-3 history-activity">
             {% for item in activities %}
-            <img class="col-xs-6 col-sm-12 history-activity-1" src="media/{{ item.img.url }}" width="100%" alt="{{ item.title }}"/>
+            <img class="col-xs-6 col-sm-12 history-activity-1" src="/media/{{ item.img.url }}" width="100%" alt="{{ item.title }}"/>
             {% endfor %}
         </div>
     </div>
@@ -157,7 +157,7 @@
         </div>
         <div class="row">
             <div class="col-xs-12 col-sm-4">
-                <img src="media/{{ item.cover_img }}" width="100%" alt="news"/>
+                <img src="/media/{{ item.cover_img }}" width="100%" alt="news"/>
             </div>
             <div class="col-xs-12 col-sm-8">
                 <h3 class="news-title">{{ item.title }}</h3>

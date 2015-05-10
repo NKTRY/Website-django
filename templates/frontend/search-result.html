@@ -60,7 +60,7 @@
             </div>
             <div class="row">
                 <div class="col-xs-12 col-sm-4">
-                    <a href="{% url 'content' item.parent.parent.codename item.parent.codename item.id %}"><img src="media/{{ item.cover_img.url }}" width="100%" alt="{{ item.title }}"/></a>
+                    <a href="{% url 'content' item.parent.parent.codename item.parent.codename item.id %}"><img src="/media/{{ item.cover_img.url }}" width="100%" alt="{{ item.title }}"/></a>
                 </div>
                 <div class="col-xs-12 col-sm-8">
                     <h3 class="news-title"><a href="{% url 'content' item.parent.parent.codename item.parent.codename item.id %}">{{ item.title }}</a></h3>

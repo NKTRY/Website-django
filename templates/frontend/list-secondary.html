@@ -59,7 +59,7 @@
                 <div class="carousel-inner" role="listbox">
                     {% for slider_item in slider %}
                     <div class="item">
-                        <img src="media/{{ slider_item.img.url }}" width="100%" alt="...">
+                        <img src="/media/{{ slider_item.img.url }}" width="100%" alt="...">
                         <div class="carousel-caption">
                             <h5>{{ slideritem.url }}</h5>
                             <p>{{ slideritem.text }}</p>
@@ -79,7 +79,7 @@
         <div class="col-md-8 border activity-list">
             {% if activity != None %}
             <div class="row present-activity">
-                <img class="img-rounded" id="present-activity-img" src="media/{{ activity.img.url }}" width="100%" alt="{{ activity.title }}"/>
+                <img class="img-rounded" id="present-activity-img" src="/media/{{ activity.img.url }}" width="100%" alt="{{ activity.title }}"/>
                 <div class="present-activity-passage">
                     <dl>
                         <dt>{{ activity.title }}</dt>
@@ -105,7 +105,7 @@
             </div>
             <div class="row">
                 <div class="col-xs-12 col-sm-4">
-                    <a href="{% url 'content' main.codename secondary.codename item.id %}"><img  src="media/{{ item.cover_img.url }}" width="100%" alt="{{ item.title }}"/></a>
+                    <a href="{% url 'content' main.codename secondary.codename item.id %}"><img  src="/media/{{ item.cover_img.url }}" width="100%" alt="{{ item.title }}"/></a>
                 </div>
                 <div class="col-xs-12 col-sm-8">
                     <h3 class="news-title"><a href="{% url 'content' main.codename secondary.codename item.id %}">{{ item.title }}</a></h3>
