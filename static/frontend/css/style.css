@@ -65,11 +65,6 @@ dl{
     margin-top: 10px;
     overflow: hidden;
 }
-.activity-list{
-    margin-top: 5px;
-    margin-bottom: 5px;
-    overflow: hidden;
-}
 .history-activity{
     padding-top: 10px;
     padding-right: 25px;
@@ -167,6 +162,14 @@ dl{
         padding-top: 0;
         line-height: normal;
     }
+    .main_menu_list > div{
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+    .main_menu_list{
+        padding-left: 10px;
+        padding-right: 10px;
+    }
 }
 @media (min-width: 768px) {
     .tab-content{
@@ -193,6 +196,14 @@ dl{
     .history-activity{
         padding-top: 0;
     }
+    .main_menu_list > div{
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+    .main_menu_list{
+        padding-left: 10px;
+        padding-right: 10px;
+    }
 }
 @media (min-width: 992px) {
     .tab-content{
@@ -203,9 +214,6 @@ dl{
     .activity{
         height: 280px;
     }
-    .activity-list{
-        height: 200px;
-    }
     .history-activity-5{
         display: none;
     }
@@ -214,6 +222,9 @@ dl{
     }
     .history-activity{
         padding-top: 0;
+    }
+    .article-sidebar{
+        border-left: 1px solid lightgray;
     }
 }
 @media (min-width: 1200px) {
@@ -225,9 +236,6 @@ dl{
     }
     .activity{
         height: 300px;
-    }
-    .activity-list{
-        height: 200px;
     }
     .history-activity-4, .history-activity-5{
         display: none;
