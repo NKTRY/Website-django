@@ -42,18 +42,16 @@ def main_menu(request, main):
     main = MainMenu.objects.get(codename=main)
     mains = MainMenu.objects.order_by("order")
     secondaries = SecondaryMenu.objects.filter(parent=main).order_by("order")
-    q = Q(id=-1)
-    for item in secondaries:
-        q = q | Q(parent=item)
-    article = Article.objects.filter(q)
-    articles = ()
-    for item in Article.category_choices:
-        articles = articles + (article.filter(category=item[0])[:10],)
+    secondary = []
+    for i in range(1, len(secondaries)/4+2):
+        if 4*i > len(secondaries):
+            secondary.append(secondaries[4*(i-1):])
+        else:
+            secondary.append(secondaries[4*(i-1):4*i])
     context = {
         "main": main,
         "mains": mains,
-        "secondaries": secondaries,
-        "articles": articles
+        "secondaries": secondary
     }
     return render(request, "frontend/list-main.html", context)
 
