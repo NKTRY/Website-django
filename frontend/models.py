@@ -206,7 +206,7 @@ class Activity(models.Model):
     id = models.AutoField(primary_key=True)
     title = models.CharField(verbose_name="标题", max_length=20)
     text = models.TextField(verbose_name="活动简介", max_length=254)
-    img = models.ImageField(verbose_name="有效活动封面", upload_to="img/Activity", help_text="推荐尺寸: 1360px*1260x [其他尺寸请保持长宽比相同]")
+    img = models.ImageField(verbose_name="有效活动封面", upload_to="img/Activity", help_text="推荐尺寸: 1360px*260px [其他尺寸请保持长宽比相同]")
     old_img = models.ImageField(verbose_name="过期活动封面", upload_to="img/Activity", help_text="推荐尺寸: 250px*90px [其他尺寸请保持长宽比相同]")
     url = models.URLField(verbose_name="活动链接")
     author = models.ForeignKey(CustomUser, verbose_name="发布人")
