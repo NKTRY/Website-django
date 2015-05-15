@@ -16,8 +16,11 @@ def index(request):
     for obj in News.category_choice:
         news = news + (News.objects.filter(category=obj[0]).order_by("push__pub_date")[:7],)
     articles = Article.objects.order_by("pub_date")[:10]
-    activity = None
-    activity = Activity.objects.get(end_date__gte=timezone.now())
+
+    try:
+        activity = Activity.objects.get(end_date__gte=timezone.now())
+    except:
+        activity = None
     activities = Activity.objects.order_by("-id")[:4]
     choices = News.category_choice
     context = {

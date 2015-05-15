@@ -141,6 +141,19 @@
                         <p>{{ activity.text }}</p>
                     </div>
                 </div>
+                {% else %}
+                <div class="row present-activity">
+                    <img class="img-rounded" id="present-activity-img" src="{% static "frontend/img/no-current-activity.jpg" %}" width="100%" alt="现在没有进行中的活动哦~"/>
+                    <div class="present-activity-passage">
+                        <dl>
+                            <dt>现在没有进行中的活动哦~</dt>
+                            <dd>Admin[2015年5月15日]</dd>
+                        </dl>
+                    </div>
+                    <div class="present-activity-content">
+                        <p>暂无信息</p>
+                    </div>
+                </div>
                 {% endif %}
             </div>
         </div>
