@@ -73,14 +73,15 @@ DATABASES = {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'NKTRY',
+        'USER': 'root',
+        'PASSWORD': '',
+        'HOST': '/var/lib/mysql/mysql.sock',
+        'PORT': '3306'
+    }
 }
-
-DATABASE_ENGINE = 'mysql'
-DATABASE_NAME = 'NKTRY'
-DATABASE_USER = 'root'
-DATABASE_PASSWORD = ''
-DATABASE_HOST = '/var/lib/mysql/mysql.sock'
-DATABASE_PORT = '3306'
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
