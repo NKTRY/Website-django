@@ -63,7 +63,7 @@ class SecondaryMenu(models.Model):
     name = models.CharField(verbose_name="板块名称", max_length=20, unique=True)
     codename = models.CharField(verbose_name="机读名称", max_length=20, unique=True)
     order = models.IntegerField(verbose_name="显示顺序", blank=True)
-    img = models.ImageField(verbose_name="展示图片", upload_to="img/Menu")
+    img = models.ImageField(verbose_name="展示图片", upload_to="img/Menu", help_text="推荐尺寸: 600px*300px [其他尺寸请保持长宽比相同]")
     available = models.BooleanField(verbose_name="已发布", default=True)
     parent = models.ForeignKey(MainMenu, verbose_name="父级菜单")
     description = models.CharField(verbose_name="板块介绍", max_length=100)
@@ -144,7 +144,7 @@ class SecondaryMenu(models.Model):
 class Slider(models.Model):
     id = models.AutoField(primary_key=True)
     text = models.CharField(verbose_name="推送简介", max_length=20)
-    img = models.ImageField(verbose_name="展示图片", upload_to="img/Slider")
+    img = models.ImageField(verbose_name="展示图片", upload_to="img/Slider", help_text="推荐尺寸: 300px*200px [其他尺寸请保持长宽比相同]")
     url = models.URLField(verbose_name="文章链接", blank=True)
     push = models.OneToOneField("Article", verbose_name="推送文章标题")
     category = models.ForeignKey(SecondaryMenu, verbose_name="分类")
@@ -187,7 +187,7 @@ class Article(models.Model):
     available = models.BooleanField(verbose_name="已发表", default=True)
     hits = models.IntegerField(verbose_name="点击量", default=0)
     parent = models.ForeignKey(SecondaryMenu, verbose_name="父级菜单")
-    cover_img = models.ImageField(verbose_name="封面图片", upload_to="img/Article")
+    cover_img = models.ImageField(verbose_name="封面图片", upload_to="img/Article", help_text="推荐尺寸: 600px*325px [其他尺寸请保持长宽比相同]")
     description = models.TextField(verbose_name="简介")
 
     class Meta:
@@ -206,8 +206,8 @@ class Activity(models.Model):
     id = models.AutoField(primary_key=True)
     title = models.CharField(verbose_name="标题", max_length=20)
     text = models.TextField(verbose_name="活动简介", max_length=254)
-    img = models.ImageField(verbose_name="有效活动封面", upload_to="img/Activity")
-    old_img = models.ImageField(verbose_name="过期活动封面", upload_to="img/Activity")
+    img = models.ImageField(verbose_name="有效活动封面", upload_to="img/Activity", help_text="推荐尺寸: 1360px*1260x [其他尺寸请保持长宽比相同]")
+    old_img = models.ImageField(verbose_name="过期活动封面", upload_to="img/Activity", help_text="推荐尺寸: 250px*90px [其他尺寸请保持长宽比相同]")
     url = models.URLField(verbose_name="活动链接")
     author = models.ForeignKey(CustomUser, verbose_name="发布人")
     pub_date = models.DateField(verbose_name="发布日期")
