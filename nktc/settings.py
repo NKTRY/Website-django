@@ -40,10 +40,12 @@ INSTALLED_APPS = (
     'frontend',
     'vote',
     'wechat',
-    'DjangoUeditor'
+    'DjangoUeditor',
+    'django_hosts',
 )
 
 MIDDLEWARE_CLASSES = (
+    'django_hosts.middleware.HostsRequestMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -51,9 +53,14 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django_hosts.middleware.HostsResponseMiddleware',
 )
 
 ROOT_URLCONF = 'nktc.urls'
+
+ROOT_HOSTCONF = 'nktc.hosts'
+
+DEFAULT_HOST = 'www'
 
 WSGI_APPLICATION = 'nktc.wsgi.application'
 
@@ -62,11 +69,18 @@ WSGI_APPLICATION = 'nktc.wsgi.application'
 #
 
 DATABASES = {
-    'default': {
+    'dev': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+
+DATABASE_ENGINE = 'mysql'
+DATABASE_NAME = 'NKTRY'
+DATABASE_USER = 'root'
+DATABASE_PASSWORD = ''
+DATABASE_HOST = '/var/lib/mysql/mysql.sock'
+DATABASE_PORT = '3306'
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
@@ -100,3 +114,5 @@ STATICFILES_DIRS = (
 )
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'upload')
+
+# multihosts
