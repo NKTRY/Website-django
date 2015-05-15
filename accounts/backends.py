@@ -5,11 +5,11 @@ from django.contrib.auth.models import Permission
 
 
 class CustomBackend(object):
-    def authenticate(self, username, password, token=None):
+    def authenticate(self, username, password):
         try:
             user = CustomUser.objects.get(username=username)
             if user.check_password(password) and user.check_status():
-                if user.use_token and user.vaild_token(token):
+                if user.is_nktc:
                     user.update_login_date()
                     return user
             else:

@@ -12,7 +12,10 @@ from frontend.models import Article, MainMenu, SecondaryMenu, Slider, Activity, 
 
 
 class SuperArticleAdmin(admin.ModelAdmin):
-    fieldsets = (("文章内容", {"fields": ("title", "description", "text", "author", "pub_date", "available", "parent", "category", "cover_img")}),)
+    fieldsets = (
+            ("文章内容", {"fields": ("title", "description", "text", "author")}),
+            ("文章信息", {"fields": ("pub_date", "available", "parent", "cover_img")}),
+        )
 
     list_display = ("title", "author", "pub_date", "hits", "parent", "available")
 
@@ -56,7 +59,10 @@ class SuperArticleAdmin(admin.ModelAdmin):
 
 
 class NormalArticleAdmin(admin.ModelAdmin):
-    fieldsets = (("文章内容", {"fields": ("title", "text", "author", "available", "parent", "category")}),)
+    fieldsets = (
+            ("文章内容", {"fields": ("title", "description", "text", "author")}),
+            ("文章信息", {"fields": ("parent", "cover_img", "available")}),
+        )
 
     list_display = ("title", "author", "pub_date", "hits", "parent", "available")
 
@@ -102,6 +108,9 @@ class SecondaryMenuInline(admin.TabularInline):
 
 
 class MainMenuAdmin(admin.ModelAdmin):
+    fieldsets = (
+                ("菜单信息", {"fields": ("name", "codename", "order", "available")}),
+            )
     inlines = [SecondaryMenuInline]
 
     list_display = ["name", "codename", "order", "available"]
@@ -123,6 +132,9 @@ class MainMenuAdmin(admin.ModelAdmin):
 
 
 class SecondaryMenuAdmin(admin.ModelAdmin):
+    fieldsets = (
+                ("菜单信息", {"fields": ("name", "codename", "img", "description", "order", "parent", "available")}),
+            )
     list_display = ["name", "codename", "order", "available"]
 
     list_filter = ["available"]
@@ -235,7 +247,7 @@ class SuperSliderAdmin(admin.ModelAdmin):
 
 
 class SuperActivityAdmin(admin.ModelAdmin):
-    fieldsets = (("活动信息", {"fields": ("title", "text", "img", "url", "category", "author", "pub_date", "end_date")}),)
+    fieldsets = (("活动信息", {"fields": ("title", "text", "img", "old_img", "url", "category", "author", "pub_date", "end_date")}),)
 
     list_display = ["title", "url"]
 
@@ -266,7 +278,7 @@ class SuperActivityAdmin(admin.ModelAdmin):
 
 
 class NormalActivityAdmin(admin.ModelAdmin):
-    fieldsets = (("活动信息", {"fields": ("title", "text", "img", "url", "category", "author", "pub_date", "end_date")}),)
+    fieldsets = (("活动信息", {"fields": ("title", "text", "img", "old_img", "url", "category", "author", "pub_date", "end_date")}),)
 
     list_display = ["title", "url"]
 

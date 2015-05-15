@@ -32,7 +32,7 @@ class SuperAdminSite(AdminSite):
 
     def has_permission(self, request):
         try:
-            if not request.user.use_token:
+            if not request.user.is_nktc:
                 return False
             else:
                 return request.user.is_active and request.user.is_staff
@@ -44,13 +44,12 @@ class CustomUserAdmin(admin.ModelAdmin):
     fieldsets = (
         ("基本信息", {"fields": ("username", "changed_password", "nickname", "email", "expire")}),
         ("权限管理", {"fields": ("is_superuser", "user_permissions", "groups", "is_active", "is_staff",
-                             "use_token", "locked")}),
-        ("临时字段", {"fields": ("token",)}),
+                             "is_nktc", "locked")}),
     )
 
     list_display = ("username", "nickname", "email", "last_login_date")
 
-    list_filter = ["is_active", "is_superuser", "use_token"]
+    list_filter = ["is_active", "is_superuser", "is_nktc"]
 
     search_fields = ["username", "nickname", "email"]
 
@@ -71,7 +70,7 @@ class NormalUserAdmin(admin.ModelAdmin):
 
     list_display = ("username", "nickname", "email", "last_login_date")
 
-    list_filter = ["is_active", "is_superuser", "use_token"]
+    list_filter = ["is_active", "is_superuser", "is_nktc"]
 
     search_fields = ["username", "nickname", "email"]
 

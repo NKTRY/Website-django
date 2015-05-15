@@ -16,7 +16,7 @@ class MainMenu(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(verbose_name="板块名称", max_length=20, unique=True)
     codename = models.CharField(verbose_name="机读名称", max_length=20, unique=True)
-    order = models.IntegerField(verbose_name="显示顺序", blank=True)
+    order = models.IntegerField(verbose_name="显示顺序")
     available = models.BooleanField(verbose_name="已发布", default=True)
 
     class Meta:
@@ -66,7 +66,7 @@ class SecondaryMenu(models.Model):
     img = models.ImageField(verbose_name="展示图片", upload_to="img/Menu")
     available = models.BooleanField(verbose_name="已发布", default=True)
     parent = models.ForeignKey(MainMenu, verbose_name="父级菜单")
-    description = models.CharField(verbose_name="板块介绍", max_length=100, default="")
+    description = models.CharField(verbose_name="板块介绍", max_length=100)
 
     def save(self, force_insert=False, force_update=False, using=None,
              update_fields=None):
@@ -167,7 +167,7 @@ class News(models.Model):
     title = models.CharField(verbose_name="文章标题", max_length=20)
     url = models.URLField(verbose_name="文章链接", blank=True)
     push = models.OneToOneField("Article", verbose_name="推送文章标题")
-    category = models.CharField(verbose_name="分类", max_length=20, default="", choices=category_choice)
+    category = models.CharField(verbose_name="分类", max_length=20, choices=category_choice)
 
     class Meta:
         verbose_name = "首页推送"
@@ -188,7 +188,7 @@ class Article(models.Model):
     hits = models.IntegerField(verbose_name="点击量", default=0)
     parent = models.ForeignKey(SecondaryMenu, verbose_name="父级菜单")
     cover_img = models.ImageField(verbose_name="封面图片", upload_to="img/Article")
-    description = models.TextField(verbose_name="简介", default="")
+    description = models.TextField(verbose_name="简介")
 
     class Meta:
         verbose_name = "文章"
@@ -207,7 +207,7 @@ class Activity(models.Model):
     title = models.CharField(verbose_name="标题", max_length=20)
     text = models.TextField(verbose_name="活动简介", max_length=254)
     img = models.ImageField(verbose_name="有效活动封面", upload_to="img/Activity")
-    old_img = models.ImageField(verbose_name="过期活动封面", upload_to="img/Activity", default="")
+    old_img = models.ImageField(verbose_name="过期活动封面", upload_to="img/Activity")
     url = models.URLField(verbose_name="活动链接")
     author = models.ForeignKey(CustomUser, verbose_name="发布人")
     pub_date = models.DateField(verbose_name="发布日期")

@@ -15,8 +15,7 @@ class CustomUser(AbstractUser, models.Model):
     nickname = models.CharField(verbose_name="昵称", max_length=10)
     join_date = models.DateField(verbose_name="创建时间", default=timezone.now)
     last_login_date = models.DateField(verbose_name="上次登录时间", default=timezone.now)
-    use_token = models.BooleanField(verbose_name="使用动态验证码", default=False)
-    token = models.CharField(max_length=50, blank=True)
+    is_nktc = models.BooleanField(verbose_name="是否允许登录NKTC管理平台", default=False)
     locked = models.BooleanField(verbose_name="锁定账户", default=False)
     expire = models.DateField(verbose_name="账户有效期")
 

@@ -8,8 +8,6 @@ from django.contrib.auth import authenticate
 
 
 class CustomAuthenticationForm(AuthenticationForm, forms.Form):
-    token = forms.CharField(label="验证码", max_length=50, widget=forms.TextInput)
-
     error_messages = {
         'invalid_login': "请输入正确的用户名或密码，并确认验证码正确",
         'inactive': "账户未激活",
@@ -22,10 +20,9 @@ class CustomAuthenticationForm(AuthenticationForm, forms.Form):
     def clean(self):
         username = self.cleaned_data.get('username')
         password = self.cleaned_data.get('password')
-        token = self.cleaned_data.get('token')
 
-        if username and password and token:
-            self.user_cache = authenticate(username=username, password=password, token=token)
+        if username and password:
+            self.user_cache = authenticate(username=username, password=password)
             if self.user_cache is None:
                 raise forms.ValidationError(
                     self.error_messages['invalid_login'],
