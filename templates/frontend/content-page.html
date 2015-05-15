@@ -1,6 +1,6 @@
 {% extends "frontend/base.html" %}
 
-{% block title %}{{ main.name }} | 南开中学体验创意中心{% endblock %}
+{% block title %}{{ secondary.name }} | 南开中学体验创意中心{% endblock %}
 
 {% load staticfiles %}
 
@@ -46,7 +46,7 @@
 <div class="container breadcrumb-div">
     <ol class="breadcrumb">
         <span class="breadcrumb-title">您当前的位置：</span>
-        <li><a href="/">Home</a></li>
+        <li><a href="/">首页</a></li>
         <li><a href="{% url 'main_menu' main.codename %}">{{ main.name }}</a></li>
         <li><a href="{% url 'secondary_menu' main.codename secondary.codename %}">{{ secondary.name }}</a></li>
         <li class="active">{{ article.title }}</li>
@@ -79,7 +79,10 @@
                 <div class="col-xs-12">
                     <h5 class="page-share"> </h5>
                 </div>
-                <strong>Place comment plugin here.</strong>
+                <!-- UY BEGIN -->
+                <div id="uyan_frame"></div>
+                <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2020518"></script>
+                <!-- UY END -->
             </div>
         </div>
         <div class="col-md-3 col-xs-12 article-sidebar">

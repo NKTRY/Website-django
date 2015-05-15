@@ -48,7 +48,7 @@
         <div class="breadcrumb-div">
             <ol class="breadcrumb">
                 <span class="breadcrumb-title">您当前的位置：</span>
-                <li><a href="/">Home</a></li>
+                <li><a href="/">首页</a></li>
                 <li><a href="{% url 'main_menu' main.codename %}">{{ main.name }}</a></li>
                 <li class="active">{{ secondary.name }}</li>
             </ol>
@@ -98,6 +98,18 @@
                 </div>
                 <div class="present-activity-content">
                     <p>{{ activity.text }}</p>
+                </div>
+            </div>
+            {% else %}
+            <div class="row present-activity">
+                <img class="img-rounded" id="present-activity-img" src="/media/{{ activity.img.url }}" width="100%" alt="{{ activity.title }}"/>
+                <div class="present-activity-passage">
+                    <dl>
+                        <dt>{{ secondary.img }}</dt>
+                    </dl>
+                </div>
+                <div class="present-activity-content">
+                    <p>{{ secondary.description }}</p>
                 </div>
             </div>
             {% endif %}

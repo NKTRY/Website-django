@@ -11,21 +11,15 @@ from frontend.models import MainMenu, Slider, SecondaryMenu, News, Article, Acti
 def index(request):
     mains = MainMenu.objects.order_by("order")
     q = Q(id=-1)
-    nktc = MainMenu.objects.filter(codename="nktc")
-    nktc = SecondaryMenu.objects.filter(parent=nktc)
-    for item in nktc:
-        q = q | Q(category=item)
     slider = Slider.objects.order_by("push__pub_date")[:5]
     news = ()
     for obj in News.category_choice:
         news = news + (News.objects.filter(category=obj[0]).order_by("push__pub_date")[:7],)
     articles = Article.objects.order_by("pub_date")[:10]
-    activities = Activity.objects.filter(q).filter(end_date__gte=timezone.now())[:4]
+    activity = None
+    activity = Activity.objects.get(end_date__gte=timezone.now())
+    activities = Activity.objects.order_by("-id")[:4]
     choices = News.category_choice
-    if len(activities) != 0:
-        activity = activities[0]
-    else:
-        activity = []
     context = {
         "mains": mains,
         "slider": slider,
@@ -42,16 +36,10 @@ def main_menu(request, main):
     main = MainMenu.objects.get(codename=main)
     mains = MainMenu.objects.order_by("order")
     secondaries = SecondaryMenu.objects.filter(parent=main).order_by("order")
-    secondary = []
-    for i in range(1, len(secondaries)/4+2):
-        if 4*i > len(secondaries):
-            secondary.append(secondaries[4*(i-1):])
-        else:
-            secondary.append(secondaries[4*(i-1):4*i])
     context = {
         "main": main,
         "mains": mains,
-        "secondaries": secondary
+        "secondaries": secondaries
     }
     return render(request, "frontend/list-main.html", context)
 
@@ -61,10 +49,12 @@ def secondary_menu(request, main, secondary):
     secondary = SecondaryMenu.objects.get(codename=secondary)
     mains = MainMenu.objects.order_by("order")
     secondaries = SecondaryMenu.objects.filter(parent=main).order_by("order")
-    articles = Article.objects.filter(parent=secondary)[:10]
+    articles = Article.objects.filter(parent=secondary)[:7]
     slider = Slider.objects.filter(category=secondary)
-    activity = Activity.objects.filter(category=secondary)[:1][0] # TODO: expire
-    hot = Article.objects.order_by("hits")[:10]
+    activity = Activity.objects.filter(category=secondary, end_date__gte=timezone.now())[:1] # TODO: expire
+    if len(activity) != 0:
+        activity = activity[0]
+    hot = Article.objects.order_by("hits")[:7]
     context = {
         "main": main,
         "secondary": secondary,

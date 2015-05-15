@@ -89,7 +89,7 @@
                     {% for item in news.0 %}
                     <p>
                         <span class="glyphicon glyphicon-chevron-right"></span>
-                        {{ item.title }}
+                        <a href="{% url 'content' item.push.parent.parent.codename item.push.parent.codename item.push.id %}">{{ item.title }}</a>
                         {% if item.push.hits > 20 %}
                         <span class="label label-danger">HOT</span>
                         {% endif %}
@@ -100,7 +100,7 @@
                     {% for item in news.1 %}
                     <p>
                         <span class="glyphicon glyphicon-chevron-right"></span>
-                        {{ item.title }}
+                        <a href="{% url 'content' item.push.parent.parent.codename item.push.parent.codename item.push.id %}">{{ item.title }}</a>
                         {% if item.push.hits > 20 %}
                         <span class="label label-danger">HOT</span>
                         {% endif %}
@@ -111,7 +111,7 @@
                     {% for item in news.2 %}
                     <p>
                         <span class="glyphicon glyphicon-chevron-right"></span>
-                        {{ item.title }}
+                        <a href="{% url 'content' item.push.parent.parent.codename item.push.parent.codename item.push.id %}">{{ item.title }}</a>
                         {% if item.push.hits > 20 %}
                         <span class="label label-danger">HOT</span>
                         {% endif %}
@@ -128,12 +128,12 @@
     <div class="row">
         <div class="col-sm-9">
             <div class="col-xs-12">
-                {% if activity == None %}
+                {% if activity != None %}
                 <div class="row present-activity">
-                    <img class="img-rounded" id="present-activity-img" src="{{ activity.img.url }}" width="100%" alt="{{ activity.title }}"/>
+                    <a href="{{ activity.url }}"><img class="img-rounded" id="present-activity-img" src="/media/{{ activity.img.url }}" width="100%" alt="{{ activity.title }}"/></a>
                     <div class="present-activity-passage">
                         <dl>
-                            <dt>{{ activity.title }}</dt>
+                            <dt><a href="{{ activity.url }}">{{ activity.title }}</a></dt>
                             <dd>{{ activity.author }}[{{ activity.pub_date }}]</dd>
                         </dl>
                     </div>
@@ -146,7 +146,7 @@
         </div>
         <div class="col-xs-12 col-sm-3 history-activity">
             {% for item in activities %}
-            <img class="col-xs-6 col-sm-12 history-activity-1" src="/media/{{ item.img.url }}" width="100%" alt="{{ item.title }}"/>
+            <a href="{{ item.url }}"><img class="col-xs-6 col-sm-12 history-activity-1" src="/media/{{ item.old_img.url }}" width="100%" alt="{{ item.title }}"/></a>
             {% endfor %}
         </div>
     </div>
@@ -154,7 +154,7 @@
 
 <div class="container news">
     <div class="row news-banner">
-        <h4>LATEST NEWS</h4>
+        <h4>最新动态</h4>
         <hr/>
     </div>
     {% for item in articles %}
@@ -167,10 +167,10 @@
         </div>
         <div class="row">
             <div class="col-xs-12 col-sm-4">
-                <img src="/media/{{ item.cover_img }}" width="100%" alt="news"/>
+                <a href="{% url 'content' item.parent.parent.codename item.parent.codename item.id %}"><img src="/media/{{ item.cover_img }}" width="100%" alt="news"/></a>
             </div>
             <div class="col-xs-12 col-sm-8">
-                <h3 class="news-title">{{ item.title }}</h3>
+                <h3 class="news-title"><a href="{% url 'content' item.parent.parent.codename item.parent.codename item.id %}">{{ item.title }}</a></h3>
                 <p class="news-des">{{ item.description }}</p>
             </div>
         </div>

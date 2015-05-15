@@ -46,24 +46,22 @@
 <div class="container breadcrumb-div">
     <ol class="breadcrumb">
         <span class="breadcrumb-title">您当前的位置：</span>
-        <li><a href="/">Home</a></li>
+        <li><a href="/">首页</a></li>
         <li>{{ main.name }}</li>
     </ol>
 </div>
 
 <div class="container">
-	{% for items in secondaries %}
     <div class="row main_menu_list">
-    	{% for item in items %}
+    	{% for item in secondaries %}
         <div class="col-md-3 col-xs-4">
             <a href="{% url 'secondary_menu' item.parent.codename item.codename %}" class="thumbnail">
-                <img src="test-img/ac1.jpg" alt="...">
+                <img src="/media/{{ item.img.url }}" alt="{{ item.name }}">
                 <h4 class="text-center">{{ item.name }}</h4>
             </a>
         </div>
         {% endfor %}
     </div>
-    {% endfor %}
 </div>
 
 <div class="container-fluid footer">
