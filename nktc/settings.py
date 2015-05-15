@@ -78,7 +78,7 @@ DATABASES = {
         'NAME': 'NKTRY',
         'USER': 'root',
         'PASSWORD': '',
-        'HOST': '/var/lib/mysql/mysql.sock',
+        'HOST': '127.0.0.1',
         'PORT': '3306'
     }
 }
