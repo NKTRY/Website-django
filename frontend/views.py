@@ -9,7 +9,7 @@ from frontend.models import MainMenu, Slider, SecondaryMenu, News, Article, Acti
 
 
 def index(request):
-    mains = MainMenu.objects.order_by("order")
+    mains = MainMenu.objects.filter(available=True).order_by("order")
     q = Q(id=-1)
     slider = Slider.objects.order_by("push__pub_date")[:5]
     news = ()
@@ -37,7 +37,7 @@ def index(request):
 
 def main_menu(request, main):
     main = MainMenu.objects.get(codename=main)
-    mains = MainMenu.objects.order_by("order")
+    mains = MainMenu.objects.filter(available=True).order_by("order")
     secondaries = SecondaryMenu.objects.filter(parent=main).order_by("order")
     context = {
         "main": main,
@@ -50,7 +50,7 @@ def main_menu(request, main):
 def secondary_menu(request, main, secondary):
     main = MainMenu.objects.get(codename=main)
     secondary = SecondaryMenu.objects.get(codename=secondary)
-    mains = MainMenu.objects.order_by("order")
+    mains = MainMenu.objects.filter(available=True).order_by("order")
     secondaries = SecondaryMenu.objects.filter(parent=main).order_by("order")
     articles = Article.objects.filter(parent=secondary)[:7]
     slider = Slider.objects.filter(category=secondary)
@@ -74,7 +74,7 @@ def secondary_menu(request, main, secondary):
 def secondary_menu_all(request, main, secondary):
     main = MainMenu.objects.get(codename=main)
     secondary = SecondaryMenu.objects.get(codename=secondary)
-    mains = MainMenu.objects.order_by("order")
+    mains = MainMenu.objects.filter(available=True).order_by("order")
     secondaries = SecondaryMenu.objects.filter(parent=main).order_by("order")
     articles = Article.objects.filter(parent=secondary)
     hot = Article.objects.order_by("hits")[:10]
@@ -104,7 +104,7 @@ def search(request):
             return redirect("index")
         q = Q(title__contains=keyword) | Q(text__contains=keyword) | Q(author__nickname=keyword)
         articles = Article.objects.filter(q).order_by('pub_date')[:7]
-        mains = MainMenu.objects.order_by("order")
+        mains = MainMenu.objects.filter(available=True).order_by("order")
         hot = Article.objects.order_by("hits")[:7]
         context = {
             "mains": mains,
@@ -122,7 +122,7 @@ def content(request, main, secondary, id):
     secondary = SecondaryMenu.objects.get(codename=secondary)
     article = Article.objects.get(pk=id)
     article.hit()
-    mains = MainMenu.objects.order_by("order")
+    mains = MainMenu.objects.filter(available=True).order_by("order")
     secondaries = SecondaryMenu.objects.filter(parent=main).order_by("order")
     q = Q(id=-1)
     for item in secondaries:
