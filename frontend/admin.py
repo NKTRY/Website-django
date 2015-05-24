@@ -133,9 +133,10 @@ class MainMenuAdmin(admin.ModelAdmin):
         return qs.filter(q)
 
     def save_model(self, request, obj, form, change):
+        model = MainMenu.objects.get(pk=obj.id)
         for permission in ["add", "delete", "change"]:
             try:
-                codename = permission + "_" + obj.codename + "_articles"
+                codename = permission + "_" + model.codename + "_articles"
                 permission = Permission.objects.get(codename=codename)
                 permission.delete()
             except:
@@ -182,9 +183,10 @@ class SecondaryMenuAdmin(admin.ModelAdmin):
         return qs.filter(q)
 
     def save_model(self, request, obj, form, change):
+        model = MainMenu.objects.get(pk=obj.id)
         for permission in ["add", "delete", "change"]:
             try:
-                codename = permission + "_" + obj.codename + "_articles"
+                codename = permission + "_" + model.codename + "_articles"
                 permission = Permission.objects.get(codename=codename)
                 permission.delete()
             except:
