@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 from django.contrib import admin
+from django.contrib.auth.models import Permission
+from django.contrib.contenttypes.models import ContentType
 from django.db.models import Q
 from django.utils import timezone
 
@@ -130,6 +132,16 @@ class MainMenuAdmin(admin.ModelAdmin):
                 q = q | Q(codename=item.codename)
         return qs.filter(q)
 
+    def save_model(self, request, obj, form, change):
+        for permission in ["add", "delete", "change"]:
+            try:
+                codename = permission + "_" + obj.codename + "_articles"
+                permission = Permission.objects.get(codename=codename)
+                permission.delete()
+            except:
+                pass
+        obj.save()
+
 
 class SecondaryMenuAdmin(admin.ModelAdmin):
     fieldsets = (
@@ -168,6 +180,16 @@ class SecondaryMenuAdmin(admin.ModelAdmin):
             if request.user.has_perm("frontend.change_"+item.codename+"_articles"):
                 q = q | Q(codename=item.codename)
         return qs.filter(q)
+
+    def save_model(self, request, obj, form, change):
+        for permission in ["add", "delete", "change"]:
+            try:
+                codename = permission + "_" + obj.codename + "_articles"
+                permission = Permission.objects.get(codename=codename)
+                permission.delete()
+            except:
+                pass
+        obj.save()
 
 
 class NormalSliderAdmin(admin.ModelAdmin):
