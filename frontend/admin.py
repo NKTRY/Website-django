@@ -133,14 +133,17 @@ class MainMenuAdmin(admin.ModelAdmin):
         return qs.filter(q)
 
     def save_model(self, request, obj, form, change):
-        model = MainMenu.objects.get(pk=obj.id)
-        for permission in ["add", "delete", "change"]:
-            try:
-                codename = permission + "_" + model.codename + "_articles"
-                permission = Permission.objects.get(codename=codename)
-                permission.delete()
-            except:
-                pass
+        try:
+            model = MainMenu.objects.get(pk=obj.id)
+            for permission in ["add", "delete", "change"]:
+                try:
+                    codename = permission + "_" + model.codename + "_articles"
+                    permission = Permission.objects.get(codename=codename)
+                    permission.delete()
+                except:
+                    pass
+        except:
+            pass
         obj.save()
 
 
@@ -183,16 +186,18 @@ class SecondaryMenuAdmin(admin.ModelAdmin):
         return qs.filter(q)
 
     def save_model(self, request, obj, form, change):
-        model = MainMenu.objects.get(pk=obj.id)
-        for permission in ["add", "delete", "change"]:
-            try:
-                codename = permission + "_" + model.codename + "_articles"
-                permission = Permission.objects.get(codename=codename)
-                permission.delete()
-            except:
-                pass
+        try:
+            model = MainMenu.objects.get(pk=obj.id)
+            for permission in ["add", "delete", "change"]:
+                try:
+                    codename = permission + "_" + model.codename + "_articles"
+                    permission = Permission.objects.get(codename=codename)
+                    permission.delete()
+                except:
+                    pass
+        except:
+            pass
         obj.save()
-
 
 class NormalSliderAdmin(admin.ModelAdmin):
     fieldsets = (("幻灯片内容", {"fields": ("text", "img", "url", "push", "category")}),)
