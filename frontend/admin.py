@@ -195,6 +195,18 @@ class SecondaryMenuAdmin(admin.ModelAdmin):
                     permission.delete()
                 except:
                     pass
+                try:
+                    codename = permission + "_" + model.codename + "_sliders"
+                    permission = Permission.objects.get(codename=codename)
+                    permission.delete()
+                except:
+                    pass
+                try:
+                    codename = permission + "_" + model.codename + "_activities"
+                    permission = Permission.objects.get(codename=codename)
+                    permission.delete()
+                except:
+                    pass
         except:
             pass
         obj.save()
