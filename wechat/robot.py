@@ -22,7 +22,6 @@ def subscribe(message):
         敬请关注我们~如果你有好的建议，请发给我们哦~
         """
 
-'''
 @robot.unsubscribe
 def unsubscribe(message):
     try:
@@ -83,4 +82,4 @@ def dialogue(message):
     wechat_dialogue = WechatDialogue(content=content, user=wechat_user)
     wechat_dialogue.save()  # TODO: 发送邮件给运营人员，提醒回复
     send = TextReply(message=message, content="消息已经收到啦~我们会尽快回复你哒~")
-    return send'''
+    return send
