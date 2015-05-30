@@ -2,15 +2,11 @@
 from __future__ import unicode_literals
 
 from werobot import WeRoBot
-from werobot.utils import generate_token
 from werobot.reply import TextReply, ArticlesReply, Article
 
 from wechat.models import Message, Articles, WechatDialogue, WechatUser
-from vote.models import VoteUser, Vote
+from vote.models import VoteUser, Vote, Question
 
-import re
-
-from vote.models import Question
 
 robot = WeRoBot(token='a16sJvhernrFeUZSrnKNKzIJMqt4G', enable_session=False)
 
@@ -26,6 +22,7 @@ def subscribe(message):
         敬请关注我们~如果你有好的建议，请发给我们哦~
         """
 
+'''
 @robot.unsubscribe
 def unsubscribe(message):
     try:
@@ -86,4 +83,4 @@ def dialogue(message):
     wechat_dialogue = WechatDialogue(content=content, user=wechat_user)
     wechat_dialogue.save()  # TODO: 发送邮件给运营人员，提醒回复
     send = TextReply(message=message, content="消息已经收到啦~我们会尽快回复你哒~")
-    return send
+    return send'''
