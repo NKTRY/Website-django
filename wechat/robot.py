@@ -8,7 +8,7 @@ from wechat.models import Message, Articles, WechatDialogue, WechatUser
 from vote.models import VoteUser, Vote, Question
 
 
-robot = WeRoBot(token='a16sJvhernrFeUZSrnKNKzIJMqt4G', enable_session=False)
+robot = WeRoBot(token='a16sJvhernrFeUZSrnKNKzIJMqt4G')
 
 @robot.subscribe
 def subscribe(message):
