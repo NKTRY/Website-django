@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.conf.urls import patterns, url
+from django.conf.urls import patterns, url, include
 from frontend.views import index, main_menu, secondary_menu, secondary_menu_all, search, content
 
 urlpatterns = patterns('',
