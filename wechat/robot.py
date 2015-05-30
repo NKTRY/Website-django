@@ -12,12 +12,19 @@ import re
 
 from vote.models import Question
 
-robot = WeRoBot(token=generate_token(), enable_session=False)
+robot = WeRoBot(token='a16sJvhernrFeUZSrnKNKzIJMqt4G', enable_session=False)
 
 @robot.subscribe
 def subscribe(message):
-    return 'Hello World!'
+    return """
+        欢迎关注创新人才。 mo-可爱
 
+        这里
+        会有高端的科技介绍，会有唯美的文艺散文
+        会有精彩的社团展示，会有高雅的艺术展演
+
+        敬请关注我们~如果你有好的建议，请发给我们哦~
+        """
 
 @robot.unsubscribe
 def unsubscribe(message):
@@ -61,7 +68,7 @@ def reply_article(message):
         article = Article(
             title=r.title,
             description=r.text,
-            img=r.img,  # TODO: 替换为对应图片链接
+            img='/media/' + r.img.url,  # TODO: 替换为对应图片链接
             url=r.url
         )
         send.add_article(article)
