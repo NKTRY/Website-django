@@ -150,8 +150,8 @@ class Slider(models.Model):
     category = models.ForeignKey(SecondaryMenu, verbose_name="分类")
 
     class Meta:
-        verbose_name = "首页幻灯片"
-        verbose_name_plural = "首页幻灯片"
+        verbose_name = "幻灯片推送"
+        verbose_name_plural = "幻灯片推送"
 
     def __unicode__(self):
         return self.text
@@ -170,8 +170,8 @@ class News(models.Model):
     category = models.CharField(verbose_name="分类", max_length=20, choices=category_choice)
 
     class Meta:
-        verbose_name = "首页推送"
-        verbose_name_plural = "首页推送"
+        verbose_name = "首页热点推送"
+        verbose_name_plural = "首页热点推送"
 
     def __unicode__(self):
         return self.title
