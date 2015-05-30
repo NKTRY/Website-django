@@ -38,7 +38,7 @@ def unsubscribe(message):
         pass
 
 
-@robot.filter(re.compile("投票"))
+@robot.filter("投票")
 def reply_vote(message):
     votes = Question.objects.all()
     user = VoteUser(openid=message.source)
@@ -54,16 +54,18 @@ def reply_vote(message):
 @robot.text
 def reply(message):
     content = message.content.strip()
-    r = Message.objects.get(keyword=content)
-    if r != []:
+    try:
+        r = Message.objects.get(keyword=content)
         send = TextReply(message=message, content=r.reply)
         return send
+    except:
+        pass
 
 @robot.text
 def reply_article(message):
     content = message.content.strip()
-    r = Articles.objects.get(keyword=content)
-    if r != []:
+    try:
+        r = Articles.objects.get(keyword=content)
         send = ArticlesReply(message=message)
         article = Article(
             title=r.title,
@@ -73,6 +75,8 @@ def reply_article(message):
         )
         send.add_article(article)
         return send
+    except:
+        pass
 
 @robot.text
 def dialogue(message):
