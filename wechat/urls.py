@@ -6,5 +6,5 @@ from wechat.robot import robot
 from django_werobot import make_view
 
 urlpatterns = patterns('',
-    url(r'^werobot/', make_view(robot)),
+    url(r'^$', make_view(robot)),
 )
