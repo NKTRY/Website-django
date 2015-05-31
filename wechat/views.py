@@ -1,17 +1,10 @@
 from django.shortcuts import render
 
 # Create your views here.
-from werobot import WeRoBot
+from werobot.reply import create_reply
 from werobot.parser import parse_user_msg
 from django.http import HttpResponse, HttpResponseForbidden, HttpResponseNotAllowed
-
-
-robot = WeRoBot(token='a16sJvhernrFeUZSrnKNKzIJMqt4G')
-
-
-@robot.handler
-def hello(message):
-    return 'Hello World!'
+from wechat.robot import robot
 
 
 def werobot_view(request):
@@ -31,7 +24,7 @@ def werobot_view(request):
         message = parse_user_msg(body)
         reply = robot.get_reply(message)
         return HttpResponse(
-            reply,
+            create_reply(reply, message=message),
             content_type="application/xml;charset=utf-8"
         )
     return HttpResponseNotAllowed(['GET', 'POST'])
