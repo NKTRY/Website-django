@@ -8,6 +8,7 @@ from wechat.robot import robot
 
 
 def werobot_view(request):
+    f = open("/alidata/tmp.txt", "a")
     timestamp = request.GET.get("timestamp", "")
     nonce = request.GET.get("nonce", "")
     signature = request.GET.get("signature", "")
@@ -16,15 +17,20 @@ def werobot_view(request):
         nonce=nonce,
         signature=signature
     ):
+        print >> f, "Forbidden"
         return HttpResponseForbidden()
     if request.method == "GET":
+        print >> f, "GET"
         return HttpResponse(request.GET["echostr"])
     elif request.method == "POST":
         body = request.body
         message = parse_user_msg(body)
         reply = robot.get_reply(message)
+        print >> f, "POST: %s"%create_reply(reply, message=message)
         return HttpResponse(
             create_reply(reply, message=message),
             content_type="application/xml;charset=utf-8"
         )
+    print >> f, "NotAllowed"
+    f.close()
     return HttpResponseNotAllowed(['GET', 'POST'])
