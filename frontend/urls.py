@@ -4,6 +4,10 @@ from __future__ import unicode_literals
 from django.conf.urls import patterns, url, include
 from frontend.views import index, main_menu, secondary_menu, secondary_menu_all, search, content
 
+from django_werobot import make_view
+from wechat.robot import robot
+
+
 urlpatterns = patterns('',
     url(r'^$', index, name='index'),
     url(r'^s/(?P<main>\w+)/$', main_menu, name="main_menu"),
@@ -11,5 +15,6 @@ urlpatterns = patterns('',
     url(r'^a/(?P<main>\w+)/(?P<secondary>\w+)/$', secondary_menu_all, name="secondary_menu_all"),
     url(r'^search/$', search, name="search"),
     url(r'^s/(?P<main>\w+)/(?P<secondary>\w+)/(?P<id>\d+)/$', content, name="content"),
-    url(r'^ueditor/',include('DjangoUeditor.urls'))
+    url(r'^ueditor/',include('DjangoUeditor.urls')),
+    url(r'^robot/', make_view(robot))
 )
