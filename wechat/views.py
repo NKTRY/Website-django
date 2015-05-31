@@ -23,10 +23,12 @@ def werobot_view(request):
         print >> f, "GET"
         return HttpResponse(request.GET["echostr"])
     elif request.method == "POST":
-        body = request.body
-        message = parse_user_msg(body)
-        reply = robot.get_reply(message)
-        print >> f, "POST: %s"%create_reply(reply, message=message)
+        try:
+            body = request.body
+            message = parse_user_msg(body)
+            reply = robot.get_reply(message)
+        except:
+            print >> f, "POST:"
         return HttpResponse(
             create_reply(reply, message=message),
             content_type="application/xml;charset=utf-8"
