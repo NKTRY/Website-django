@@ -1,6 +1,7 @@
 from django.shortcuts import render
 
 # Create your views here.
+from werobot import WeRoBot
 from werobot.parser import parse_user_msg
 from django.http import HttpResponse, HttpResponseForbidden, HttpResponseNotAllowed
 
