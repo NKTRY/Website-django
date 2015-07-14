@@ -12,6 +12,8 @@ def index(request):
     mains = MainMenu.objects.filter(available=True).order_by("order")
     q = Q(id=-1)
     slider = Slider.objects.order_by("push__pub_date")[:5]
+    if len(slider) == 0:
+        slider = None
     news = ()
     for obj in News.category_choice:
         news = news + (News.objects.filter(category=obj[0]).order_by("push__pub_date")[:7],)
@@ -54,6 +56,8 @@ def secondary_menu(request, main, secondary):
     secondaries = SecondaryMenu.objects.filter(parent=main).order_by("order")
     articles = Article.objects.filter(parent=secondary)[:7]
     slider = Slider.objects.filter(category=secondary)
+    if len(slider) == 0:
+        slider = None
     activity = Activity.objects.filter(category=secondary, end_date__gte=timezone.now())[:1] # TODO: expire
     if len(activity) != 0:
         activity = activity[0]
