@@ -57,6 +57,8 @@
            <div id="slider" class="carousel slide" data-ride="carousel">
                 <!-- Wrapper for slides -->
                 <div class="carousel-inner" role="listbox">
+                    {{ slider }}
+                    {% if slider != None %}
                     {% for slider_item in slider %}
                     {% if slider_item == slider.0 %}
                     <div class="item active">
@@ -76,6 +78,15 @@
                     </div>
                     {% endif %}
                     {% endfor %}
+                    {% else %}
+                    <div class="item active">
+                        <a href="#"><img src="{% static "frontend/img/no-active-slider.jpg" %}" width="100%" alt="..."></img></a>
+                        <div class="carousel-caption">
+                            <h5>暂时没有展示中的内容呢0.0</h5>
+                            <p>暂无信息</p>
+                        </div>
+                    </div>
+                    {% endif %}
                 </div>
                 <!-- Controls-->
                 <a class="left carousel-control" href="#slider" role="button" data-slide="prev">
