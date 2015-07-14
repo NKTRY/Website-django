@@ -77,7 +77,7 @@ def secondary_menu_all(request, main, secondary):
     mains = MainMenu.objects.filter(available=True).order_by("order")
     secondaries = SecondaryMenu.objects.filter(parent=main).order_by("order")
     articles = Article.objects.filter(parent=secondary)
-    hot = Article.objects.order_by("hits")[:10]
+    hot = Article.objects.order_by("hits")[:7]
     articles = Paginator(articles, 7)
     page = request.GET.get('page')
     try:
