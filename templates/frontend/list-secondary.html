@@ -93,7 +93,7 @@
                 <div class="present-activity-passage">
                     <dl>
                         <dt>{{ activity.title }}</dt>
-                        <dd>{{ activity.author }}[{{ activity.pub_date }}]</dd>
+                        <dd>{{ activity.author.nickname }}[{{ activity.pub_date }}]</dd>
                     </dl>
                 </div>
                 <div class="present-activity-content">
@@ -102,10 +102,10 @@
             </div>
             {% else %}
             <div class="row present-activity">
-                <img class="img-rounded" id="present-activity-img" src="/media/{{ activity.img.url }}" width="100%" alt="{{ activity.title }}"/>
+                <img class="img-rounded" id="present-activity-img" src="/media/{{ secondary.img.url }}" width="100%" alt="{{ secondary.name }}"/>
                 <div class="present-activity-passage">
                     <dl>
-                        <dt>{{ secondary.img }}</dt>
+                        <dt>{{ secondary.name }}</dt>
                     </dl>
                 </div>
                 <div class="present-activity-content">
