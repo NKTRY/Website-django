@@ -57,6 +57,8 @@ def secondary_menu(request, main, secondary):
     activity = Activity.objects.filter(category=secondary, end_date__gte=timezone.now())[:1] # TODO: expire
     if len(activity) != 0:
         activity = activity[0]
+    else:
+        activity = None
     hot = Article.objects.order_by("hits")[:7]
     context = {
         "main": main,
