@@ -99,7 +99,7 @@
                     {% for item in news.0 %}
                     <p>
                         <span class="glyphicon glyphicon-chevron-right"></span>
-                        <a href="{{ item.url }}">{{ item.title }}</a>
+                        <a href="{% if item.url == "" %}{% url 'content' item.push.parent.parent.codename item.push.parent.codename item.push.id %}{% else %}{{ item.url }}{% endif %}">{{ item.title }}</a>
                         {% if item.push.hits > 20 %}
                         <span class="label label-danger">HOT</span>
                         {% endif %}
@@ -110,7 +110,7 @@
                     {% for item in news.1 %}
                     <p>
                         <span class="glyphicon glyphicon-chevron-right"></span>
-                        <a href="{{ item.url }}">{{ item.title }}</a>
+                        <a href="{% if item.url == "" %}{% url 'content' item.push.parent.parent.codename item.push.parent.codename item.push.id %}{% else %}{{ item.url }}{% endif %}">{{ item.title }}</a>
                         {% if item.push.hits > 20 %}
                         <span class="label label-danger">HOT</span>
                         {% endif %}
@@ -121,7 +121,7 @@
                     {% for item in news.2 %}
                     <p>
                         <span class="glyphicon glyphicon-chevron-right"></span>
-                        <a href="{{ item.url }}">{{ item.title }}</a>
+                        <a href="{% if item.url == "" %}{% url 'content' item.push.parent.parent.codename item.push.parent.codename item.push.id %}{% else %}{{ item.url }}{% endif %}">{{ item.title }}</a>
                         {% if item.push.hits > 20 %}
                         <span class="label label-danger">HOT</span>
                         {% endif %}

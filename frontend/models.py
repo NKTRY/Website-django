@@ -202,13 +202,6 @@ class News(models.Model):
         verbose_name = "首页热点推送"
         verbose_name_plural = "首页热点推送"
 
-    def save(self, force_insert=False, force_update=False, using=None,
-             update_fields=None):
-        if self.url == "":
-            self.url = reverse('content', kwargs={"main": self.push.parent.parent.codename,"secondary": self.push.parent.codename,"id":self.push.id})
-        result = super(News, self).save()
-        return result
-
     def __unicode__(self):
         return self.title
 
