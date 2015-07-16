@@ -205,7 +205,7 @@ class News(models.Model):
     def save(self, force_insert=False, force_update=False, using=None,
              update_fields=None):
         if self.url == "":
-            self.url = reverse('content', args=(self.push.parent.parent.codename,self.push.parent.codename,self.push.id))
+            self.url = reverse('content', kwargs={"main": self.push.parent.parent.codename,"secondary": self.push.parent.codename,"id":self.push.id})
         result = super(News, self).save()
         return result
 
