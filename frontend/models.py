@@ -26,10 +26,22 @@ class MainMenu(models.Model):
     def save(self, force_insert=False, force_update=False, using=None,
              update_fields=None):
         try:
-            content_type = ContentType.objects.get(app_label="frontend", model="Article")
+            content_type1 = ContentType.objects.get(app_label="frontend", model="Article")
         except:
-            content_type = ContentType(app_label="frontend", model="Article", name="文章板块权限")
-            content_type.save()
+            content_type1 = ContentType(app_label="frontend", model="Article", name="文章板块权限")
+            content_type1.save()
+
+        try:
+            content_type2 = ContentType.objects.get(app_label="frontend", model="Slider")
+        except:
+            content_type2 = ContentType(app_label="frontend", model="Slider", name="幻灯片推送权限")
+            content_type2.save()
+
+        try:
+            content_type3 = ContentType.objects.get(app_label="frontend", model="Activity")
+        except:
+            content_type3 = ContentType(app_label="frontend", model="Activity", name="活动发布权限")
+            content_type3.save()
 
         translate = {"add": "添加", "delete": "删除", "change": "修改"}
         for permission in ["add", "delete", "change"]:
@@ -39,7 +51,23 @@ class MainMenu(models.Model):
             except:
                 name = "允许" + translate[permission] + " " + self.name + " 内的文章"
                 codename = permission + "_" + self.codename + "_articles"
-                p = Permission(name=name, content_type=content_type, codename=codename)
+                p = Permission(name=name, content_type=content_type1, codename=codename)
+                p.save()
+            try:
+                codename = permission + "_" + self.codename + "_sliders"
+                Permission.objects.get(codename=codename)
+            except:
+                name = "允许" + translate[permission] + " " + self.name + " 内的幻灯片"
+                codename = permission + "_" + self.codename + "_sliders"
+                p = Permission(name=name, content_type=content_type2, codename=codename)
+                p.save()
+            try:
+                codename = permission + "_" + self.codename + "_activities"
+                Permission.objects.get(codename=codename)
+            except:
+                name = "允许" + translate[permission] + " " + self.name + " 内的活动"
+                codename = permission + "_" + self.codename + "_activities"
+                p = Permission(name=name, content_type=content_type3, codename=codename)
                 p.save()
         if self.order == None:
             self.order = self.id

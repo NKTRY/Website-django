@@ -244,7 +244,8 @@ class NormalSliderAdmin(admin.ModelAdmin):
         secondary = SecondaryMenu.objects.all()
         for item in secondary:
             perm = "frontend.change_"+item.codename+"_sliders"
-            if request.user.has_perm(perm):
+            perm_p = "frontend.change_"+item.parent.codename+"_sliders"
+            if request.user.has_perm(perm) or request.user.has_perm(perm_p):
                 q = q | Q(category=item)
         return qs.filter(q)
 
@@ -282,7 +283,8 @@ class SuperSliderAdmin(admin.ModelAdmin):
         secondary = SecondaryMenu.objects.all()
         for item in secondary:
             perm = "frontend.change_"+item.codename+"_sliders"
-            if request.user.has_perm(perm):
+            perm_p = "frontend.change_"+item.parent.codename+"_sliders"
+            if request.user.has_perm(perm) or request.user.has_perm(perm_p):
                 q = q | Q(category=item)
         return qs.filter(q)
 
@@ -313,7 +315,8 @@ class SuperActivityAdmin(admin.ModelAdmin):
         secondary = SecondaryMenu.objects.all()
         for item in secondary:
             perm = "frontend.change_"+item.codename+"_activities"
-            if request.user.has_perm(perm):
+            perm_p = "frontend.change_"+item.parent.codename+"_activities"
+            if request.user.has_perm(perm) or request.user.has_perm(perm_p):
                 q = q | Q(category=item)
         return qs.filter(q)
 
@@ -344,7 +347,8 @@ class NormalActivityAdmin(admin.ModelAdmin):
         secondary = SecondaryMenu.objects.all()
         for item in secondary:
             perm = "frontend.change_"+item.codename+"_activities"
-            if request.user.has_perm(perm):
+            perm_p = "frontend.change_"+item.parent.codename+"_activities"
+            if request.user.has_perm(perm) or request.user.has_perm(perm_p):
                 q = q | Q(category=item)
         return qs.filter(q)
 
