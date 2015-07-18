@@ -1,12 +1,39 @@
-{% extends "admin/base_site.html" %}
-{% load i18n %}
-
-{% block title %}{% trans 'Page not found' %}{% endblock %}
-
-{% block content %}
-
-<h2>{% trans 'Page not found' %}</h2>
-
-<p>{% trans "We're sorry, but the requested page could not be found." %}</p>
-
-{% endblock %}
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>404 error page</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<link rel="stylesheet" href="/static/frontend/css/404.css"/>
+</head>
+<body>
+	<!-----start-wrap--------->
+	<div class="wrap">
+		<!-----start-content--------->
+		<div class="content">
+			<!-----start-logo--------->
+			<div class="logo">
+				<h1><a href="#"><img src="/static/frontend/img/404.png"/></a></h1>
+				<span><img src="/static/frontend/img/signal.png"/>Oops! The Page you requested was not found!</span>
+			</div>
+			<!-----end-logo--------->
+			<!-----start-search-bar-section--------->
+			<div class="buttom">
+				<div class="seach_bar">
+					<p>you can go to <span><a href="/">home</a></span> page or search here</p>
+					<!-----start-sear-box--------->
+					<div class="search_box">
+					<form>
+					    <input type="text" placeholder="您想知道...">
+					    <input type="submit">
+				    </form>
+					 </div>
+				</div>
+			</div>
+			<!-----end-sear-bar--------->
+		</div>
+		<!----copy-right-------------->
+	
+	<!---------end-wrap---------->
+</body>
+</html>
