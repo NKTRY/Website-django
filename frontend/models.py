@@ -80,6 +80,12 @@ class MainMenu(models.Model):
             codename = permission + "_" + self.codename + "_articles"
             p = Permission.objects.get(codename=codename)
             p.delete()
+            codename = permission + "_" + self.codename + "_sliders"
+            p = Permission.objects.get(codename=codename)
+            p.delete()
+            codename = permission + "_" + self.codename + "_activities"
+            p = Permission.objects.get(codename=codename)
+            p.delete()
         result = super(MainMenu, self).delete()
         return result
 
