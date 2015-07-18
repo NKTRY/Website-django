@@ -159,7 +159,7 @@ body {
 	height: 25px;
 	outline: none;
 	-webkit-appearance:none;
-	top: 0;
+	top: 4px;
 }
 /*****copy-right*****/
 .copy_right  {
