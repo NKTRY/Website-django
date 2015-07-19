@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+import requests
+
 from django.db import models
 from django.core.urlresolvers import reverse
 from django.contrib.contenttypes.models import ContentType
@@ -232,6 +234,18 @@ class Article(models.Model):
     def hit(self):
         self.hits += 1
         self.save()
+
+    def save(self, force_insert=False, force_update=False, using=None,
+             update_fields=None):
+        try:
+            url = "http://data.zz.baidu.com/urls"
+            querystring = {"site":"www.nktry.com","token":"2xjnUaccjgEVHUYI"}
+            payload = 'http://nktry.com/'+reverse('content', args=(self.parent.parent.codename, self.parent.codename, self.id))
+            response = requests.request("POST", url, data=payload, params=querystring)
+            result = super(Article, self).save()
+        except:
+            result = super(Article, self).save()
+        return result
 
     def __unicode__(self):
         return self.title
