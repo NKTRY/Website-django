@@ -1,13 +1,14 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-import requests
+import requests, time
 
 from django.db import models
 from django.core.urlresolvers import reverse
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth.models import Permission
 from django.utils.translation import ugettext_lazy as _
+from django.utils import timezone
 
 from accounts.models import CustomUser
 
@@ -226,6 +227,8 @@ class Article(models.Model):
     parent = models.ForeignKey(SecondaryMenu, verbose_name="父级菜单")
     cover_img = models.ImageField(verbose_name="封面图片", upload_to="img/Article", help_text="推荐尺寸: 600px*325px [其他尺寸请保持长宽比相同]")
     description = models.TextField(verbose_name="简介")
+    create_date = models.DateTimeField(verbose_name="创建时间", default=timezone.now)
+    modify_date = models.DateTimeField(verbose_name="修改时间", default=timezone.now)
 
     class Meta:
         verbose_name = "文章"
@@ -237,14 +240,17 @@ class Article(models.Model):
 
     def save(self, force_insert=False, force_update=False, using=None,
              update_fields=None):
-        try:
-            url = "http://data.zz.baidu.com/urls"
-            querystring = {"site":"www.nktry.com","token":"2xjnUaccjgEVHUYI"}
-            payload = 'http://nktry.com/'+reverse('content', args=(self.parent.parent.codename, self.parent.codename, self.id))
-            response = requests.request("POST", url, data=payload, params=querystring)
-            result = super(Article, self).save()
-        except:
-            result = super(Article, self).save()
+        if self.create_date == self.modify_date:
+            try:
+                url = "http://data.zz.baidu.com/urls"
+                querystring = {"site":"www.nktry.com","token":"2xjnUaccjgEVHUYI"}
+                payload = 'http://nktry.com/'+reverse('content', args=(self.parent.parent.codename, self.parent.codename, self.id))
+                response = requests.request("POST", url, data=payload, params=querystring)
+                time.sleep(0.1)
+            except:
+                pass
+        self.modify_date = timezone.now()
+        result = super(Article, self).save()
         return result
 
     def __unicode__(self):
