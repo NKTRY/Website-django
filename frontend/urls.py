@@ -11,6 +11,5 @@ urlpatterns = patterns('',
     url(r'^s/(?P<main>\w+)/(?P<secondary>\w+)/$', secondary_menu, name="secondary_menu"),
     url(r'^a/(?P<main>\w+)/(?P<secondary>\w+)/$', secondary_menu_all, name="secondary_menu_all"),
     url(r'^search/$', search, name="search"),
-    url(r'^s/(?P<main>\w+)/(?P<secondary>\w+)/(?P<id>\d+)/$', content, name="content"),
-    url(r'^ueditor/',include('DjangoUeditor.urls'))
+    url(r'^s/(?P<main>\w+)/(?P<secondary>\w+)/(?P<id>\d+)/$', content, name="content")
 )
