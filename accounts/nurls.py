@@ -10,5 +10,5 @@ urlpatterns = patterns('',
     # url(r'^blog/', include('blog.urls')),
 
     url(r'^', include(normaladminsite.urls)),
-    url(r'^ueditor/',include('DjangoUeditor.urls'))
+    url(r'^ueditor/',include('Ueditor.urls'))
 )
