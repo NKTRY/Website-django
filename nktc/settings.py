@@ -40,7 +40,7 @@ INSTALLED_APPS = (
     'frontend',
     'vote',
     'wechat',
-    'DjangoUeditor',
+    'Ueditor',
     'django_hosts',
 )
 
