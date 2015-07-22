@@ -22,7 +22,7 @@ UEditorUploadSettings={
     "imageFieldName": "upfile", #* 提交的图片表单名称 */
     "imageUrlPrefix":"",
     "imagePathFormat":"",
-    "imageAllowFiles": [".png", ".jpg", ".jpeg", ".gif", ".bmp"], #上传图片格式显示
+    "imageAllowFiles": [".png", ".jpg", ".jpeg", ".gif", ".bmp", ".PNG", ".JPG", ".JPEG", ".GIF", ".BMP"], #上传图片格式显示
 
     #涂鸦图片上传配置项 */
     "scrawlActionName": "uploadscrawl", #执行上传涂鸦的action名称 */
@@ -72,8 +72,8 @@ UEditorUploadSettings={
     "imageManagerActionName": "listimage", #执行图片管理的action名称 */
     "imageManagerListPath":"",
     "imageManagerListSize": 30, #每次列出文件数量 */
-    "imageManagerAllowFiles": [".png", ".jpg", ".jpeg", ".gif", ".bmp"], #列出的文件类型 */
-    "imageManagerUrlPrefix": "",#图片访问路径前缀 */
+    "imageManagerAllowFiles": [".png", ".jpg", ".jpeg", ".gif", ".bmp", ".PNG", ".JPG", ".JPEG", ".GIF", ".BMP"], #列出的文件类型 */
+    "imageManagerUrlPrefix": "/media/",#图片访问路径前缀 */
 
     #列出指定目录下的文件 */
     "fileManagerActionName": "listfile", #执行文件管理的action名称 */
