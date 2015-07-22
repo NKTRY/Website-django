@@ -12,7 +12,7 @@ from django.utils import timezone
 
 from accounts.models import CustomUser
 
-from DjangoUeditor.models import UEditorField
+from Ueditor.models import UEditorField
 # Create your models here.
 
 
