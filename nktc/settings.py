@@ -20,11 +20,11 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 SECRET_KEY = '7o0&#mt)m$@b5=yyh3@s0@-zd$%3t^3d@#ipw$vef@yr)0yi%z'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 TEMPLATE_DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['.nktry.com', 'localhost']
 
 
 # Application definition
@@ -40,10 +40,12 @@ INSTALLED_APPS = (
     'frontend',
     'vote',
     'wechat',
-    'DjangoUeditor'
+    'Ueditor',
+    'django_hosts',
 )
 
 MIDDLEWARE_CLASSES = (
+    'django_hosts.middleware.HostsRequestMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -51,9 +53,14 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django_hosts.middleware.HostsResponseMiddleware',
 )
 
 ROOT_URLCONF = 'nktc.urls'
+
+ROOT_HOSTCONF = 'nktc.hosts'
+
+DEFAULT_HOST = 'www'
 
 WSGI_APPLICATION = 'nktc.wsgi.application'
 
@@ -62,9 +69,17 @@ WSGI_APPLICATION = 'nktc.wsgi.application'
 #
 
 DATABASES = {
-    'default': {
+    'dev': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    },
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'NKTRY',
+        'USER': 'root',
+        'PASSWORD': 'mKcbsdhN29jd2',
+        'HOST': '127.0.0.1',
+        'PORT': '3306'
     }
 }
 

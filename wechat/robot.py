@@ -2,22 +2,33 @@
 from __future__ import unicode_literals
 
 from werobot import WeRoBot
-from werobot.utils import generate_token
 from werobot.reply import TextReply, ArticlesReply, Article
 
 from wechat.models import Message, Articles, WechatDialogue, WechatUser
-from vote.models import VoteUser, Vote
+from vote.models import VoteUser, Vote, Question
 
-import re
 
-from vote.models import Question
+robot = WeRoBot(token='a16sJvhernrFeUZSrnKNKzIJMqt4G')
 
-robot = WeRoBot(token=generate_token(), enable_session=False)
 
-@robot.subscribe
-def subscribe(message):
+@robot.handler
+def hello(message):
     return 'Hello World!'
 
+
+
+'''
+@robot.subscribe
+def subscribe(message):
+    return """
+        欢迎关注创新人才。 mo-可爱
+
+        这里
+        会有高端的科技介绍，会有唯美的文艺散文
+        会有精彩的社团展示，会有高雅的艺术展演
+
+        敬请关注我们~如果你有好的建议，请发给我们哦~
+        """
 
 @robot.unsubscribe
 def unsubscribe(message):
@@ -31,7 +42,7 @@ def unsubscribe(message):
         pass
 
 
-@robot.filter(re.compile("投票"))
+@robot.filter("投票")
 def reply_vote(message):
     votes = Question.objects.all()
     user = VoteUser(openid=message.source)
@@ -47,25 +58,29 @@ def reply_vote(message):
 @robot.text
 def reply(message):
     content = message.content.strip()
-    r = Message.objects.get(keyword=content)
-    if r != []:
+    try:
+        r = Message.objects.get(keyword=content)
         send = TextReply(message=message, content=r.reply)
         return send
+    except:
+        pass
 
 @robot.text
 def reply_article(message):
     content = message.content.strip()
-    r = Articles.objects.get(keyword=content)
-    if r != []:
+    try:
+        r = Articles.objects.get(keyword=content)
         send = ArticlesReply(message=message)
         article = Article(
             title=r.title,
             description=r.text,
-            img=r.img,  # TODO: 替换为对应图片链接
+            img='/media/' + r.img.url,  # TODO: 替换为对应图片链接
             url=r.url
         )
         send.add_article(article)
         return send
+    except:
+        pass
 
 @robot.text
 def dialogue(message):
@@ -75,4 +90,4 @@ def dialogue(message):
     wechat_dialogue = WechatDialogue(content=content, user=wechat_user)
     wechat_dialogue.save()  # TODO: 发送邮件给运营人员，提醒回复
     send = TextReply(message=message, content="消息已经收到啦~我们会尽快回复你哒~")
-    return send
+    return send'''

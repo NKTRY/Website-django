@@ -60,7 +60,7 @@
                 <div class="col-xs-12 text-center">
                     <h3 >{{ article.title }}</h3>
                     <h5 class="text-info inline-block page-vicetitle">{{ article.pub_date }}</h5>
-                    <h5 class="text-info inline-block page-vicetitle">编辑：{{ article.author }}</h5>
+                    <h5 class="text-info inline-block page-vicetitle">编辑：{{ article.author.nickname }}</h5>
                     <div class="bshare-custom inline-block">
                         <a title="分享到QQ空间" class="bshare-qzone"></a>
                         <a title="分享到新浪微博" class="bshare-sinaminiblog"></a>
@@ -80,7 +80,7 @@
                     <h5 class="page-share"> </h5>
                 </div>
                 <!-- UY BEGIN -->
-                <div id="uyan_frame"></div>
+                <div id="uyan_frame" class="col-xs-12"></div>
                 <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2020518"></script>
                 <!-- UY END -->
             </div>
@@ -100,7 +100,7 @@
                         {{ item.description }}
                     </div>
                     <div class="list-sidebar-recommand-author">
-                        [ <span class="news-authorname">{{ item.author }}</span> • {{ item.pub_date }} ]
+                        [ <span class="news-authorname">{{ item.author.nickname }}</span> • {{ item.pub_date }} ]
                     </div>
                 </div>
                 {% endfor %}
@@ -124,19 +124,19 @@
             </div>
             <div class="col-lg-3">
                 <h4 class="footer-title">创新人才</h4>
-                <img src="http://www.nktry.com/static/img/code.jpg" alt="微信二维码" width="150px">
+                <img src="{% static "frontend/img/code.jpg" %}" alt="微信二维码" width="150px">
             </div>
             <div class="col-lg-3">
                 <h4 class="footer-title">友情链接</h4>
                 <ul class="list-unstyled contactus-list">
                     <li>
                         <a href="http://www.nkzx.cn/" target="_blank">
-                            <img src="http://www.nktry.com/static/img/nkzx.png" width="270" height="70">
+                            <img src="{% static "frontend/img/nkzx.png" %}" width="270" height="70">
                         </a>
                     </li>
                     <li>
                         <a href="http://blog.sina.com.cn/nankaizhongxue" target="_blank">
-                            <img src="http://www.nktry.com/static/img/NKSU.jpg">
+                            <img src="{% static "frontend/img/NKSU.jpg" %}">
                         </a>
                     </li>
                 </ul>
