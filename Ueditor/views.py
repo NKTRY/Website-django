@@ -8,6 +8,7 @@ import datetime,random
 import urllib
 import random
 import string
+from PIL import Image
 
 def get_path_format_vars():
     return {
@@ -32,6 +33,13 @@ def save_upload_file(PostFile,FilePath):
             pass
         return u"写入文件错误:"+ E.message
     f.close()
+    origin_img = Image.open(FilePath)
+    watermark = Image.open("/alidata/www/Website-django/static/frontend/img/watermark.png")
+    length = origin_img.size[0]/5
+    width = origin_img.size[1]/10
+    watermark.resize((length, width))
+    origin_img.paste(watermark, (length*4, width*4))
+    origin_img.save(FilePath)
     return u"SUCCESS"
 
 

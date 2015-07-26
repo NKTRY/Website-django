@@ -11,13 +11,6 @@ from vote.models import VoteUser, Vote, Question
 robot = WeRoBot(token='a16sJvhernrFeUZSrnKNKzIJMqt4G')
 
 
-@robot.handler
-def hello(message):
-    return 'Hello World!'
-
-
-
-'''
 @robot.subscribe
 def subscribe(message):
     return """
@@ -74,7 +67,7 @@ def reply_article(message):
         article = Article(
             title=r.title,
             description=r.text,
-            img='/media/' + r.img.url,  # TODO: 替换为对应图片链接
+            img='/media/' + r.img.url,
             url=r.url
         )
         send.add_article(article)
@@ -90,4 +83,4 @@ def dialogue(message):
     wechat_dialogue = WechatDialogue(content=content, user=wechat_user)
     wechat_dialogue.save()  # TODO: 发送邮件给运营人员，提醒回复
     send = TextReply(message=message, content="消息已经收到啦~我们会尽快回复你哒~")
-    return send'''
+    return send

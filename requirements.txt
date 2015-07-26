@@ -7,3 +7,6 @@ bottle==0.11.6
 django-hosts==1.1
 requests==2.2.1
 six==1.5.2
+mysql-python
+gunicorn==19.3.0
+gevent==1.0.2
