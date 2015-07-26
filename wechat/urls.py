@@ -1,7 +1,7 @@
-from django.conf.urls import patterns, include, url
+from django.conf.urls import patterns, url
 from django_werobot import make_view
-from wechat.views import werobot_view
+from .robot import robot
 
 urlpatterns = patterns('',
-    url(r'^$', werobot_view, name='werobot_view'),
+    url(r'^$', make_view(robot), name='werobot_view'),
 )

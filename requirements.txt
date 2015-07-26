@@ -1,5 +1,5 @@
 Django==1.8
-Django-WeRoBot==0.1.0
+Django-WeRoBot==0.1.1
 DjangoUeditor==1.8.143
 Pillow==2.7.0
 WeRoBot==0.6.0
