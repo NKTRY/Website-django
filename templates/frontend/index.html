@@ -49,6 +49,7 @@
             <div id="slider" class="carousel slide" data-ride="carousel">
                 <!-- Wrapper for slides -->
                 <div class="carousel-inner" role="listbox">
+                    {% if slider != None %}
                     {% for slider_item in slider %}
                     {% if slider_item == slider.0 %}
                     <div class="item active">
@@ -68,6 +69,15 @@
                     </div>
                     {% endif %}
                     {% endfor %}
+                    {% else %}
+                    <div class="item active">
+                        <a href="#"><img src="{% static "frontend/img/no-active-slider.jpg" %}" width="100%" alt="..."></img></a>
+                        <div class="carousel-caption">
+                            <h5>暂时没有展示中的内容呢0.0</h5>
+                            <p>暂无信息</p>
+                        </div>
+                    </div>
+                    {% endif %}
                 </div>
                 <!-- Controls-->
                 <a class="left carousel-control" href="#slider" role="button" data-slide="prev">
@@ -89,7 +99,7 @@
                     {% for item in news.0 %}
                     <p>
                         <span class="glyphicon glyphicon-chevron-right"></span>
-                        <a href="{% url 'content' item.push.parent.parent.codename item.push.parent.codename item.push.id %}">{{ item.title }}</a>
+                        <a href="{% if item.url == "" %}{% url 'content' item.push.parent.parent.codename item.push.parent.codename item.push.id %}{% else %}{{ item.url }}{% endif %}">{{ item.title }}</a>
                         {% if item.push.hits > 20 %}
                         <span class="label label-danger">HOT</span>
                         {% endif %}
@@ -100,7 +110,7 @@
                     {% for item in news.1 %}
                     <p>
                         <span class="glyphicon glyphicon-chevron-right"></span>
-                        <a href="{% url 'content' item.push.parent.parent.codename item.push.parent.codename item.push.id %}">{{ item.title }}</a>
+                        <a href="{% if item.url == "" %}{% url 'content' item.push.parent.parent.codename item.push.parent.codename item.push.id %}{% else %}{{ item.url }}{% endif %}">{{ item.title }}</a>
                         {% if item.push.hits > 20 %}
                         <span class="label label-danger">HOT</span>
                         {% endif %}
@@ -111,7 +121,7 @@
                     {% for item in news.2 %}
                     <p>
                         <span class="glyphicon glyphicon-chevron-right"></span>
-                        <a href="{% url 'content' item.push.parent.parent.codename item.push.parent.codename item.push.id %}">{{ item.title }}</a>
+                        <a href="{% if item.url == "" %}{% url 'content' item.push.parent.parent.codename item.push.parent.codename item.push.id %}{% else %}{{ item.url }}{% endif %}">{{ item.title }}</a>
                         {% if item.push.hits > 20 %}
                         <span class="label label-danger">HOT</span>
                         {% endif %}
@@ -134,7 +144,7 @@
                     <div class="present-activity-passage">
                         <dl>
                             <dt><a href="{{ activity.url }}">{{ activity.title }}</a></dt>
-                            <dd>{{ activity.author }}[{{ activity.pub_date }}]</dd>
+                            <dd>{{ activity.author.nickname }}[{{ activity.pub_date }}]</dd>
                         </dl>
                     </div>
                     <div class="present-activity-content">
@@ -176,7 +186,7 @@
             <div class="col-xs-5 news-cata">
                 {{ item.parent.parent.name }} / {{ item.parent.name }}
             </div>
-            <div class="col-xs-7 text-right news-author">{{ item.author }} {{ item.pub_date }}</div>
+            <div class="col-xs-7 text-right news-author">{{ item.author.nickname }} {{ item.pub_date }}</div>
         </div>
         <div class="row">
             <div class="col-xs-12 col-sm-4">
@@ -207,19 +217,19 @@
             </div>
             <div class="col-lg-3">
                 <h4 class="footer-title">创新人才</h4>
-                <img src="http://www.nktry.com/static/img/code.jpg" alt="微信二维码" width="150px">
+                <img src="{% static "frontend/img/code.jpg" %}" alt="微信二维码" width="150px">
             </div>
             <div class="col-lg-3">
                 <h4 class="footer-title">友情链接</h4>
                 <ul class="list-unstyled contactus-list">
                     <li>
                         <a href="http://www.nkzx.cn/" target="_blank">
-                            <img src="http://www.nktry.com/static/img/nkzx.png" width="270" height="70">
+                            <img src="{% static "frontend/img/nkzx.png" %}" width="270" height="70">
                         </a>
                     </li>
                     <li>
                         <a href="http://blog.sina.com.cn/nankaizhongxue" target="_blank">
-                            <img src="http://www.nktry.com/static/img/NKSU.jpg">
+                            <img src="{% static "frontend/img/NKSU.jpg" %}">
                         </a>
                     </li>
                 </ul>

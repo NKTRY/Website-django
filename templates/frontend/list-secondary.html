@@ -57,10 +57,11 @@
            <div id="slider" class="carousel slide" data-ride="carousel">
                 <!-- Wrapper for slides -->
                 <div class="carousel-inner" role="listbox">
+                    {% if slider != None %}
                     {% for slider_item in slider %}
                     {% if slider_item == slider.0 %}
                     <div class="item active">
-                        <a href="{% url 'content' slider_item.push.parent.parent.codename slider_item.push.parent.codename slider_item.push.id %}"><img src="/media/{{ slider_item.img.url }}" width="100%" alt="..."></img></a>
+                        <a href="{% url 'content' slider_item.push.parent.parent.codename slider_item.push.parent.codename slider_item.push.id %}"><img src="/media/{{ slider_item.img.url }}" width="100%" alt="..."></a>
                         <div class="carousel-caption">
                             <h5>{{ slider_item.push.title }}</h5>
                             <p>{{ slider_item.text }}</p>
@@ -76,6 +77,15 @@
                     </div>
                     {% endif %}
                     {% endfor %}
+                    {% else %}
+                    <div class="item active">
+                        <a href="#"><img src="{% static "frontend/img/no-active-slider.jpg" %}" width="100%" alt="..."></img></a>
+                        <div class="carousel-caption">
+                            <h5>暂时没有展示中的内容呢0.0</h5>
+                            <p>暂无信息</p>
+                        </div>
+                    </div>
+                    {% endif %}
                 </div>
                 <!-- Controls-->
                 <a class="left carousel-control" href="#slider" role="button" data-slide="prev">
@@ -93,7 +103,7 @@
                 <div class="present-activity-passage">
                     <dl>
                         <dt>{{ activity.title }}</dt>
-                        <dd>{{ activity.author }}[{{ activity.pub_date }}]</dd>
+                        <dd>{{ activity.author.nickname }}[{{ activity.pub_date }}]</dd>
                     </dl>
                 </div>
                 <div class="present-activity-content">
@@ -102,10 +112,10 @@
             </div>
             {% else %}
             <div class="row present-activity">
-                <img class="img-rounded" id="present-activity-img" src="/media/{{ activity.img.url }}" width="100%" alt="{{ activity.title }}"/>
+                <img class="img-rounded" id="present-activity-img" src="/media/{{ secondary.img.url }}" width="100%" alt="{{ secondary.name }}"/>
                 <div class="present-activity-passage">
                     <dl>
-                        <dt>{{ secondary.img }}</dt>
+                        <dt>{{ secondary.name }}</dt>
                     </dl>
                 </div>
                 <div class="present-activity-content">
@@ -123,7 +133,7 @@
                 <div class="col-xs-5 news-cata list-news-cata">
                     {{ main.name }} / {{ secondary.name }}
                 </div>
-                <div class="col-xs-7 text-right news-author list-news-author"><span class="news-authorname">{{ item.author }}</span> • {{ item.pub_date }}</div>
+                <div class="col-xs-7 text-right news-author list-news-author"><span class="news-authorname">{{ item.author.nickname }}</span> • {{ item.pub_date }}</div>
             </div>
             <div class="row">
                 <div class="col-xs-12 col-sm-4">
@@ -171,19 +181,19 @@
             </div>
             <div class="col-lg-3">
                 <h4 class="footer-title">创新人才</h4>
-                <img src="http://www.nktry.com/static/img/code.jpg" alt="微信二维码" width="150px">
+                <img src="{% static "frontend/img/code.jpg" %}" alt="微信二维码" width="150px">
             </div>
             <div class="col-lg-3">
                 <h4 class="footer-title">友情链接</h4>
                 <ul class="list-unstyled contactus-list">
                     <li>
                         <a href="http://www.nkzx.cn/" target="_blank">
-                            <img src="http://www.nktry.com/static/img/nkzx.png" width="270" height="70">
+                            <img src="{% static "frontend/img/nkzx.png" %}" width="270" height="70">
                         </a>
                     </li>
                     <li>
                         <a href="http://blog.sina.com.cn/nankaizhongxue" target="_blank">
-                            <img src="http://www.nktry.com/static/img/NKSU.jpg">
+                            <img src="{% static "frontend/img/NKSU.jpg" %}">
                         </a>
                     </li>
                 </ul>

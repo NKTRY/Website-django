@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 from django.contrib import admin
+from django.contrib.auth.models import Permission
+from django.contrib.contenttypes.models import ContentType
 from django.db.models import Q
 from django.utils import timezone
 
@@ -130,6 +132,20 @@ class MainMenuAdmin(admin.ModelAdmin):
                 q = q | Q(codename=item.codename)
         return qs.filter(q)
 
+    def save_model(self, request, obj, form, change):
+        try:
+            model = MainMenu.objects.get(pk=obj.id)
+            for permission in ["add", "delete", "change"]:
+                try:
+                    codename = permission + "_" + model.codename + "_articles"
+                    permission = Permission.objects.get(codename=codename)
+                    permission.delete()
+                except:
+                    pass
+        except:
+            pass
+        obj.save()
+
 
 class SecondaryMenuAdmin(admin.ModelAdmin):
     fieldsets = (
@@ -169,6 +185,31 @@ class SecondaryMenuAdmin(admin.ModelAdmin):
                 q = q | Q(codename=item.codename)
         return qs.filter(q)
 
+    def save_model(self, request, obj, form, change):
+        try:
+            model = MainMenu.objects.get(pk=obj.id)
+            for permission in ["add", "delete", "change"]:
+                try:
+                    codename = permission + "_" + model.codename + "_articles"
+                    permission = Permission.objects.get(codename=codename)
+                    permission.delete()
+                except:
+                    pass
+                try:
+                    codename = permission + "_" + model.codename + "_sliders"
+                    permission = Permission.objects.get(codename=codename)
+                    permission.delete()
+                except:
+                    pass
+                try:
+                    codename = permission + "_" + model.codename + "_activities"
+                    permission = Permission.objects.get(codename=codename)
+                    permission.delete()
+                except:
+                    pass
+        except:
+            pass
+        obj.save()
 
 class NormalSliderAdmin(admin.ModelAdmin):
     fieldsets = (("幻灯片内容", {"fields": ("text", "img", "url", "push", "category")}),)
@@ -203,7 +244,8 @@ class NormalSliderAdmin(admin.ModelAdmin):
         secondary = SecondaryMenu.objects.all()
         for item in secondary:
             perm = "frontend.change_"+item.codename+"_sliders"
-            if request.user.has_perm(perm):
+            perm_p = "frontend.change_"+item.parent.codename+"_sliders"
+            if request.user.has_perm(perm) or request.user.has_perm(perm_p):
                 q = q | Q(category=item)
         return qs.filter(q)
 
@@ -241,7 +283,8 @@ class SuperSliderAdmin(admin.ModelAdmin):
         secondary = SecondaryMenu.objects.all()
         for item in secondary:
             perm = "frontend.change_"+item.codename+"_sliders"
-            if request.user.has_perm(perm):
+            perm_p = "frontend.change_"+item.parent.codename+"_sliders"
+            if request.user.has_perm(perm) or request.user.has_perm(perm_p):
                 q = q | Q(category=item)
         return qs.filter(q)
 
@@ -272,7 +315,8 @@ class SuperActivityAdmin(admin.ModelAdmin):
         secondary = SecondaryMenu.objects.all()
         for item in secondary:
             perm = "frontend.change_"+item.codename+"_activities"
-            if request.user.has_perm(perm):
+            perm_p = "frontend.change_"+item.parent.codename+"_activities"
+            if request.user.has_perm(perm) or request.user.has_perm(perm_p):
                 q = q | Q(category=item)
         return qs.filter(q)
 
@@ -303,7 +347,8 @@ class NormalActivityAdmin(admin.ModelAdmin):
         secondary = SecondaryMenu.objects.all()
         for item in secondary:
             perm = "frontend.change_"+item.codename+"_activities"
-            if request.user.has_perm(perm):
+            perm_p = "frontend.change_"+item.parent.codename+"_activities"
+            if request.user.has_perm(perm) or request.user.has_perm(perm_p):
                 q = q | Q(category=item)
         return qs.filter(q)
 

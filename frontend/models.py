@@ -1,22 +1,53 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+import requests, time
+
+from PIL import Image, ImageColor
 from django.db import models
+from django.core.urlresolvers import reverse
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth.models import Permission
 from django.utils.translation import ugettext_lazy as _
+from django.utils import timezone
 
 from accounts.models import CustomUser
-
-from DjangoUeditor.models import UEditorField
+from Ueditor.models import UEditorField
 # Create your models here.
+
+
+def check_size(length, width, filename):
+    origin_img = Image.open(filename)
+    watermark = Image.open("/alidata/www/Website-django/static/frontend/img/watermark.png")
+    length_img = origin_img.size[0]
+    width_img = origin_img.size[1]
+    length_watermark = 100*length_img/length
+    watermark.resize((length_watermark, length_watermark/2))
+    if (length_img/width_img) > (length/width):
+        W = length_img/length*width
+        bg_img = Image.new(origin_img.mode, (length_img, W), ImageColor.getcolor('white', origin_img.mode))
+        bg_img.paste(origin_img, (0, W/2-width_img/2))
+        bg_img.paste(watermark, (length_img-length_watermark, length/2+length_img/2-length_watermark/2))
+    if (length_img/width_img) < (length/width):
+        L = width_img/width*length
+        bg_img = Image.new(origin_img.mode, (L, width_img), ImageColor.getcolor('white', origin_img.mode))
+        bg_img.paste(origin_img, (L/2-length_img/2, 0))
+        bg_img.paste(origin_img, (L/2+length_img/2-length_watermark, width-length_watermark/2))
+    if (length_img/width_img) == (length/width):
+        bg_img = origin_img
+        bg_img.paste(watermark, (length_img-length_watermark, width_img-length_watermark/2))
+    try:
+        bg_img.resize((length, width))
+        bg_img.save(filename)
+    except:
+        pass
 
 
 class MainMenu(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(verbose_name="板块名称", max_length=20, unique=True)
     codename = models.CharField(verbose_name="机读名称", max_length=20, unique=True)
-    order = models.IntegerField(verbose_name="显示顺序")
+    order = models.IntegerField(verbose_name="显示顺序", blank=True)
     available = models.BooleanField(verbose_name="已发布", default=True)
 
     class Meta:
@@ -26,10 +57,22 @@ class MainMenu(models.Model):
     def save(self, force_insert=False, force_update=False, using=None,
              update_fields=None):
         try:
-            content_type = ContentType.objects.get(app_label="frontend", model="Article")
+            content_type1 = ContentType.objects.get(app_label="frontend", model="Article")
         except:
-            content_type = ContentType(app_label="frontend", model="Article", name="文章板块权限")
-            content_type.save()
+            content_type1 = ContentType(app_label="frontend", model="Article", name="文章板块权限")
+            content_type1.save()
+
+        try:
+            content_type2 = ContentType.objects.get(app_label="frontend", model="Slider")
+        except:
+            content_type2 = ContentType(app_label="frontend", model="Slider", name="幻灯片推送权限")
+            content_type2.save()
+
+        try:
+            content_type3 = ContentType.objects.get(app_label="frontend", model="Activity")
+        except:
+            content_type3 = ContentType(app_label="frontend", model="Activity", name="活动发布权限")
+            content_type3.save()
 
         translate = {"add": "添加", "delete": "删除", "change": "修改"}
         for permission in ["add", "delete", "change"]:
@@ -39,7 +82,23 @@ class MainMenu(models.Model):
             except:
                 name = "允许" + translate[permission] + " " + self.name + " 内的文章"
                 codename = permission + "_" + self.codename + "_articles"
-                p = Permission(name=name, content_type=content_type, codename=codename)
+                p = Permission(name=name, content_type=content_type1, codename=codename)
+                p.save()
+            try:
+                codename = permission + "_" + self.codename + "_sliders"
+                Permission.objects.get(codename=codename)
+            except:
+                name = "允许" + translate[permission] + " " + self.name + " 内的幻灯片"
+                codename = permission + "_" + self.codename + "_sliders"
+                p = Permission(name=name, content_type=content_type2, codename=codename)
+                p.save()
+            try:
+                codename = permission + "_" + self.codename + "_activities"
+                Permission.objects.get(codename=codename)
+            except:
+                name = "允许" + translate[permission] + " " + self.name + " 内的活动"
+                codename = permission + "_" + self.codename + "_activities"
+                p = Permission(name=name, content_type=content_type3, codename=codename)
                 p.save()
         if self.order == None:
             self.order = self.id
@@ -49,6 +108,12 @@ class MainMenu(models.Model):
     def delete(self, using=None):
         for permission in ["add", "delete", "change"]:
             codename = permission + "_" + self.codename + "_articles"
+            p = Permission.objects.get(codename=codename)
+            p.delete()
+            codename = permission + "_" + self.codename + "_sliders"
+            p = Permission.objects.get(codename=codename)
+            p.delete()
+            codename = permission + "_" + self.codename + "_activities"
             p = Permission.objects.get(codename=codename)
             p.delete()
         result = super(MainMenu, self).delete()
@@ -116,6 +181,7 @@ class SecondaryMenu(models.Model):
                 p.save()
         if self.order == None:
             self.order = self.id
+        check_size(600, 300, self.img.path)
         result = super(SecondaryMenu, self).save()
         return result
 
@@ -149,9 +215,13 @@ class Slider(models.Model):
     push = models.OneToOneField("Article", verbose_name="推送文章标题")
     category = models.ForeignKey(SecondaryMenu, verbose_name="分类")
 
+    def save(self, force_insert=False, force_update=False, using=None,
+             update_fields=None):
+        check_size(300, 200, self.img.path)
+
     class Meta:
-        verbose_name = "首页幻灯片"
-        verbose_name_plural = "首页幻灯片"
+        verbose_name = "幻灯片推送"
+        verbose_name_plural = "幻灯片推送"
 
     def __unicode__(self):
         return self.text
@@ -170,8 +240,8 @@ class News(models.Model):
     category = models.CharField(verbose_name="分类", max_length=20, choices=category_choice)
 
     class Meta:
-        verbose_name = "首页推送"
-        verbose_name_plural = "首页推送"
+        verbose_name = "首页热点推送"
+        verbose_name_plural = "首页热点推送"
 
     def __unicode__(self):
         return self.title
@@ -189,6 +259,8 @@ class Article(models.Model):
     parent = models.ForeignKey(SecondaryMenu, verbose_name="父级菜单")
     cover_img = models.ImageField(verbose_name="封面图片", upload_to="img/Article", help_text="推荐尺寸: 600px*325px [其他尺寸请保持长宽比相同]")
     description = models.TextField(verbose_name="简介")
+    create_date = models.DateTimeField(verbose_name="创建时间", default=timezone.now)
+    modify_date = models.DateTimeField(verbose_name="修改时间", default=timezone.now)
 
     class Meta:
         verbose_name = "文章"
@@ -197,6 +269,22 @@ class Article(models.Model):
     def hit(self):
         self.hits += 1
         self.save()
+
+    def save(self, force_insert=False, force_update=False, using=None,
+             update_fields=None):
+        if self.create_date == self.modify_date:
+            try:
+                url = "http://data.zz.baidu.com/urls"
+                querystring = {"site":"www.nktry.com","token":"2xjnUaccjgEVHUYI"}
+                payload = 'http://nktry.com/'+reverse('content', args=(self.parent.parent.codename, self.parent.codename, self.id))
+                response = requests.request("POST", url, data=payload, params=querystring)
+                time.sleep(0.1)
+            except:
+                pass
+        self.modify_date = timezone.now()
+        check_size(600, 325, self.cover_img.path)
+        result = super(Article, self).save()
+        return result
 
     def __unicode__(self):
         return self.title
@@ -213,6 +301,11 @@ class Activity(models.Model):
     pub_date = models.DateField(verbose_name="发布日期")
     category = models.ForeignKey(SecondaryMenu, verbose_name="分类")
     end_date = models.DateField(verbose_name="活动结束日期")
+
+    def save(self, force_insert=False, force_update=False, using=None,
+             update_fields=None):
+        check_size(1360, 260, self.img.path)
+        check_size(250, 90, self.old_img.path)
 
     class Meta:
         verbose_name = "活动"

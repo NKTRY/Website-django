@@ -56,7 +56,7 @@
                 <div class="col-xs-5 news-cata list-news-cata">
                     {{ item.parent.parent.name }} / {{ item.parent.name }}
                 </div>
-                <div class="col-xs-7 text-right news-author list-news-author"><span class="news-authorname">{{ item.author }}</span> • {{ item.pub_date }}</div>
+                <div class="col-xs-7 text-right news-author list-news-author"><span class="news-authorname">{{ item.author.nickname }}</span> • {{ item.pub_date }}</div>
             </div>
             <div class="row">
                 <div class="col-xs-12 col-sm-4">
@@ -85,7 +85,7 @@
                     {{ item.description }}
                 </div>
                 <div class="list-sidebar-recommand-author">
-                    [ <span class="news-authorname">{{ item.author }}</span> • {{ item.pub_date }} ]
+                    [ <span class="news-authorname">{{ item.author.nickname }}</span> • {{ item.pub_date }} ]
                 </div>
             </div>
             {% endfor %}
@@ -108,19 +108,19 @@
             </div>
             <div class="col-lg-3">
                 <h4 class="footer-title">创新人才</h4>
-                <img src="http://www.nktry.com/static/img/code.jpg" alt="微信二维码" width="150px">
+                <img src="{% static "frontend/img/code.jpg" %}" alt="微信二维码" width="150px">
             </div>
             <div class="col-lg-3">
                 <h4 class="footer-title">友情链接</h4>
                 <ul class="list-unstyled contactus-list">
                     <li>
                         <a href="http://www.nkzx.cn/" target="_blank">
-                            <img src="http://www.nktry.com/static/img/nkzx.png" width="270" height="70">
+                            <img src="{% static "frontend/img/nkzx.png" %}" width="270" height="70">
                         </a>
                     </li>
                     <li>
                         <a href="http://blog.sina.com.cn/nankaizhongxue" target="_blank">
-                            <img src="http://www.nktry.com/static/img/NKSU.jpg">
+                            <img src="{% static "frontend/img/NKSU.jpg" %}">
                         </a>
                     </li>
                 </ul>
