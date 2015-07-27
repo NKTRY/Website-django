@@ -39,7 +39,7 @@ def check_size(length, width, filename):
         bg_img = Image.composite(layer, bg_img, layer)
     if (length_img/width_img) == (length/width):
         bg_img = origin_img
-        layer = Image.new('RGBA', (L, width_img), (0, 0, 0, 0))
+        layer = Image.new('RGBA', (length_img, width_img), (0, 0, 0, 0))
         layer.paste(watermark, (length_img-length_watermark, width_img-length_watermark/2))
         bg_img = Image.composite(layer, bg_img, layer)
     try:
