@@ -37,7 +37,7 @@ def save_upload_file(PostFile,FilePath):
     watermark = Image.open("/alidata/www/Website-django/static/frontend/img/watermark.png")
     length = origin_img.size[0]/5
     width = length/2
-    watermark.resize((length, width))
+    watermark = watermark.resize((length, width))
     origin_img.paste(watermark, (length*4, origin_img.size[1]-width))
     origin_img.save(FilePath)
     return u"SUCCESS"
