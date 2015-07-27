@@ -14,6 +14,7 @@ from django.utils import timezone
 from accounts.models import CustomUser
 from Ueditor.models import UEditorField
 # Create your models here.
+BASE_IMAGE_PATH = "/alidata/www/Website-django/upload/"
 
 
 def check_size(length, width, filename):
@@ -189,7 +190,7 @@ class SecondaryMenu(models.Model):
                 p.save()
         if self.order == None:
             self.order = self.id
-        check_size(600, 300, self.img.path)
+        check_size(600, 300, BASE_IMAGE_PATH+self.img.name)
         result = super(SecondaryMenu, self).save()
         return result
 
@@ -225,7 +226,7 @@ class Slider(models.Model):
 
     def save(self, force_insert=False, force_update=False, using=None,
              update_fields=None):
-        check_size(300, 200, self.img.path)
+        check_size(300, 200, BASE_IMAGE_PATH+self.img.name)
 
     class Meta:
         verbose_name = "幻灯片推送"
@@ -312,7 +313,7 @@ class Activity(models.Model):
 
     def save(self, force_insert=False, force_update=False, using=None,
              update_fields=None):
-        check_size(1360, 260, self.img.path)
+        check_size(1360, 260, BASE_IMAGE_PATH+self.img.name)
         check_size(250, 90, self.old_img.path)
 
     class Meta:
