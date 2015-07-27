@@ -80,7 +80,7 @@ class SuperArticleAdmin(admin.ModelAdmin):
         if obj.pub_date == None:
             obj.pub_date = timezone.now()
         obj.save()
-        check_size(600, 325, self.cover_img.path)
+        check_size(600, 325, obj.cover_img.path)
 
 
     def get_queryset(self, request):
@@ -139,7 +139,7 @@ class NormalArticleAdmin(admin.ModelAdmin):
         if obj.pub_date == None:
             obj.pub_date = timezone.now()
         obj.save()
-        check_size(600, 325, self.cover_img.path)
+        check_size(600, 325, obj.cover_img.path)
 
 
 class SecondaryMenuInline(admin.TabularInline):
@@ -248,7 +248,7 @@ class SecondaryMenuAdmin(admin.ModelAdmin):
         except:
             pass
         obj.save()
-        check_size(600, 300, self.img.path)
+        check_size(600, 300, obj.img.path)
 
 class NormalSliderAdmin(admin.ModelAdmin):
     fieldsets = (("幻灯片内容", {"fields": ("text", "img", "url", "push", "category")}),)
@@ -290,7 +290,7 @@ class NormalSliderAdmin(admin.ModelAdmin):
 
     def save_model(self, request, obj, form, change):
         obj.save()
-        check_size(300, 200, self.img.path)
+        check_size(300, 200, obj.img.path)
 
 
 class SuperSliderAdmin(admin.ModelAdmin):
@@ -333,7 +333,7 @@ class SuperSliderAdmin(admin.ModelAdmin):
 
     def save_model(self, request, obj, form, change):
         obj.save()
-        check_size(300, 200, self.img.path)
+        check_size(300, 200, obj.img.path)
 
 
 class SuperActivityAdmin(admin.ModelAdmin):
@@ -369,8 +369,8 @@ class SuperActivityAdmin(admin.ModelAdmin):
 
     def save_model(self, request, obj, form, change):
         obj.save()
-        check_size(1360, 260, self.img.path)
-        check_size(250, 90, self.old_img.path)
+        check_size(1360, 260, obj.img.path)
+        check_size(250, 90, obj.old_img.path)
 
 
 class NormalActivityAdmin(admin.ModelAdmin):
@@ -406,8 +406,8 @@ class NormalActivityAdmin(admin.ModelAdmin):
 
     def save_model(self, request, obj, form, change):
         obj.save()
-        check_size(1360, 260, self.img.path)
-        check_size(250, 90, self.old_img.path)
+        check_size(1360, 260, obj.img.path)
+        check_size(250, 90, obj.old_img.path)
 
 
 
