@@ -28,7 +28,7 @@ def check_size(length, width, filename):
         bg_img = Image.new(origin_img.mode, (length_img, W), ImageColor.getcolor('white', origin_img.mode))
         bg_img.paste(origin_img, (0, W/2-width_img/2))
         layer = Image.new('RGBA', (length_img, W), (0, 0, 0, 0))
-        layer.paste(watermark, (length_img-length_watermark, length/2+length_img/2-length_watermark/2))
+        layer.paste(watermark, (length_img-length_watermark, W/2+width_img/2-length_watermark/2))
         bg_img = Image.composite(layer, bg_img, layer)
     if (length_img/width_img) < (length/width):
         L = width_img/width*length
