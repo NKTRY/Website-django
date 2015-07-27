@@ -190,7 +190,7 @@ class SecondaryMenu(models.Model):
                 p.save()
         if self.order == None:
             self.order = self.id
-        check_size(600, 300, BASE_IMAGE_PATH+self.img.name)
+        check_size(600, 300, BASE_IMAGE_PATH+"img/Menu/"+self.img.name)
         result = super(SecondaryMenu, self).save()
         return result
 
@@ -226,7 +226,7 @@ class Slider(models.Model):
 
     def save(self, force_insert=False, force_update=False, using=None,
              update_fields=None):
-        check_size(300, 200, BASE_IMAGE_PATH+self.img.name)
+        check_size(300, 200, BASE_IMAGE_PATH+"img/Slider/"+self.img.name)
 
     class Meta:
         verbose_name = "幻灯片推送"
@@ -291,7 +291,7 @@ class Article(models.Model):
             except:
                 pass
         self.modify_date = timezone.now()
-        check_size(600, 325, self.cover_img.path)
+        check_size(600, 325, BASE_IMAGE_PATH+"img/Article/"+self.cover_img.name)
         result = super(Article, self).save()
         return result
 
@@ -313,8 +313,8 @@ class Activity(models.Model):
 
     def save(self, force_insert=False, force_update=False, using=None,
              update_fields=None):
-        check_size(1360, 260, BASE_IMAGE_PATH+self.img.name)
-        check_size(250, 90, self.old_img.path)
+        check_size(1360, 260, BASE_IMAGE_PATH+"img/Activity/"+self.img.name)
+        check_size(250, 90, BASE_IMAGE_PATH+"img/Activity/"+self.old_img.name)
 
     class Meta:
         verbose_name = "活动"
