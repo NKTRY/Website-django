@@ -22,22 +22,30 @@ def check_size(length, width, filename):
     length_img = origin_img.size[0]
     width_img = origin_img.size[1]
     length_watermark = 100*length_img/length
-    watermark.resize((length_watermark, length_watermark/2))
+    watermark = watermark.resize((length_watermark, length_watermark/2))
+    if origin_img.mode != 'RGBA':
+        origin_img = origin_img.convert('RGBA')
     if (length_img/width_img) > (length/width):
         W = length_img/length*width
         bg_img = Image.new(origin_img.mode, (length_img, W), ImageColor.getcolor('white', origin_img.mode))
         bg_img.paste(origin_img, (0, W/2-width_img/2))
-        bg_img.paste(watermark, (length_img-length_watermark, length/2+length_img/2-length_watermark/2))
+        layer = Image.new('RGBA', (length_img, W), (0, 0, 0, 0))
+        layer.paste(watermark, (length_img-length_watermark, length/2+length_img/2-length_watermark/2))
+        bg_img = Image.composite(layer, bg_img, layer)
     if (length_img/width_img) < (length/width):
         L = width_img/width*length
         bg_img = Image.new(origin_img.mode, (L, width_img), ImageColor.getcolor('white', origin_img.mode))
         bg_img.paste(origin_img, (L/2-length_img/2, 0))
-        bg_img.paste(origin_img, (L/2+length_img/2-length_watermark, width-length_watermark/2))
+        layer = Image.new('RGBA', (L, width_img), (0, 0, 0, 0))
+        layer.paste(watermark, (L/2+length_img/2-length_watermark, width-length_watermark/2))
+        bg_img = Image.composite(layer, bg_img, layer)
     if (length_img/width_img) == (length/width):
         bg_img = origin_img
-        bg_img.paste(watermark, (length_img-length_watermark, width_img-length_watermark/2))
+        layer = Image.new('RGBA', (L, width_img), (0, 0, 0, 0))
+        layer.paste(watermark, (length_img-length_watermark, width_img-length_watermark/2))
+        bg_img = Image.composite(layer, bg_img, layer)
     try:
-        bg_img.resize((length, width))
+        bg_img = bg_img.resize((length, width))
         bg_img.save(filename)
     except:
         pass
