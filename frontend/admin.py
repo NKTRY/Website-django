@@ -1,16 +1,52 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
+
 from django.contrib import admin
 from django.contrib.auth.models import Permission
 from django.contrib.contenttypes.models import ContentType
 from django.db.models import Q
 from django.utils import timezone
+from PIL import Image, ImageColor
 
 from accounts.admin import normaladminsite, superadminsite
 from accounts.models import CustomUser
-
 from frontend.models import Article, MainMenu, SecondaryMenu, Slider, Activity, News
 # Register your models here.
+
+
+def check_size(length, width, filename):
+    origin_img = Image.open(filename)
+    watermark = Image.open("/alidata/www/Website-django/static/frontend/img/watermark.png")
+    length_img = origin_img.size[0]
+    width_img = origin_img.size[1]
+    length_watermark = 100*length_img/length
+    watermark = watermark.resize((length_watermark, length_watermark/2))
+    if origin_img.mode != 'RGBA':
+        origin_img = origin_img.convert('RGBA')
+    if (length_img/width_img) > (length/width):
+        W = length_img/length*width
+        bg_img = Image.new(origin_img.mode, (length_img, W), ImageColor.getcolor('white', origin_img.mode))
+        bg_img.paste(origin_img, (0, W/2-width_img/2))
+        layer = Image.new('RGBA', (length_img, W), (0, 0, 0, 0))
+        layer.paste(watermark, (length_img-length_watermark, length/2+length_img/2-length_watermark/2))
+        bg_img = Image.composite(layer, bg_img, layer)
+    if (length_img/width_img) < (length/width):
+        L = width_img/width*length
+        bg_img = Image.new(origin_img.mode, (L, width_img), ImageColor.getcolor('white', origin_img.mode))
+        bg_img.paste(origin_img, (L/2-length_img/2, 0))
+        layer = Image.new('RGBA', (L, width_img), (0, 0, 0, 0))
+        layer.paste(watermark, (L/2+length_img/2-length_watermark, width-length_watermark/2))
+        bg_img = Image.composite(layer, bg_img, layer)
+    if (length_img/width_img) == (length/width):
+        bg_img = origin_img
+        layer = Image.new('RGBA', (L, width_img), (0, 0, 0, 0))
+        layer.paste(watermark, (length_img-length_watermark, width_img-length_watermark/2))
+        bg_img = Image.composite(layer, bg_img, layer)
+    try:
+        bg_img = bg_img.resize((length, width))
+        bg_img.save(filename)
+    except:
+        pass
 
 
 class SuperArticleAdmin(admin.ModelAdmin):
@@ -44,6 +80,7 @@ class SuperArticleAdmin(admin.ModelAdmin):
         if obj.pub_date == None:
             obj.pub_date = timezone.now()
         obj.save()
+        check_size(600, 325, self.cover_img.path)
 
 
     def get_queryset(self, request):
@@ -102,6 +139,7 @@ class NormalArticleAdmin(admin.ModelAdmin):
         if obj.pub_date == None:
             obj.pub_date = timezone.now()
         obj.save()
+        check_size(600, 325, self.cover_img.path)
 
 
 class SecondaryMenuInline(admin.TabularInline):
@@ -210,6 +248,7 @@ class SecondaryMenuAdmin(admin.ModelAdmin):
         except:
             pass
         obj.save()
+        check_size(600, 300, self.img.path)
 
 class NormalSliderAdmin(admin.ModelAdmin):
     fieldsets = (("幻灯片内容", {"fields": ("text", "img", "url", "push", "category")}),)
@@ -248,6 +287,10 @@ class NormalSliderAdmin(admin.ModelAdmin):
             if request.user.has_perm(perm) or request.user.has_perm(perm_p):
                 q = q | Q(category=item)
         return qs.filter(q)
+
+    def save_model(self, request, obj, form, change):
+        obj.save()
+        check_size(300, 200, self.img.path)
 
 
 class SuperSliderAdmin(admin.ModelAdmin):
@@ -288,6 +331,10 @@ class SuperSliderAdmin(admin.ModelAdmin):
                 q = q | Q(category=item)
         return qs.filter(q)
 
+    def save_model(self, request, obj, form, change):
+        obj.save()
+        check_size(300, 200, self.img.path)
+
 
 class SuperActivityAdmin(admin.ModelAdmin):
     fieldsets = (("活动信息", {"fields": ("title", "text", "img", "old_img", "url", "category", "author", "pub_date", "end_date")}),)
@@ -320,6 +367,11 @@ class SuperActivityAdmin(admin.ModelAdmin):
                 q = q | Q(category=item)
         return qs.filter(q)
 
+    def save_model(self, request, obj, form, change):
+        obj.save()
+        check_size(1360, 260, self.img.path)
+        check_size(250, 90, self.old_img.path)
+
 
 class NormalActivityAdmin(admin.ModelAdmin):
     fieldsets = (("活动信息", {"fields": ("title", "text", "img", "old_img", "url", "category", "author", "pub_date", "end_date")}),)
@@ -351,6 +403,12 @@ class NormalActivityAdmin(admin.ModelAdmin):
             if request.user.has_perm(perm) or request.user.has_perm(perm_p):
                 q = q | Q(category=item)
         return qs.filter(q)
+
+    def save_model(self, request, obj, form, change):
+        obj.save()
+        check_size(1360, 260, self.img.path)
+        check_size(250, 90, self.old_img.path)
+
 
 
 class NewsAdmin(admin.ModelAdmin):

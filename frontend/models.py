@@ -3,7 +3,6 @@ from __future__ import unicode_literals
 
 import requests, time
 
-from PIL import Image, ImageColor
 from django.db import models
 from django.core.urlresolvers import reverse
 from django.contrib.contenttypes.models import ContentType
@@ -14,42 +13,6 @@ from django.utils import timezone
 from accounts.models import CustomUser
 from Ueditor.models import UEditorField
 # Create your models here.
-BASE_IMAGE_PATH = "/alidata/www/Website-django/upload/"
-
-
-def check_size(length, width, filename):
-    origin_img = Image.open(filename)
-    watermark = Image.open("/alidata/www/Website-django/static/frontend/img/watermark.png")
-    length_img = origin_img.size[0]
-    width_img = origin_img.size[1]
-    length_watermark = 100*length_img/length
-    watermark = watermark.resize((length_watermark, length_watermark/2))
-    if origin_img.mode != 'RGBA':
-        origin_img = origin_img.convert('RGBA')
-    if (length_img/width_img) > (length/width):
-        W = length_img/length*width
-        bg_img = Image.new(origin_img.mode, (length_img, W), ImageColor.getcolor('white', origin_img.mode))
-        bg_img.paste(origin_img, (0, W/2-width_img/2))
-        layer = Image.new('RGBA', (length_img, W), (0, 0, 0, 0))
-        layer.paste(watermark, (length_img-length_watermark, length/2+length_img/2-length_watermark/2))
-        bg_img = Image.composite(layer, bg_img, layer)
-    if (length_img/width_img) < (length/width):
-        L = width_img/width*length
-        bg_img = Image.new(origin_img.mode, (L, width_img), ImageColor.getcolor('white', origin_img.mode))
-        bg_img.paste(origin_img, (L/2-length_img/2, 0))
-        layer = Image.new('RGBA', (L, width_img), (0, 0, 0, 0))
-        layer.paste(watermark, (L/2+length_img/2-length_watermark, width-length_watermark/2))
-        bg_img = Image.composite(layer, bg_img, layer)
-    if (length_img/width_img) == (length/width):
-        bg_img = origin_img
-        layer = Image.new('RGBA', (L, width_img), (0, 0, 0, 0))
-        layer.paste(watermark, (length_img-length_watermark, width_img-length_watermark/2))
-        bg_img = Image.composite(layer, bg_img, layer)
-    try:
-        bg_img = bg_img.resize((length, width))
-        bg_img.save(filename)
-    except:
-        pass
 
 
 class MainMenu(models.Model):
@@ -190,7 +153,6 @@ class SecondaryMenu(models.Model):
                 p.save()
         if self.order == None:
             self.order = self.id
-        check_size(600, 300, BASE_IMAGE_PATH+"img/Menu/"+self.img.name)
         result = super(SecondaryMenu, self).save()
         return result
 
@@ -223,10 +185,6 @@ class Slider(models.Model):
     url = models.URLField(verbose_name="文章链接", blank=True)
     push = models.OneToOneField("Article", verbose_name="推送文章标题")
     category = models.ForeignKey(SecondaryMenu, verbose_name="分类")
-
-    def save(self, force_insert=False, force_update=False, using=None,
-             update_fields=None):
-        check_size(300, 200, BASE_IMAGE_PATH+"img/Slider/"+self.img.name)
 
     class Meta:
         verbose_name = "幻灯片推送"
@@ -291,7 +249,6 @@ class Article(models.Model):
             except:
                 pass
         self.modify_date = timezone.now()
-        check_size(600, 325, BASE_IMAGE_PATH+"img/Article/"+self.cover_img.name)
         result = super(Article, self).save()
         return result
 
@@ -310,11 +267,6 @@ class Activity(models.Model):
     pub_date = models.DateField(verbose_name="发布日期")
     category = models.ForeignKey(SecondaryMenu, verbose_name="分类")
     end_date = models.DateField(verbose_name="活动结束日期")
-
-    def save(self, force_insert=False, force_update=False, using=None,
-             update_fields=None):
-        check_size(1360, 260, BASE_IMAGE_PATH+"img/Activity/"+self.img.name)
-        check_size(250, 90, BASE_IMAGE_PATH+"img/Activity/"+self.old_img.name)
 
     class Meta:
         verbose_name = "活动"
