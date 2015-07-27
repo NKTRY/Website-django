@@ -38,8 +38,15 @@ def save_upload_file(PostFile,FilePath):
     length = origin_img.size[0]/5
     width = length/2
     watermark = watermark.resize((length, width))
-    origin_img.paste(watermark, (length*4, origin_img.size[1]-width))
-    origin_img.save(FilePath)
+    if origin_img.mode != 'RGBA':
+        origin_img = origin_img.convert('RGBA')
+        layer = Image.new('RGBA', origin_img.size, (0, 0, 0, 0))
+        layer.paste(watermark, (length*4, origin_img.size[1]-width))
+        merge_img = Image.composite(layer, origin_img, layer)
+        merge_img.save(FilePath)
+    else:
+        origin_img.paste(watermark, (length*4, origin_img.size[1]-width))
+        origin_img.save(FilePath)
     return u"SUCCESS"
 
 
