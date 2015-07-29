@@ -64,6 +64,7 @@ def vote(request, question_id, wechat_id=None):
 @csrf_protect
 def login(request):
     if request.method == 'GET':
+        messages.success(request, '23333')
         return redirect('vote_index')
 
     if request.method == 'POST':
