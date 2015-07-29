@@ -1,6 +1,6 @@
 from django.conf.urls import patterns, url
 
-from .views import index, archive, vote, login, logout, change_password, register
+from vote.views import index, archive, vote, login, logout, change_password, register
 
 urlpatterns = patterns('',
     url(r'^$', index, name='vote_index'),
