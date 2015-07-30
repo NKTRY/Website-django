@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
+from datetime import datetime
 
 from werobot import WeRoBot
 from werobot.reply import TextReply, ArticlesReply, Article
+from django.core.urlresolvers import reverse
 
 from wechat.models import Message, Articles, WechatDialogue, WechatUser
 from vote.models import VoteUser, Vote, Question
@@ -27,26 +29,35 @@ def subscribe(message):
 def unsubscribe(message):
     try:
         user = VoteUser.objects.get(openid=message.source)
-        vote = Vote.objects.filter(user=user)
-        for obj in vote:
-            obj.delete()
-        user.delete()
+        user.is_active = False
+        user.save()
     except:
         pass
 
 
 @robot.filter("投票")
 def reply_vote(message):
-    votes = Question.objects.all()
-    user = VoteUser(openid=message.source)
-    user.save()
+    votes = Question.objects.filter(start_date__lte=datetime.today(), end_date__gte=datetime.today())
+    try:
+        user = VoteUser.objects.get(openid=message.source)
+    except:
+        user = VoteUser(openid=message.source)
+        user.save()
     if votes == []:
-        return "现在没有进行中的投票哦~"
+        return "现在没有进行中的投票哦~您也可以发送'投票系统注册'获取投票系统注册码(=^.^=)登陆投票系统后可以直接进行投票哦[-.0]"
     else:
         link = ""
         for item in votes:
-            pass  # TODO: 添加投票链接
+            url = reverse('vote_page_tmp', args=(item.id, message.source))
+            link = link + '<a href="' + url + '">' + item.title + '</a><br>'
+        link = link + "您也可以发送'投票系统注册'获取投票系统注册码(=^.^=)登陆投票系统后可以直接进行投票哦[-.0]"
         return link
+
+
+@robot.filter("投票系统注册")
+def reply_vote(message):
+    return "您的注册码为：%s" % message.source
+
 
 @robot.text
 def reply(message):

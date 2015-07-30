@@ -58,7 +58,7 @@ def vote(request, question_id, wechat_id=None):
             vote = Vote(choice=poll, user=user)
             vote.save()
         messages.success(request, "投票成功~谢谢您的参与~")
-        return redirect(reverse('vote-page', args=(question_id,)))
+        return redirect(reverse('vote_page', args=(question_id,)))
 
 
 @csrf_protect
