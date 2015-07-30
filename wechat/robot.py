@@ -43,7 +43,7 @@ def reply_vote(message):
     except:
         user = VoteUser(openid=message.source)
         user.save()
-    if votes == []:
+    if len(votes) == 0:
         return "现在没有进行中的投票哦~您也可以发送'投票系统注册'获取投票系统注册码(=^.^=)登陆投票系统后可以直接进行投票哦[-.0]"
     else:
         link = ""
