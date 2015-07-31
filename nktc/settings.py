@@ -26,7 +26,7 @@ TEMPLATE_DEBUG = False
 
 ALLOWED_HOSTS = ['.nktry.com', 'localhost']
 
-ADMINS = (('Jachgxc', 'jackgxc@vip.qq.com'), ('Albus', 'albus.zly@gmail.com'), ('Nkzzy', 'doudou981027@163.com'))
+ADMINS = (('Jackgxc', 'gengxichao@vip.qq.com'), ('Albus', 'albus.zly@gmail.com'), ('Nkzzy', 'doudou981027@163.com'))
 
 EMAIL_HOST = "smtp.exmail.qq.com"
 
@@ -122,3 +122,5 @@ STATICFILES_DIRS = (
 )
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'upload')
+
+WECHAT_TOKEN = "a16sJvhernrFeUZSrnKNKzIJMqt4G"
