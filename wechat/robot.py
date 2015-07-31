@@ -5,13 +5,13 @@ from datetime import datetime
 from werobot import WeRoBot
 from werobot.reply import TextReply, ArticlesReply, Article
 from django.core.urlresolvers import reverse
-from django.conf.settings import WECHAT_TOKEN
+from django.conf import settings
 
 from wechat.models import Message, Articles, WechatDialogue, WechatUser
 from vote.models import VoteUser, Vote, Question
 
 
-robot = WeRoBot(token=WECHAT_TOKEN)
+robot = WeRoBot(token=settings.WECHAT_TOKEN)
 
 
 @robot.subscribe

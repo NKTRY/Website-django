@@ -17,7 +17,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 # See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '7o0&#mt)m$@b5=yyh3@s0@-zd$%3t^3d@#ipw$vef@yr)0yi%z'
+SECRET_KEY = '7o0&#mt)m$@b5=yyh3@s0@-zd$%3t^3d@#ipw$vlf@yr)0yi%z'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -32,7 +32,7 @@ EMAIL_HOST = "smtp.exmail.qq.com"
 
 EMAIL_HOST_USER = "error-report@nktry.com"
 
-EMAIL_HOST_PASSWORD = "SfcfzJmNBpViI88Z"
+EMAIL_HOST_PASSWORD = "7uiYUfzyKWEeoq4X"
 
 # Application definition
 
@@ -123,4 +123,4 @@ STATICFILES_DIRS = (
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'upload')
 
-WECHAT_TOKEN = "a16sJvhernrFeUZSrnKNKzIJMqt4G"
+WECHAT_TOKEN = "N0qqonZxvpkWOIHJvfkeilZsFT5UE"
