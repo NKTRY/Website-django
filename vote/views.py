@@ -23,14 +23,14 @@ def index(request):
 
 
 def archive(request):
-    question = Question.objects.filter(end_date__lte=datetime.today())
+    question = Question.objects.filter(end_date__lt=datetime.today())
     context = {
         "questions": question,
     }
     return render(request, "vote/archive.html", context=context)
 
 
-# TODO: can i use csrf_protect???
+@csrf_protect
 def vote(request, question_id, wechat_id=None):
     if request.method == "GET":
         question = Question.objects.get(pk=question_id)
@@ -46,7 +46,7 @@ def vote(request, question_id, wechat_id=None):
             try:
                 user = VoteUser.objects.get(username=request.session["vote_user"])
             except:
-                messages.warning(request, '请发送"投票"到微信公众号"创新人才"获取相关信息')
+                messages.warning(request, '请先登录投票系统或发送"投票"到微信公众号"创新人才"获取投票链接')
                 return redirect(reverse('vote-page', args=(question_id,)))
         else:
             try:
@@ -54,8 +54,13 @@ def vote(request, question_id, wechat_id=None):
             except:
                 messages.warning(request, '用户ID无效，请发送"投票"到微信公众号"创新人才"获取相关信息')
                 return redirect(reverse('vote-page', args=(question_id,)))
-        for poll in request.POST["choice"]:
-            vote = Vote(choice=poll, user=user)
+        question = Question.objects.get(pk=question_id)
+        polls = request.POST.getlist("check_box_list")
+        if len(polls) > question.max_choice:
+            polls = polls[:question.max_choice]
+        for poll in polls:
+            poll_obj = Choice.objects.get(id=int(poll))
+            vote = Vote(choice=poll_obj, user=user)
             vote.save()
         messages.success(request, "投票成功~谢谢您的参与~")
         return redirect(reverse('vote_page', args=(question_id,)))
@@ -64,7 +69,6 @@ def vote(request, question_id, wechat_id=None):
 @csrf_protect
 def login(request):
     if request.method == 'GET':
-        messages.success(request, '23333')
         return redirect('vote_index')
 
     if request.method == 'POST':

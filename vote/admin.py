@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
+import json, requests
 
 from django.contrib import admin
 
@@ -47,6 +48,22 @@ class QuestionAdmin(admin.ModelAdmin):
 class VoteAdmin(admin.ModelAdmin):
     readonly_fields = ["timestamp", "ip", "address", "choice", "user"]
 
+    def save_model(self, request, obj, form, change):
+        if request.META.has_key('HTTP_X_FORWARDED_FOR'):
+            ip =  request.META['HTTP_X_FORWARDED_FOR']
+        else:  
+            ip = request.META['REMOTE_ADDR']
+        obj.ip = ip
+        try:
+            url = "http://api.map.baidu.com/location/ip"
+            querystring = {"ak":"UeB0D7k1XtZnmC9KTmHG5Eej", "ip":ip, "coor":"bd09ll"}
+            response = requests.request("POST", url, params=querystring)
+            rjson = json.loads(response.read())
+            obj.address = rjson["address"]
+        except:
+            pass
+        obj.save()
+
 
 class VoteUserAdmin(admin.ModelAdmin):
     list_display = ["username", "password", "openid", "is_active"]
@@ -59,3 +76,4 @@ superadminsite.register(VoteUser, VoteUserAdmin)
 
 normaladminsite.register(Question, QuestionAdmin)
 normaladminsite.register(Choice, ChoiceAdmin)
+normaladminsite.register(Vote, VoteAdmin)

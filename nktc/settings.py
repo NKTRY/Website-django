@@ -22,10 +22,17 @@ SECRET_KEY = '7o0&#mt)m$@b5=yyh3@s0@-zd$%3t^3d@#ipw$vef@yr)0yi%z'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-TEMPLATE_DEBUG = True
+TEMPLATE_DEBUG = False
 
 ALLOWED_HOSTS = ['.nktry.com', 'localhost']
 
+ADMINS = (('Jachgxc', 'jackgxc@vip.qq.com'), ('Albus', 'albus.zly@gmail.com'), ('Nkzzy', 'doudou981027@163.com'))
+
+EMAIL_HOST = "smtp.exmail.qq.com"
+
+EMAIL_HOST_USER = "error-report@nktry.com"
+
+EMAIL_HOST_PASSWORD = "SfcfzJmNBpViI88Z"
 
 # Application definition
 
