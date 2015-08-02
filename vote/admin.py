@@ -11,7 +11,7 @@ from vote.models import Vote, Question, Choice, VoteUser
 
 
 class ChoiceAdmin(admin.ModelAdmin):
-    list_display = ["name", "question"]
+    list_display = ["title", "question"]
 
     def get_queryset(self, request):
         qs = super(ChoiceAdmin, self).get_queryset(request)
@@ -19,6 +19,21 @@ class ChoiceAdmin(admin.ModelAdmin):
             return qs
         q = Q(id=-1) | Q(question_author=request.user)
         return qs.filter(q)
+
+    def save_model(self, request, obj, form, change):
+        obj.save()
+        if obj.img != None:
+            origin_img = Image.open(obj.img.path)
+            watermark = Image.open("/alidata/www/Website-django/static/frontend/img/watermark.png")
+            length = origin_img.size[0]/5
+            width = length/2
+            watermark = watermark.resize((length, width))
+            if origin_img.mode != 'RGBA':
+                origin_img = origin_img.convert('RGBA')
+            layer = Image.new('RGBA', origin_img.size, (0, 0, 0, 0))
+            layer.paste(watermark, (length*4, origin_img.size[1]-width))
+            merge_img = Image.composite(layer, origin_img, layer)
+            merge_img.save(obj.img.path)
 
 
 class ChoiceInline(admin.TabularInline):
@@ -43,6 +58,20 @@ class QuestionAdmin(admin.ModelAdmin):
             return qs
         q = Q(id=-1) | Q(author=request.user)
         return qs.filter(q)
+
+    def save_model(self, request, obj, form, change):
+        obj.save()
+        origin_img = Image.open(obj.cover_img.path)
+        watermark = Image.open("/alidata/www/Website-django/static/frontend/img/watermark.png")
+        length = origin_img.size[0]/5
+        width = length/2
+        watermark = watermark.resize((length, width))
+        if origin_img.mode != 'RGBA':
+            origin_img = origin_img.convert('RGBA')
+        layer = Image.new('RGBA', origin_img.size, (0, 0, 0, 0))
+        layer.paste(watermark, (length*4, origin_img.size[1]-width))
+        merge_img = Image.composite(layer, origin_img, layer)
+        merge_img.save(obj.cover_img.path)
 
 
 class VoteAdmin(admin.ModelAdmin):
