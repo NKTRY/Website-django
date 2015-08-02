@@ -42,7 +42,7 @@ class Choice(models.Model):
         verbose_name_plural = "选项"
 
     def __unicode__(self):
-        return self.name
+        return self.title
 
 
 class Vote(models.Model):
