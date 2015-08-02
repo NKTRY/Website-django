@@ -50,7 +50,7 @@ class QuestionAdmin(admin.ModelAdmin):
         if not request.user.is_superuser:
             if db_field.name == "author":
                 kwargs["queryset"] = CustomUser.objects.filter(username=request.user.username)
-        return super(NormalArticleAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
+        return super(QuestionAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
 
     def get_queryset(self, request):
         qs = super(QuestionAdmin, self).get_queryset(request)
