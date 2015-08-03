@@ -20,11 +20,10 @@
 			<!-----start-search-bar-section--------->
 			<div class="buttom">
 				<div class="seach_bar">
-					<p>you can go to <span><a href="/">home</a></span> page or search here</p>
+					<p>you can go to <span><a href="http://www.nktry.com/">home</a></span> page or search here</p>
 					<!-----start-sear-box--------->
 					<div class="search_box">
-					<form role="search" method="post" action="{% url 'search' %}">
-						{% csrf_token %}
+					<form role="search" method="post" action="http://www.nktry.com/{% url 'search' %}">
 					    <input type="text" name="content" placeholder="您想知道..."><input type="submit" value="">
 				    </form>
 					 </div>

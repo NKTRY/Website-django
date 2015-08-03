@@ -102,7 +102,6 @@ def secondary_menu_all(request, main, secondary):
     return render(request, "frontend/list-secondary-all.html", context)
 
 
-@csrf_protect
 def search(request):
     if request.method == "POST":
         keyword = request.POST["content"]
