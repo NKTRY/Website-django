@@ -110,3 +110,4 @@ upload/
 
 nktc/settings.py
 werobot_session
+db.sqlite3
