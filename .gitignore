@@ -109,3 +109,4 @@ upload/
 .vagrant
 
 nktc/settings.py
+werobot_session
