@@ -112,10 +112,13 @@ def search(request):
         articles = Article.objects.filter(q).order_by('pub_date')[:7]
         mains = MainMenu.objects.filter(available=True).order_by("order")
         hot = Article.objects.order_by("hits")[:7]
+        if len(articles) == 0:
+            has_result = False
         context = {
             "mains": mains,
             "articles": articles,
-            "hot": hot
+            "hot": hot,
+            "has_result": has_result
         }
         return render(request, "frontend/search-result.html", context)
 

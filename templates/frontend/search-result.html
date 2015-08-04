@@ -41,7 +41,7 @@
 
 <div class="container breadcrumb-div">
     <ol class="breadcrumb">
-        <span class="breadcrumb-title">您的搜索结果为：</span>
+        <span class="breadcrumb-title">您的搜索结果为：{% if not has_result %}没有搜索到相关内容{% endif %}</span>
     </ol>
 </div>
 
