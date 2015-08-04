@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.utils import timezone
 from django.db.models import Q
-from django.views.decorators.csrf import csrf_protect
+from django.views.decorators.csrf import csrf_protect, csrf_exempt
 from django.core.paginator import PageNotAnInteger, EmptyPage, Paginator
 
 from frontend.models import MainMenu, Slider, SecondaryMenu, News, Article, Activity
@@ -102,6 +102,7 @@ def secondary_menu_all(request, main, secondary):
     return render(request, "frontend/list-secondary-all.html", context)
 
 
+@csrf_exempt
 def search(request):
     if request.method == "POST":
         keyword = request.POST["content"]

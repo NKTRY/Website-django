@@ -1,0 +1,19 @@
+{% extends "frontend/base.html" %}
+
+{% block title %}Server error (500){% endblock %}
+
+{% block content %}
+<div class="breadcrumb-div">
+    <ol class="breadcrumb">
+        <span class="breadcrumb-title">您当前的位置：</span>
+        <li><a href="/">Home</a></li>
+        <li class="active">Server error page</li>
+    </ol>
+</div>
+
+<blockquote>
+  <h1>Server Error <em>(500)</em></h1>
+  <p>There's been an error. It's been reported to the site administrators via email and should be fixed shortly. Thanks for your patience.</p>
+</blockquote>
+
+{% endblock %}
