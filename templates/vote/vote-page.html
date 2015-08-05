@@ -3,6 +3,12 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title>投票页 | NKTRY投票系统</title>
+    <style type="text/css">
+		.box{
+			width:300px;
+			margin: 30px auto; 
+		}
+    </style>
 </head>
 <body>
 {% for message in messages %}
@@ -10,7 +16,11 @@
 {% endfor %}
 ----------------------
 <p>{{ question }}</p>
-<p>{{ choices }}</p>
+<form action="#" method="post">
+{% csrf_token %}
+{% for choice in choices %}
+<p>{{ choice.title }}<input type="checkbox"></p>
+{% endfor %}
 <div class="box">
     {% if geetest_url %}
     <script type="text/javascript" src="{{ geetest_url }}"></script>
@@ -18,7 +28,9 @@
     <p> please insert your local captcha system code! </p>
     {% endif %}
 </div>
-{% load staticfiles %}
-<script type="text/javascript" charset="utf-8" id="gt_lib" src="http://static.geetest.com/static/js/geetest.3.0.30.js"></script>
+<div class="box">
+	<button id="submit-button">提交</button>
+</div>
+</form>
 </body>
 </html>
