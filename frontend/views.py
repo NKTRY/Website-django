@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import timezone
 from django.db.models import Q
 from django.views.decorators.csrf import csrf_protect, csrf_exempt
@@ -38,7 +38,7 @@ def index(request):
 
 
 def main_menu(request, main):
-    main = MainMenu.objects.get(codename=main)
+    main = get_object_or_404(MainMenu, codename=main)
     mains = MainMenu.objects.filter(available=True).order_by("order")
     secondaries = SecondaryMenu.objects.filter(parent=main).order_by("order")
     context = {
@@ -50,8 +50,8 @@ def main_menu(request, main):
 
 
 def secondary_menu(request, main, secondary):
-    main = MainMenu.objects.get(codename=main)
-    secondary = SecondaryMenu.objects.get(codename=secondary)
+    main = get_object_or_404(MainMenu, codename=main)
+    secondary = get_object_or_404(SecondaryMenu, codename=secondary)
     mains = MainMenu.objects.filter(available=True).order_by("order")
     secondaries = SecondaryMenu.objects.filter(parent=main).order_by("order")
     articles = Article.objects.filter(parent=secondary)[:7]
@@ -78,8 +78,8 @@ def secondary_menu(request, main, secondary):
 
 
 def secondary_menu_all(request, main, secondary):
-    main = MainMenu.objects.get(codename=main)
-    secondary = SecondaryMenu.objects.get(codename=secondary)
+    main = get_object_or_404(MainMenu, codename=main)
+    secondary = get_object_or_404(SecondaryMenu, codename=secondary)
     mains = MainMenu.objects.filter(available=True).order_by("order")
     secondaries = SecondaryMenu.objects.filter(parent=main).order_by("order")
     articles = Article.objects.filter(parent=secondary)
@@ -127,9 +127,9 @@ def search(request):
 
 
 def content(request, main, secondary, id):
-    main = MainMenu.objects.get(codename=main)
-    secondary = SecondaryMenu.objects.get(codename=secondary)
-    article = Article.objects.get(pk=id)
+    main = get_object_or_404(MainMenu, codename=main)
+    secondary = get_object_or_404(SecondaryMenu, codename=secondary)
+    article = get_object_or_404(Article, pk=id)
     article.hit()
     mains = MainMenu.objects.filter(available=True).order_by("order")
     secondaries = SecondaryMenu.objects.filter(parent=main).order_by("order")

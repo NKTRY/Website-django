@@ -1,16 +1,18 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.core.urlresolvers import reverse
 from django.contrib import messages
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_protect
+from django.conf import settings
 
 from datetime import datetime
 
 from vote.models import Vote, Question, Choice, VoteUser
 from vote.forms import LoginForm
+import vote.geetest
 # Create your views here.
 
 
@@ -33,15 +35,29 @@ def archive(request):
 @csrf_protect
 def vote(request, question_id, wechat_id=None):
     if request.method == "GET":
-        question = Question.objects.get(pk=question_id)
+        question = get_object_or_404(Question, pk=question_id)
         choices = Choice.objects.filter(question=question)
+        gt = geetest.geetest(settings.CAPTCHA_ID, settings.PRIVATE_KEY)
+        challenge = gt.geetest_register()
+        BASE_URL = "api.geetest.com/get.php?gt="
+        if len(challenge) == 32:
+            geetest_url = "http://%s%s&challenge=%s" % (BASE_URL, settings.CAPTCHA_ID, settings.PRIVATE_KEY)
         context = {
             "question": question,
             "choices": choices,
+            "geetest_url": geetest_url,
         }
         return render(request, "vote/vote-page.html", context=context)
 
     if request.method == "POST":
+        challenge = request.POST.get('geetest_challenge', '')
+        validate = request.POST.get('geetest_validate', '')
+        seccode = request.POST.get('geetest_seccode', '')
+        gt = geetest.geetest(settings.CAPTCHA_ID, settings.PRIVATE_KEY)
+        result = gt.geetest_validate(challenge, validate, seccode)
+        if not result:
+            messages.warning(request, '验证失败')
+            return redirect(reverse('vote-page', args=(question_id,)))
         if wechat_id == None:
             try:
                 user = VoteUser.objects.get(username=request.session["vote_user"])
@@ -54,12 +70,12 @@ def vote(request, question_id, wechat_id=None):
             except:
                 messages.warning(request, '用户ID无效，请发送"投票"到微信公众号"创新人才"获取相关信息')
                 return redirect(reverse('vote-page', args=(question_id,)))
-        question = Question.objects.get(pk=question_id)
+        question = get_object_or_404(Question, pk=question_id)
         polls = request.POST.getlist("check_box_list")
         if len(polls) > question.max_choice:
             polls = polls[:question.max_choice]
         for poll in polls:
-            poll_obj = Choice.objects.get(id=int(poll))
+            poll_obj = get_object_or_404(Choice, id=int(poll))
             vote = Vote(choice=poll_obj, user=user)
             vote.save()
         messages.success(request, "投票成功~谢谢您的参与~")

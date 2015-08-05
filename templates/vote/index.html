@@ -5,7 +5,9 @@
     <title>首页 | NKTRY投票系统</title>
 </head>
 <body>
-{{ messages }}
+{% for message in messages %}
+{{ message }}
+{% endfor %}
 ----------------------
 {{ questions }}
 </body>

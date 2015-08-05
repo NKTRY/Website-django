@@ -5,9 +5,18 @@
     <title>投票页 | NKTRY投票系统</title>
 </head>
 <body>
-{{ messages }}
+{% for message in messages %}
+{{ message }}
+{% endfor %}
 ----------------------
 <p>{{ question }}</p>
 <p>{{ choices }}</p>
+<div class="box">
+    {% if url %}
+    <script type="text/javascript" src="{{ geetest_url }}"></script>
+    {% else %}
+    <p> please insert your local captcha system code! </p>
+    {% endif %}
+</div>
 </body>
 </html>
