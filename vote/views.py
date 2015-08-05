@@ -41,7 +41,7 @@ def vote(request, question_id, wechat_id=None):
         challenge = gt.geetest_register()
         BASE_URL = "api.geetest.com/get.php?gt="
         if len(challenge) == 32:
-            geetest_url = "http://%s%s&challenge=%s&product=embed" % (BASE_URL, settings.CAPTCHA_ID, settings.PRIVATE_KEY)
+            geetest_url = "http://%s%s&challenge=%s&product=embed" % (BASE_URL, settings.CAPTCHA_ID, challenge)
         context = {
             "question": question,
             "choices": choices,
