@@ -12,7 +12,7 @@ from datetime import datetime
 
 from vote.models import Vote, Question, Choice, VoteUser
 from vote.forms import LoginForm
-import vote.geetest
+import vote.geetest as geetest
 # Create your views here.
 
 
