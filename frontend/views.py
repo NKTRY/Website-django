@@ -114,6 +114,8 @@ def search(request):
         hot = Article.objects.order_by("hits")[:7]
         if len(articles) == 0:
             has_result = False
+        else:
+        	has_result = True
         context = {
             "mains": mains,
             "articles": articles,
