@@ -21,21 +21,6 @@ class ChoiceAdmin(admin.ModelAdmin):
         q = Q(id=-1) | Q(question_author=request.user)
         return qs.filter(q)
 
-    def save_model(self, request, obj, form, change):
-        obj.save()
-        if obj.img != None:
-            origin_img = Image.open(obj.img.path)
-            watermark = Image.open("/alidata/www/Website-django/static/frontend/img/watermark.png")
-            length = origin_img.size[0]/5
-            width = length/2
-            watermark = watermark.resize((length, width))
-            if origin_img.mode != 'RGBA':
-                origin_img = origin_img.convert('RGBA')
-            layer = Image.new('RGBA', origin_img.size, (0, 0, 0, 0))
-            layer.paste(watermark, (length*4, origin_img.size[1]-width))
-            merge_img = Image.composite(layer, origin_img, layer)
-            merge_img.save(obj.img.path)
-
 
 class ChoiceInline(admin.TabularInline):
     model = Choice
