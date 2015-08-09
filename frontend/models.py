@@ -103,7 +103,6 @@ class SecondaryMenu(models.Model):
     img = models.ImageField(verbose_name="展示图片", upload_to="img/Menu", help_text="推荐尺寸: 600px*370px [其他尺寸请保持长宽比相同]")
     available = models.BooleanField(verbose_name="已发布", default=True)
     parent = models.ForeignKey(MainMenu, verbose_name="父级菜单")
-    description = models.CharField(verbose_name="板块介绍", max_length=100)
 
     def save(self, force_insert=False, force_update=False, using=None,
              update_fields=None):
