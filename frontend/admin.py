@@ -248,7 +248,7 @@ class SecondaryMenuAdmin(admin.ModelAdmin):
         except:
             pass
         obj.save()
-        check_size(600, 200, obj.img.path)
+        check_size(600, 370, obj.img.path)
 
 class NormalSliderAdmin(admin.ModelAdmin):
     fieldsets = (("幻灯片内容", {"fields": ("text", "img", "url", "push", "category")}),)
