@@ -187,7 +187,7 @@ class MainMenuAdmin(admin.ModelAdmin):
 
 class SecondaryMenuAdmin(admin.ModelAdmin):
     fieldsets = (
-                ("菜单信息", {"fields": ("name", "codename", "img", "description", "order", "parent", "available")}),
+                ("菜单信息", {"fields": ("name", "codename", "img", "order", "parent", "available")}),
             )
     list_display = ["name", "codename", "order", "available"]
 
