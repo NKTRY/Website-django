@@ -100,7 +100,7 @@ class SecondaryMenu(models.Model):
     name = models.CharField(verbose_name="板块名称", max_length=20, unique=True)
     codename = models.CharField(verbose_name="机读名称", max_length=20, unique=True)
     order = models.IntegerField(verbose_name="显示顺序", blank=True)
-    img = models.ImageField(verbose_name="展示图片", upload_to="img/Menu", help_text="推荐尺寸: 600px*200px [其他尺寸请保持长宽比相同]")
+    img = models.ImageField(verbose_name="展示图片", upload_to="img/Menu", help_text="推荐尺寸: 600px*370px [其他尺寸请保持长宽比相同]")
     available = models.BooleanField(verbose_name="已发布", default=True)
     parent = models.ForeignKey(MainMenu, verbose_name="父级菜单")
     description = models.CharField(verbose_name="板块介绍", max_length=100)
