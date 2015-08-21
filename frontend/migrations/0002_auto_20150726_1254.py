@@ -21,16 +21,6 @@ class Migration(migrations.Migration):
             name='slider',
             options={'verbose_name': '\u5e7b\u706f\u7247\u63a8\u9001', 'verbose_name_plural': '\u5e7b\u706f\u7247\u63a8\u9001'},
         ),
-        migrations.AddField(
-            model_name='article',
-            name='create_date',
-            field=models.DateTimeField(default=django.utils.timezone.now, verbose_name='\u521b\u5efa\u65f6\u95f4'),
-        ),
-        migrations.AddField(
-            model_name='article',
-            name='modify_date',
-            field=models.DateTimeField(default=django.utils.timezone.now, verbose_name='\u4fee\u6539\u65f6\u95f4'),
-        ),
         migrations.AlterField(
             model_name='activity',
             name='img',
@@ -59,7 +49,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='secondarymenu',
             name='img',
-            field=models.ImageField(help_text='\u63a8\u8350\u5c3a\u5bf8: 600px*200px [\u5176\u4ed6\u5c3a\u5bf8\u8bf7\u4fdd\u6301\u957f\u5bbd\u6bd4\u76f8\u540c]', upload_to='img/Menu', verbose_name='\u5c55\u793a\u56fe\u7247'),
+            field=models.ImageField(help_text='\u63a8\u8350\u5c3a\u5bf8: 600px*300px [\u5176\u4ed6\u5c3a\u5bf8\u8bf7\u4fdd\u6301\u957f\u5bbd\u6bd4\u76f8\u540c]', upload_to='img/Menu', verbose_name='\u5c55\u793a\u56fe\u7247'),
         ),
         migrations.AlterField(
             model_name='slider',

@@ -314,3 +314,6 @@ dl{
 .activity-list{		
     height: 200px;
 }
+.max-img-width{
+    max-width: 100%;
+}

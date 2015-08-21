@@ -32,5 +32,19 @@
 <script src="{% static "frontend/js/jquery.min.js" %}"></script>
 <script src="{% static "frontend/js/bootstrap.min.js" %}"></script>
 <script src="{% static "frontend/js/holder.js" %}"></script>
+<script>
+$(document).ready(function(){
+  $("div.page-content").find("img").addClass("max-img-width");
+  $("#share-qzone").on('click',function(){
+    $("a.bshare-qzone")[0].click();
+  });
+  $("#uyan-comment").on('click',function(){
+    document.getElementById('uyanmessage').focus()
+  });
+  $("#back-top").on('click',function(){
+    window.scrollTo(0, 0);
+  });
+});
+</script>
 </body>
 </html>

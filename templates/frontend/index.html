@@ -106,7 +106,7 @@
                     </p>
                     {% endfor %}
                 </div>
-                <div role="tabpanel" class="tab-pane fade in active" id="cata2">
+                <div role="tabpanel" class="tab-pane fade" id="cata2">
                     {% for item in news.1 %}
                     <p>
                         <span class="glyphicon glyphicon-chevron-right"></span>
@@ -117,7 +117,7 @@
                     </p>
                     {% endfor %}
                 </div>
-                <div role="tabpanel" class="tab-pane fade in active" id="cata3">
+                <div role="tabpanel" class="tab-pane fade" id="cata3">
                     {% for item in news.2 %}
                     <p>
                         <span class="glyphicon glyphicon-chevron-right"></span>
@@ -157,7 +157,7 @@
                     <div class="present-activity-passage">
                         <dl>
                             <dt>现在没有进行中的活动哦~</dt>
-                            <dd>Admin[2015年5月15日]</dd>
+                            <dd>Admin{% now "[Y年n月d日]" %}</dd>
                         </dl>
                     </div>
                     <div class="present-activity-content">

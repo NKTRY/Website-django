@@ -215,7 +215,7 @@ class News(models.Model):
 
 class Article(models.Model):
     id = models.AutoField(primary_key=True)
-    title = models.CharField(verbose_name="标题", max_length=20, unique=True)
+    title = models.CharField(verbose_name="标题", max_length=50, unique=True)
     text = UEditorField('内容', width=600, height=300, toolbars="full".encode("raw_unicode_escape"), imagePath="img/Article",
                         filePath="file/Article", upload_settings={"imageMaxSize": 1204000}, settings={}, command=None)
     author = models.ForeignKey(CustomUser, verbose_name="作者")
@@ -225,8 +225,7 @@ class Article(models.Model):
     parent = models.ForeignKey(SecondaryMenu, verbose_name="父级菜单")
     cover_img = models.ImageField(verbose_name="封面图片", upload_to="img/Article", help_text="推荐尺寸: 600px*325px [其他尺寸请保持长宽比相同]")
     description = models.TextField(verbose_name="简介")
-    create_date = models.DateTimeField(verbose_name="创建时间", default=timezone.now)
-    modify_date = models.DateTimeField(verbose_name="修改时间", default=timezone.now)
+    submit_to_baidu = models.BooleanField(default=False)
 
     class Meta:
         verbose_name = "文章"
@@ -235,21 +234,6 @@ class Article(models.Model):
     def hit(self):
         self.hits += 1
         self.save()
-
-    def save(self, force_insert=False, force_update=False, using=None,
-             update_fields=None):
-        if self.create_date == self.modify_date:
-            try:
-                url = "http://data.zz.baidu.com/urls"
-                querystring = {"site":"www.nktry.com","token":"2xjnUaccjgEVHUYI"}
-                payload = 'http://nktry.com/'+reverse('content', args=(self.parent.parent.codename, self.parent.codename, self.id))
-                response = requests.request("POST", url, data=payload, params=querystring)
-                time.sleep(0.1)
-            except:
-                pass
-        self.modify_date = timezone.now()
-        result = super(Article, self).save()
-        return result
 
     def __unicode__(self):
         return self.title

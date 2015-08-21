@@ -11,19 +11,22 @@ from frontend.models import MainMenu, Slider, SecondaryMenu, News, Article, Acti
 def index(request):
     mains = MainMenu.objects.filter(available=True).order_by("order")
     q = Q(id=-1)
-    slider = Slider.objects.order_by("push__pub_date")[:5]
+    slider = Slider.objects.order_by("-push__pub_date")[:5]
     if len(slider) == 0:
         slider = None
     news = ()
     for obj in News.category_choice:
-        news = news + (News.objects.filter(category=obj[0]).order_by("push__pub_date")[:7],)
-    articles = Article.objects.order_by("pub_date")[:10]
+        news = news + (News.objects.filter(category=obj[0]).order_by("-push__pub_date")[:7],)
+    articles = Article.objects.order_by("-pub_date")[:10]
 
     try:
         activity = Activity.objects.get(end_date__gte=timezone.now())
     except:
         activity = None
-    activities = Activity.objects.order_by("-id")[:4]
+    activities = Activity.objects.order_by("-end_date")[:4]
+    if len(activities) != 0:
+        if activities[0] == activity:
+             activities = activities[1:]
     choices = News.category_choice
     context = {
         "mains": mains,
@@ -31,7 +34,7 @@ def index(request):
         "news": news,
         "articles": articles,
         "activity": activity,
-        "activities": activities[1:],
+        "activities": activities,
         "news_category": choices
     }
     return render(request, "frontend/index.html", context)
@@ -63,7 +66,7 @@ def secondary_menu(request, main, secondary):
         activity = activity[0]
     else:
         activity = None
-    hot = Article.objects.order_by("hits")[:7]
+    hot = Article.objects.order_by("-hits")[:7]
     context = {
         "main": main,
         "secondary": secondary,
@@ -83,7 +86,7 @@ def secondary_menu_all(request, main, secondary):
     mains = MainMenu.objects.filter(available=True).order_by("order")
     secondaries = SecondaryMenu.objects.filter(parent=main).order_by("order")
     articles = Article.objects.filter(parent=secondary)
-    hot = Article.objects.order_by("hits")[:7]
+    hot = Article.objects.order_by("-hits")[:7]
     articles = Paginator(articles, 7)
     page = request.GET.get('page')
     try:
@@ -109,9 +112,9 @@ def search(request):
         if keyword is None:
             return redirect("index")
         q = Q(title__contains=keyword) | Q(text__contains=keyword) | Q(author__nickname=keyword)
-        articles = Article.objects.filter(q).order_by('pub_date')[:7]
+        articles = Article.objects.filter(q).order_by('-pub_date')[:7]
         mains = MainMenu.objects.filter(available=True).order_by("order")
-        hot = Article.objects.order_by("hits")[:7]
+        hot = Article.objects.order_by("-hits")[:7]
         if len(articles) == 0:
             has_result = False
         else:
@@ -138,7 +141,7 @@ def content(request, main, secondary, id):
     q = Q(id=-1)
     for item in secondaries:
         q = q | Q(parent=item)
-    hot = Article.objects.filter(q).order_by("hits")[:7]
+    hot = Article.objects.filter(q).order_by("-hits")[:7]
     context = {
         "main": main,
         "secondary": secondary,
