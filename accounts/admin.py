@@ -116,9 +116,9 @@ class LogEntryAdmin(admin.ModelAdmin):
 
     readonly_fields = ["action_time", "user", "content_type", "object_id", "object_repr", "action_flag", "change_message"]
 
-    search_fields = ["user", "__str__"]
+    search_fields = ["user__nickname", "action_time", "change_message", "content_type__model", "object_repr"]
 
-    list_filter = ["action_time"]
+    list_filter = ["action_time", "content_type"]
 
 
 superadminsite = SuperAdminSite(name='superadmin')
