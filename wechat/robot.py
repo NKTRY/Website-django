@@ -79,7 +79,7 @@ def reply_article(message):
         article = Article(
             title=r.title,
             description=r.text,
-            img='/media/' + r.img.url,
+            img='http://www.nktry.com/media/' + r.img.url,
             url=r.url
         )
         send.add_article(article)
