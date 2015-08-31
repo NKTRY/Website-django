@@ -7,6 +7,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.db.models import Q
 from django.utils import timezone
 from PIL import Image, ImageColor
+import autocomplete_light
 
 from accounts.admin import normaladminsite, superadminsite
 from accounts.models import CustomUser
@@ -50,6 +51,8 @@ def check_size(length, width, filename):
 
 
 class SuperArticleAdmin(admin.ModelAdmin):
+    form = autocomplete_light.modelform_factory(Article, exclude=[])
+
     fieldsets = (
             ("文章内容", {"fields": ("title", "description", "text", "author")}),
             ("文章信息", {"fields": ("pub_date", "available", "parent", "cover_img")}),
@@ -98,6 +101,8 @@ class SuperArticleAdmin(admin.ModelAdmin):
 
 
 class NormalArticleAdmin(admin.ModelAdmin):
+    form = autocomplete_light.modelform_factory(Article, exclude=[])
+
     fieldsets = (
             ("文章内容", {"fields": ("title", "description", "text", "author")}),
             ("文章信息", {"fields": ("parent", "cover_img", "available")}),
@@ -251,6 +256,8 @@ class SecondaryMenuAdmin(admin.ModelAdmin):
         check_size(600, 370, obj.img.path)
 
 class NormalSliderAdmin(admin.ModelAdmin):
+    form = autocomplete_light.modelform_factory(Slider, exclude=[])
+
     fieldsets = (("幻灯片内容", {"fields": ("text", "img", "url", "push", "category")}),)
 
     list_display = ["text", "push"]
@@ -294,6 +301,8 @@ class NormalSliderAdmin(admin.ModelAdmin):
 
 
 class SuperSliderAdmin(admin.ModelAdmin):
+    form = autocomplete_light.modelform_factory(Slider, exclude=[])
+
     fieldsets = (("幻灯片内容", {"fields": ("text", "img", "url", "push", "category")}),)
 
     list_display = ["text", "push"]
@@ -337,6 +346,8 @@ class SuperSliderAdmin(admin.ModelAdmin):
 
 
 class SuperActivityAdmin(admin.ModelAdmin):
+    form = autocomplete_light.modelform_factory(Activity, exclude=[])
+
     fieldsets = (("活动信息", {"fields": ("title", "text", "img", "old_img", "url", "category", "author", "pub_date", "end_date")}),)
 
     list_display = ["title", "url"]
@@ -374,6 +385,8 @@ class SuperActivityAdmin(admin.ModelAdmin):
 
 
 class NormalActivityAdmin(admin.ModelAdmin):
+    form = autocomplete_light.modelform_factory(Activity, exclude=[])
+
     fieldsets = (("活动信息", {"fields": ("title", "text", "img", "old_img", "url", "category", "author", "pub_date", "end_date")}),)
 
     list_display = ["title", "url"]
@@ -412,10 +425,11 @@ class NormalActivityAdmin(admin.ModelAdmin):
 
 
 class NewsAdmin(admin.ModelAdmin):
+    form = autocomplete_light.modelform_factory(News, exclude=[])
+
     list_display = ["title", "push"]
 
     search_fields = ["title"]
-
 
 normaladminsite.register(Article, NormalArticleAdmin)
 normaladminsite.register(MainMenu, MainMenuAdmin)

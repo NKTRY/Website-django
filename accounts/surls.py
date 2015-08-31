@@ -10,6 +10,7 @@ urlpatterns = patterns('',
     # url(r'^blog/', include('blog.urls')),
 
     url(r'^', include(superadminsite.urls)),
+    url(r'^autocomplete/', include('autocomplete_light.urls')),
     url(r'^ueditor/',include('Ueditor.urls')),
     url(r'^search/$', search, name="search"),
 )
