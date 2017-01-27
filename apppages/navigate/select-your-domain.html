@@ -1,0 +1,285 @@
+﻿<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <title>金水养老 | 选择您要进入的网站</title>
+    <link href="statics/animate.min.css" rel="stylesheet">
+    <link href="statics/materialize.min.css" rel="stylesheet">
+    <link href="statics/main.css" rel="stylesheet" />
+    <style>
+        .body-class{
+                background-image:url(img/catalog_bg.jpg);
+                background-position-x:center;
+                background-position-y:center;
+                background-repeat:no-repeat;
+                background-attachment:scroll;
+                position:absolute;
+                z-index:1;
+        }
+        @media (max-width:500px){
+        #button_central{
+            height:100px;
+            width:100%;
+            border:1px solid white;
+            color:white;
+            font-size:1.6rem;
+            background-image:url(img/catalog_central.jpg);
+            -webkit-filter: saturate(0.8);
+            font-family:'等线 Light', '等线', '微软雅黑 Light', '微软雅黑', '黑体', '苹方';
+            text-align:center;
+            margin-top:20px;
+            -webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.7);
+            -moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.7);
+            box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.7);
+            background-position:center;
+        }
+        #button_central:hover{
+            height:100px;
+            width:100%;
+            color:white;
+            border:1px solid white;
+            font-size:1.6rem;
+            font-family:'等线 Light', '等线', '微软雅黑 Light', '微软雅黑', '黑体', '苹方';
+            text-align:center;
+            -webkit-filter: saturate(2) brightness(1.4);
+            background-image:url(img/catalog_central.jpg);
+            margin-top:20px;
+            -webkit-box-shadow: 12px 12px 7px 0px rgba(0,0,0,0.5);
+            -moz-box-shadow: 12px 12px 7px 0px rgba(0,0,0,0.5);
+            box-shadow: 12px 12px 7px 0px rgba(0,0,0,0.5);
+            background-position:center;
+        }
+        #button_yongyi{
+            height:100px;
+            width:100%;
+            border:1px solid white;
+            color:white;
+            font-size:1.6rem;
+            -webkit-filter: saturate(0.8);
+            font-family:'等线 Light', '等线', '微软雅黑 Light', '微软雅黑', '黑体', '苹方';
+            text-align:center;
+            background-image:url(img/catalog_yongyi.jpg);
+            background-position:center;
+            margin-top:20px;
+            -webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.7);
+            -moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.7);
+            box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.7);
+        }
+        #button_yongyi:hover{
+            height:100px;
+            width:100%;
+            color:white;
+            border:1px solid white;
+            font-size:1.6rem;
+            font-family:'等线 Light', '等线', '微软雅黑 Light', '微软雅黑', '黑体', '苹方';
+            text-align:center;
+            background-position:center;
+            -webkit-filter: saturate(2) brightness(1.4);
+            background-image:url(img/catalog_yongyi.jpg);
+            margin-top:20px;
+            -webkit-box-shadow: 12px 12px 7px 0px rgba(0,0,0,0.5);
+            -moz-box-shadow: 12px 12px 7px 0px rgba(0,0,0,0.5);
+            box-shadow: 12px 12px 7px 0px rgba(0,0,0,0.5);
+        }
+        .text_button{
+            padding-top:0.9rem;
+        }
+        }
+           .background-img{
+                background-image:url(img/catalog_bg.jpg);
+                background-position-x:center;
+                background-position-y:center;
+                background-repeat:no-repeat;
+                background-attachment:scroll;
+                position:absolute;
+                z-index:1;
+               }
+            .background-cover{
+                background:linear-gradient(90deg, black 0%, transparent 100%);
+                opacity:0.65;
+                z-index:3;
+            }
+
+        .background{
+            height:100%;
+            width:100%;
+            position:absolute;
+            top:0;
+            left:0;
+        }
+        .content-wrapper{
+            height:100%;
+            width:100%;
+            position:absolute;
+            top:0;
+            left:0;
+            padding-top:30px;
+            padding-left:50px;
+            padding-right:50px;
+            padding-bottom:50px;
+            z-index:5;
+
+        }
+        .title{
+            color:white;
+            font-size:3rem;
+            font-family:'等线 Light', '等线', '微软雅黑 Light', '微软雅黑', '黑体', '苹方';
+        }
+        @media (min-width:500px) {
+            #button_central {
+                height: 150px;
+                width: 400px;
+                border: 1px solid white;
+                color: white;
+                font-size: 1.6rem;
+                background-image: url(img/catalog_central.jpg);
+                -webkit-filter: saturate(0.8);
+                font-family: '等线 Light', '等线', '微软雅黑 Light', '微软雅黑', '黑体', '苹方';
+                text-align: center;
+                margin-top: 20px;
+                -webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.7);
+                -moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.7);
+                box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.7);
+                background-position: center;
+            }
+
+                #button_central:hover {
+                    height: 150px;
+                    width: 400px;
+                    color: white;
+                    border: 1px solid white;
+                    font-size: 1.6rem;
+                    font-family: '等线 Light', '等线', '微软雅黑 Light', '微软雅黑', '黑体', '苹方';
+                    text-align: center;
+                    -webkit-filter: saturate(2) brightness(1.4);
+                    background-image: url(img/catalog_central.jpg);
+                    margin-top: 20px;
+                    -webkit-box-shadow: 12px 12px 7px 0px rgba(0,0,0,0.5);
+                    -moz-box-shadow: 12px 12px 7px 0px rgba(0,0,0,0.5);
+                    box-shadow: 12px 12px 7px 0px rgba(0,0,0,0.5);
+                    background-position: center;
+                }
+
+            #button_yongyi {
+                height: 150px;
+                width: 400px;
+                border: 1px solid white;
+                color: white;
+                font-size: 1.6rem;
+                -webkit-filter: saturate(0.8);
+                font-family: '等线 Light', '等线', '微软雅黑 Light', '微软雅黑', '黑体', '苹方';
+                text-align: center;
+                background-image: url(img/catalog_yongyi.jpg);
+                background-position: center;
+                margin-top: 20px;
+                -webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.7);
+                -moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.7);
+                box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.7);
+            }
+
+                #button_yongyi:hover {
+                    height: 150px;
+                    width: 400px;
+                    color: white;
+                    border: 1px solid white;
+                    font-size: 1.6rem;
+                    font-family: '等线 Light', '等线', '微软雅黑 Light', '微软雅黑', '黑体', '苹方';
+                    text-align: center;
+                    background-position: center;
+                    -webkit-filter: saturate(2) brightness(1.4);
+                    background-image: url(img/catalog_yongyi.jpg);
+                    margin-top: 20px;
+                    -webkit-box-shadow: 12px 12px 7px 0px rgba(0,0,0,0.5);
+                    -moz-box-shadow: 12px 12px 7px 0px rgba(0,0,0,0.5);
+                    box-shadow: 12px 12px 7px 0px rgba(0,0,0,0.5);
+                }
+
+            .text_button {
+                padding-top: 2.2rem;
+            }
+        }
+    </style>
+
+
+  </head>
+  <body class="body-class">
+      <div id="background" class="animated fadeIn background">
+          <div id="background-black-cover" class="background background-cover"></div>
+          <div id="background-img" class="background background-img"></div>
+      </div>
+
+      <div id="content-wrapper" class="content-wrapper z-depth-5">
+            <div id="title" class="animated fadeIn title">
+                <p>请选择您要进入的网站</p>
+            </div>
+
+            <div class="animated fadeIn z-depth-2" id="button_central">
+                <p class="text_button">金水区中心敬老院</p>   
+            </div>
+            <div class="animated fadeIn z-depth-2" id="button_yongyi">
+                <p class="text_button">金水区永宜老年公寓</p> 
+            </div>
+      </div>
+
+
+
+
+
+     
+<script src="statics/jquery.min.js"></script>
+<script language="javascript">
+   Element.prototype.remove = function() {
+    this.parentElement.removeChild(this);
+}
+    NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
+    for(var i = this.length - 1; i >= 0; i--) {
+        if(this[i] && this[i].parentElement) {
+            this[i].parentElement.removeChild(this[i]);
+        }
+    }
+}
+
+$(document).ready(function(){
+    $("#button_yongyi").hover(function(){
+        $("#button_yongyi").removeClass("animated fadeIn").addClass("animated pulse");
+        },function(){
+        $("#button_yongyi").removeClass("animated pulse");
+        });
+
+    $("#button_central").hover(function(){
+        $("#button_central").removeClass("animated fadeIn").addClass("animated pulse");
+        },function(){
+            $("#button_central").removeClass("animated pulse");
+        });
+
+    $("#button_yongyi").click(function () {
+        $("body").removeClass("body-class");
+        $("#button_yongyi").removeClass("animated pulse").addClass("animated fadeOut");
+        setTimeout(function () { $("#button_central").removeClass("animated pulse").addClass("animated fadeOutUp"); }, 60);
+        setTimeout(function () { $("#title").removeClass("animated fadeIn").addClass("animated fadeOutUp"); }, 100);
+        setTimeout(function () { $("#background").removeClass("animated fadeIn").addClass("animated fadeOut"); }, 30);
+        $("#button_yongyi").one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend',function(){
+            window.location.href = './central/index.html';
+            return false;
+        })     
+    })
+
+    $("#button_central").click(function () {
+        $("body").removeClass("body-class");
+        $("#button_central").removeClass("animated pulse").addClass("animated fadeOut");
+        setTimeout(function () { $("#button_yongyi").removeClass("animated pulse").addClass("animated fadeOutDown"); }, 100);
+        setTimeout(function () { $("#title").removeClass("animated fadeIn").addClass("animated fadeOutUp"); }, 60);
+        setTimeout(function () { $("#background").removeClass("animated fadeIn").addClass("animated fadeOut"); }, 30);
+        $("#button_central").one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend',function(){
+            window.alert("哦我还没建好！快去看另一个！");
+            return false;
+            })
+    })
+});
+</script>
+
+
+  </body>
+</html>

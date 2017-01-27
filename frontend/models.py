@@ -195,8 +195,7 @@ class Slider(models.Model):
 
 class News(models.Model):
     category_choice = (
-        ("nktc", "NKTC"),
-        ("nksu", "学生会"),
+        ("nktc", "体创内部"),
         ("shetuan", "社团活动"),
     )
     id = models.AutoField(primary_key=True)

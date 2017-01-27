@@ -5,48 +5,20 @@
 {% load staticfiles %}
 
 {% block content %}
-<nav class="navbar navbar-default navbar-fixed-top">
-    <div class="container">
-        <div class="navbar-header">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#">
-                    <img src="{% static "frontend/img/logo.png" %}" height="40px" alt="NKTC"/>
-                </a>
-            </div>
-        </div>
-        <div class="collapse navbar-collapse" id="navbar">
-            <ul class="nav navbar-nav">
-                <li><a href="/">首页</a></li>
-                {% for item in mains %}
-                    <li><a href="{% url 'main_menu' item.codename %}">{{ item.name }}</a></li>
-                {% endfor %}
-            </ul>
-            <form class="navbar-form navbar-right search" role="search" method="post" action="{% url 'search' %}">
-                {% csrf_token %}
-                <div class="form-group">
-                    <input type="text" class="form-control" name="content" placeholder="您想知道...">
-                </div>
-                <button type="submit" class="btn btn-default hidden-xs">
-                    <span class="glyphicon glyphicon-search"></span>
-                </button>
-            </form>
-        </div>
-    </div>
-</nav>
-
-<div class="container breadcrumb-div">
-    <ol class="breadcrumb">
-        <span class="breadcrumb-title">您的搜索结果为：{% if not has_result %}没有搜索到相关内容{% endif %}</span>
-    </ol>
-</div>
-
 <div class="container">
     <div class="col-md-9 list-secondary-left">
+        {% if not has_result %}
+<div class="container" id="no_result">
+    <h2>对不起，您的搜索没有返回结果。</h2>
+    <h4>这里有几件您能尝试做的事情：</h4>
+    <h4>1. 更换同义相近关键词再次进行搜索</h4>
+    <h4>2. 更换更短的关键词类表述，如将“国际班的排名信息”更换为“国际班 排名”</h4>
+    <h4>3. 在其他搜索平台进行搜索。我们强烈不建议您使用百度搜索引擎。</h4>
+    <br>
+    <h4>我们会继续提高您的搜索体验。</h4>
+
+    </div>
+{% endif %}
         {% for item in articles %}
         {% if item != articles.0 %}
         <hr/>
@@ -77,7 +49,7 @@
                 {% if item != hot.0 %}
                 <hr/>
                 {% endif %}
-            <div class="list-sidebar-recommand">
+            <div class="list-sidebar-recommand card-panel" style="padding:7px;margin-bottom:7px">
                 <div class="list-sidebar-recommand-title">
                     <a href="{% url 'content' item.parent.parent.codename item.parent.codename item.id %}">{{ item.title }}</a>
                 </div>
@@ -92,49 +64,5 @@
         </section>
     </div>
 </div>
-
-<div class="container-fluid footer">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-3">
-                <h4 class="footer-title">联系我们</h4>
-                <ul class="list-unstyled">
-                    <li>南开中学体验创意中心协会</li>
-                    <ul>
-                        <li>QQ : 2254529127</li>
-                        <li>Email : support@nktry.com</li>
-                    </ul>
-                </ul>
-            </div>
-            <div class="col-lg-3">
-                <h4 class="footer-title">创新人才</h4>
-                <img src="{% static "frontend/img/code.jpg" %}" alt="微信二维码" width="150px">
-            </div>
-            <div class="col-lg-3">
-                <h4 class="footer-title">友情链接</h4>
-                <ul class="list-unstyled contactus-list">
-                    <li>
-                        <a href="http://www.nkzx.cn/" target="_blank">
-                            <img src="{% static "frontend/img/nkzx.png" %}" width="270" height="70">
-                        </a>
-                    </li>
-                    <li>
-                        <a href="http://blog.sina.com.cn/nankaizhongxue" target="_blank">
-                            <img src="{% static "frontend/img/NKSU.jpg" %}">
-                        </a>
-                    </li>
-                </ul>
-            </div>
-            <div class="col-lg-3">
-                <p class="copyright text-right">
-                    Powered By 天津市憬炼科技发展有限公司<br>
-                    © 2012 - 2014 NKTC<br>
-                    <a href="http://www.miitbeian.gov.cn/" target="_blank">津ICP备14004209号-3</a>
-                </p>
-            </div>
-        </div>
-    </div>
-</div>
-
 
 {% endblock %}

@@ -1,0 +1,28 @@
+body{
+  background-image:url(bg.jpg);
+  background-position:top;
+  background-size:auto,100%;
+  background-attachment:fixed;
+}
+#title{
+  padding-top:150px;
+  color:white;
+}
+#text{
+  padding-top:120px;
+  color:white;
+}
+#titlelayer{
+  Height:100%;
+  Width:100%;
+}
+#context{
+padding: 20px;
+Color:white;
+font-size:15px;
+}
+#origin{
+Text-align:center;
+Font-size:25px;
+Padding:20px;
+}

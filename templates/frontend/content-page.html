@@ -5,46 +5,8 @@
 {% load staticfiles %}
 
 {% block content %}
-<nav class="navbar navbar-default navbar-fixed-top">
-    <div class="container">
-        <div class="navbar-header">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#">
-                    <img src="{% static "frontend/img/logo.png" %}" height="40px" alt="NKTC"/>
-                </a>
-            </div>
-        </div>
-        <div class="collapse navbar-collapse" id="navbar">
-            <ul class="nav navbar-nav">
-                <li><a href="/">首页</a></li>
-                {% for item in mains %}
-                    {% if item.name == main.name %}
-                    <li class="active"><a href="{% url 'main_menu' item.codename %}">{{ item.name }}</a></li>
-                    {% else %}
-                    <li><a href="{% url 'main_menu' item.codename %}">{{ item.name }}</a></li>
-                    {% endif %}
-                {% endfor %}
-            </ul>
-            <form class="navbar-form navbar-right search" role="search" method="post" action="{% url 'search' %}">
-                {% csrf_token %}
-                <div class="form-group">
-                    <input type="text" class="form-control" name="content" placeholder="您想知道...">
-                </div>
-                <button type="submit" class="btn btn-default hidden-xs">
-                    <span class="glyphicon glyphicon-search"></span>
-                </button>
-            </form>
-        </div>
-    </div>
-</nav>
-
-<div class="container breadcrumb-div">
-    <ol class="breadcrumb">
+<div class="container">
+    <ol class="breadcrumb card-panel">
         <span class="breadcrumb-title">您当前的位置：</span>
         <li><a href="/">首页</a></li>
         <li><a href="{% url 'main_menu' main.codename %}">{{ main.name }}</a></li>
@@ -61,6 +23,7 @@
                     <h3 >{{ article.title }}</h3>
                     <h5 class="text-info inline-block page-vicetitle">{{ article.pub_date }}</h5>
                     <h5 class="text-info inline-block page-vicetitle">编辑：{{ article.author.nickname }}</h5>
+                    <br>
                     <div class="bshare-custom inline-block">
                         <a title="分享到QQ空间" class="bshare-qzone"></a>
                         <a title="分享到新浪微博" class="bshare-sinaminiblog"></a>
@@ -92,7 +55,7 @@
                     {% if item != hot.0 %}
                     <hr/>
                     {% endif %}
-                <div class="list-sidebar-recommand">
+                <div class="list-sidebar-recommand card-panel" style="padding:7px;margin-bottom:7px">
                     <div class="list-sidebar-recommand-title">
                         <a href="{% url 'content' main.codename secondary.codename item.id %}">{{ item.title }}</a>
                     </div>
@@ -105,49 +68,6 @@
                 </div>
                 {% endfor %}
             </section>
-        </div>
-    </div>
-</div>
-
-<div class="container-fluid footer">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-3">
-                <h4 class="footer-title">联系我们</h4>
-                <ul class="list-unstyled">
-                    <li>南开中学体验创意中心协会</li>
-                    <ul>
-                        <li>QQ : 2254529127</li>
-                        <li>Email : support@nktry.com</li>
-                    </ul>
-                </ul>
-            </div>
-            <div class="col-lg-3">
-                <h4 class="footer-title">创新人才</h4>
-                <img src="{% static "frontend/img/code.jpg" %}" alt="微信二维码" width="150px">
-            </div>
-            <div class="col-lg-3">
-                <h4 class="footer-title">友情链接</h4>
-                <ul class="list-unstyled contactus-list">
-                    <li>
-                        <a href="http://www.nkzx.cn/" target="_blank">
-                            <img src="{% static "frontend/img/nkzx.png" %}" width="270" height="70">
-                        </a>
-                    </li>
-                    <li>
-                        <a href="http://blog.sina.com.cn/nankaizhongxue" target="_blank">
-                            <img src="{% static "frontend/img/NKSU.jpg" %}">
-                        </a>
-                    </li>
-                </ul>
-            </div>
-            <div class="col-lg-3">
-                <p class="copyright text-right">
-                    Powered By 天津市憬炼科技发展有限公司<br>
-                    © 2012 - 2014 NKTC<br>
-                    <a href="http://www.miitbeian.gov.cn/" target="_blank">津ICP备14004209号-3</a>
-                </p>
-            </div>
         </div>
     </div>
 </div>

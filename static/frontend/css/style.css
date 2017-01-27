@@ -1,4 +1,4 @@
-body { padding-top: 60px; }
+body { padding-top: 84px; }
 *{
     font-family: "Helvetica Neue", "Helvetica,Arial", "Heiti SC", "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
 }
@@ -6,9 +6,14 @@ dl{
     margin-bottom: 5px;
 }
 
+.center-in-center {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+}
 
 .navbar-brand {
-    padding-top: 5px;
+    padding-top: 10px;
     padding-bottom: 0;
     padding-right: 15px;
     margin-right: 15px;
@@ -181,6 +186,7 @@ dl{
         padding-left: 10px;
         padding-right: 10px;
     }
+    
 }
 @media (min-width: 768px) {
     .tab-content{

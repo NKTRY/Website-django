@@ -1,18 +1,27 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/html">
+
 <head lang="zh-cmn-Hans">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
     <meta http-equiv="Cache-Control" content="no-siteapp" />
-    <meta name ="viewport" content ="initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
     <meta name="baidu-site-verification" content="PBIHLsaARD" />
     <meta name="google" value="notranslate" />
     <title>{% block title %}{% endblock %}</title>
     {% load staticfiles %}
     <link rel="stylesheet" href="{% static "frontend/css/bootstrap.min.css" %}" />
     <link rel="stylesheet" href="{% static "frontend/css/style.css" %}"/>
+    <link rel="stylesheet" href="{% static "frontend/css/materialize.min.css" %}"/>
+    <link rel="stylesheet" href="{% static "frontend/css/card.css" %}"/>
+    <style>
+        html,body{
+            height:100%;
+            width:100%;
+        }
+        </style>
     <script>
         var _hmt = _hmt || [];
         (function() {
@@ -27,14 +36,130 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
+
 <body>
-{% block content %}{% endblock %}
-<script src="{% static "frontend/js/jquery.min.js" %}"></script>
-<script src="{% static "frontend/js/bootstrap.min.js" %}"></script>
-<script src="{% static "frontend/js/holder.js" %}"></script>
-<script>
+
+<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" style="background-color:transparent;max-height:100% !important;width:100%;">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content" style="top:0;bottom:0">
+            <div align="center">
+      <form role="search" method="post" action="{% url 'search' %}">
+        {% csrf_token %}
+            <div class="form-group">
+                <div style="padding:10px" align="center">
+                    <input id="search_input" type="text" class="form-control" name="content" placeholder="您想知道..." style="color:black;width:90%">
+                    <button id="searchbtn" type="submit" class="btn btn-default" style="background-color:transparent;">
+                    <span class="glyphicon glyphicon-search"></span>
+                    </button>
+                </div>
+            </div>
+            
+    </form>
+        </div>
+    </div>
+  </div>
+</div>
+
+
+
+    <nav class="navbar navbar-default navbar-fixed-top" style="height:84px;margin-bottom:4px;background-color: #444749;padding-bottom:10px;">
+        <div class="container">
+            <div class="navbar-header">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" style="margin-top:27px">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                    <a class="navbar-brand button" href="#" style="margin-top:15px;border-width:0">
+                        <img src="{% static "frontend/img/logo.png" %}" height="40px" alt="NKTC" />
+                    </a>
+                </div>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar" style="background-color:#444749;height:84px;">
+                <ul class="nav navbar-nav">
+    <!--过几天这里改到热传递大约就好了吧.....<li  id="navbar-button-0" class="btn waves-effect waves-light" style="padding-top: 1%;padding-bottom: 1%;margin-left: 2px;margin-right: 2px; height:64px;color: #4db6ac;"><a href="http://recruit.nktry.com/" style="height:64px;">纳新专区</a></li>-->
+                    <li  id="navbar-button-1" class="btn waves-effect waves-light" style="padding-top: 1%;padding-bottom: 1%;margin-left: 2px;margin-right: 2px; height:64px;color: #4db6ac;"><a href="http://nktry.com/" style="height:64px;">首页</a></li>
+                    {% for item in mains %} {% if item.name == main.name %}
+                    <li  id="navbar-button-2" class="active btn waves-effect waves-light" style="padding-top: 1%;padding-bottom: 1%;margin-left: 2px;margin-right: 2px; height:64px;color: #4db6ac;"><a href="{% url 'main_menu' item.codename %}" style="height:64px;">{{ item.name }}</a></li>
+                    {% else %}
+                    <li  id="navbar-button-3" class="btn waves-effect waves-light" style="padding-top: 1%;padding-bottom: 1%;margin-left: 2px;margin-right: 2px; height:64px;color: #4db6ac;"><a href="{% url 'main_menu' item.codename %}" style="height:64px;">{{ item.name }}</a></li>
+                    {% endif %} {% endfor %}
+                    <li  id="navbar-button-4" class="btn waves-effect waves-light" style="padding-top: 1%;padding-bottom: 1%;margin-left: 2px;margin-right: 2px; height:64px;color: #4db6ac;"><a data-toggle="modal" data-target=".bs-example-modal-sm" style="height:64px;">搜索</a></li>
+                </ul>
+
+            </div>
+        </div>
+    </nav>
+<!--[end of header]><![endif]-->
+            </div>
+        </div>
+    </div>
+
+ 
+
+    {% block content %}{% endblock %}
+    <div class="card-panel container-fluid footer" style="background-color:#444749;margin-bottom:0;border-radius:0;margin-top: -1%;">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3">
+                <h4 class="footer-title">联系我们</h4>
+                <ul class="list-unstyled">
+                    <li>南开中学体验创意中心协会</li>
+                    <ul>
+                        <li>QQ / 2254529127</li>
+                        <li>Email / support@nktry.com</li>
+                    </ul>
+                </ul>
+            </div>
+            <div class="col-lg-3">
+                <h4 class="footer-title">微信公众平台</h4>
+                <img src="{% static "frontend/img/code.jpg" %}" alt="微信二维码" width="150px">
+            </div>
+            <div class="col-lg-3">
+                <h4 class="footer-title">友情链接</h4>
+                <ul class="list-unstyled contactus-list">
+                    <li>
+                        <a href="http://www.nkzx.cn/" target="_blank">
+                            <img src="{% static "frontend/img/nkzx.png" %}" width="270" height="70">
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-lg-3">
+                <p class="copyright text-right">
+                    Powered By 天津浮点科技有限公司<br>
+                    © 2012 - 2016 NKTC<br>
+                    <a href="http://www.miitbeian.gov.cn/" target="_blank">津ICP备14004209号-3</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+    <script src="{% static "frontend/js/jquery.min.js" %}"></script>
+    <script src="{% static "frontend/js/bootstrap.min.js" %}"></script>
+    <script src="{% static "frontend/js/holder.js" %}"></script>
+    <script src="{% static "frontend/js/jquery.lazyload.js" %}"></script>
+    <script>
+    Element.prototype.remove = function() {
+    this.parentElement.removeChild(this);
+}
+    NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
+    for(var i = this.length - 1; i >= 0; i--) {
+        if(this[i] && this[i].parentElement) {
+            this[i].parentElement.removeChild(this[i]);
+        }
+    }
+}
 $(document).ready(function(){
-  $("div.page-content").find("img").addClass("max-img-width");
+  $("div.page-content").find("img").addClass("max-img-width").addClass("lazy");
+  $(function() {
+    $("img.lazy").lazyload();
+});
+  document.getElementById("navbar-button-1").className = "btn waves-effect waves-light";
+  document.getElementById("navbar-button-2").className = "btn waves-effect waves-light";
+  document.getElementById("navbar-button-3").className = "btn waves-effect waves-light";
+  document.getElementById("navbar-button-4").className = "btn waves-effect waves-light";
   $("#share-qzone").on('click',function(){
     $("a.bshare-qzone")[0].click();
   });
@@ -44,7 +169,32 @@ $(document).ready(function(){
   $("#back-top").on('click',function(){
     window.scrollTo(0, 0);
   });
+    setInterval(GetRTime,0);
+    $("#searchbtn").click(function(){
+    var result1 = $("#search_input").val();
+    if (result1.indexOf("不知道")>=0 && result1.indexOf("搜什么")>=0){
+        alert("讲道理，如果你真的要搜索 “" +result1+"”这个玩意儿的话，你为什么要搜索...不要这么欺负开发...我们很萌的");
+    }
+    if (result1.indexOf("五分钟")>=0 && result1.indexOf("过天桥")>=0){
+        alert("讲道理，如果你真的要搜索 “" +result1+"”这个玩意儿的话，对不起啊，我们没存发哥照片。");
+    }
+    if (result1.indexOf("蛤")>=0 && result1.indexOf("膜")>=0 || result1.indexOf("naive")>=0 || result1.indexOf("西方记者")>=0 ){
+        alert("讲道理，如果你真的要搜索 “" +result1+"”这个玩意儿的话，你还不如直接念两句诗...苟利国家生死以，岂因祸福避趋之。");
+    }
+    if (result1.indexOf("南开")>=0 && result1.indexOf("生日")>=0 || result1.indexOf("112")>=0 || result1.indexOf("校庆")>=0 ){
+        alert("当你要搜索 “" +result1+"”这个玩意儿的时候，让我们一起祝南开112周岁生日快乐。");
+    }
+    if (result1.indexOf("毕白")>=0 || result1.indexOf("白毕")>=0){
+            alert("讲道理，如果你真的要搜索 “" +result1+"”这个玩意儿的话，其实开发是站毕白的。人家那么攻。");
+    }
+	if (result1.indexOf("石泓正")>=0 || result1.indexOf("胡赫宸")>=0 || result1.indexOf("臧永宜")>=0 ){
+            alert("哦。");
+    }
+	// 你们自己把名字加上去吧23333
+    });
 });
+
 </script>
 </body>
+
 </html>

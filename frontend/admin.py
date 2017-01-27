@@ -60,7 +60,7 @@ class SuperArticleAdmin(admin.ModelAdmin):
 
     list_display = ("title", "author", "pub_date", "hits", "parent", "available")
 
-    list_filter = ["pub_date", "available", "parent"]
+    list_filter = ["pub_date", "available", "parent", "parent__parent"]
 
     search_fields = ["title", "author", "parent"]
 
